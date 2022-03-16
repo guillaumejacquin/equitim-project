@@ -65,7 +65,7 @@ def takeinformations(Class):
     results = collection.find({"Ticker":"CA FP Equity"})
 
     for result in results:
-        Class.NOMSOUSJACENT = result["Ticker"]
+        Class.NOMSOUSJACENT = result["Equity"]
         Class.DIVIDENDE = result["Dividende"]
         Class.SPONSOR = result["Sponsor"]
         Class.Site = result["SiteWeb"]

@@ -22,7 +22,10 @@ from calculs.sponsor import *
 from calculs.frequencedu import *
 from calculs.balise import *
 from database.mongo import *
+from calculs.ebac import *
+from calculs.dates.ADCF import *
 import time
+from files import *
 
 #traitement des données
 def start_processus_template(Class):
@@ -34,6 +37,7 @@ def start_processus_template(Class):
     pdiperf(Class)
     PR1(Class)
     DPRR(Class)
+    adcf(Class)
     TDP(Class)
     GC(Class)
     GCA(Class)
@@ -52,8 +56,11 @@ def start_processus_template(Class):
     balise(Class)
     takeinformations(Class)
     # apdr_(Class)
-
+    ebac(Class)
+    Class.test = bloc3(Class)
+    Class.test.show()
     ChangeTextOnPpt(Class)
+
 
 
 

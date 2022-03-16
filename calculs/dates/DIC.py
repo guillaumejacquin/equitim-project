@@ -9,6 +9,7 @@ def dic(Class):
             myreallist.append( i[6:] + "-" + i[3:5] + "-" + i[:2])
 
     max_value = max(myreallist)
+    min_value = min(myreallist)
     
     #on met en format fr
     annee = max_value[0:4]
@@ -17,6 +18,7 @@ def dic(Class):
   
     mystring = jours + "/" + mois + "/" + annee
     Class.DDCI = max_value
+    Class.DPCI = min_value
     Class.DDCI_affichage = mystring
 
     #date_premier_rappel

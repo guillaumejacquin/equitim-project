@@ -5,10 +5,29 @@ from unicodedata import name
 from pptx import Presentation
 
 
+def elementsToReplaceDegressivite(Class, shapes):
+    #si degressif on supprime les balises
+    if Class.BAC_is_degressif == "oui":
+        Class.desonndr = ""
+        Class.longuephrase = ""
+        Class.SDBAC = ""
+        Class.PDINSM = ""
+        Class.ETPDI = ""
+
+
 #TOUS LES REMPLACEMENTS 
 def elementsToReplaceRemplacement(Class, shapes):
+    #mise en avant car transforme en bac
 
-    replace_text({'<Nom>':  Class.Nom}, shapes)
+    replace_text({'<NDRTES>': Class.desonndr}, shapes)
+    replace_text({'<longuephrase>': Class.longuephrase}, shapes)
+    replace_text({'<SDBAC>': Class.SDBAC}, shapes)
+    replace_text({'<PDINSM>': Class.PDINSM}, shapes)
+    replace_text({'<TEST>': Class.ETPDI}, shapes) 
+
+    replace_text({'<EBAC>': Class.EBAC}, shapes) 
+
+    replace_text({'<NOM>':  Class.Nom}, shapes)
     replace_text({'<droit>':  Class.Droit}, shapes)
     replace_text({'<ISIN>':  Class.Isin}, shapes)
     replace_text({'<émission>':  Class.Emission_affichage}, shapes)
@@ -30,29 +49,40 @@ def elementsToReplaceRemplacement(Class, shapes):
     replace_text({'<PCS4>':  Class.PCS4}, shapes)
     replace_text({'<PCS5>':  Class.PCS5}, shapes)
     cpn = Class.CPN + "%"
+    cpn = cpn.replace(".", ",")
     replace_text({'<CPN>':  cpn}, shapes)
     pdi = Class.PDI + "%"
     replace_text({'<PDI>':  pdi}, shapes)
 
+    replace_text({'<ADCF>': Class.ADCF_affichage}, shapes) 
 
     #on rjaoute les % sans que ca ait un impact sur les calculs
     bac = Class.BAC + "%"
+    bac = bac.replace(".", ",")
+
     replace_text({'<BAC>':  bac}, shapes)
     replace_text({'<BCPN>':  Class.BCPN}, shapes)
-    replace_text({'<PEM>':  Class.PEM}, shapes)
+    pem = str(Class.PEM) + "%"
+    replace_text({'<PEM>':  pem}, shapes)
     com = str(Class.COM) + "%"
+    com = com.replace(".", ",")
     replace_text({'<COM>':  com}, shapes)
     nsd = Class.NSD + "%"
     replace_text({'<NSD>':  nsd}, shapes)
-    replace_text({'<NSM>':  Class.NSM}, shapes)
-    replace_text({'<NSF>':  Class.NSF}, shapes)
+    nsm = Class.NSM + "%"
+    replace_text({'<NSM>':  nsm}, shapes)
+    nsf = str(Class.NSF) + "%"
+    replace_text({'<NSF>':  nsf}, shapes)
     replace_text({'<ABDAC>':  Class.ABDAC}, shapes)
     dbac = str(Class.DBAC) + "%"
+    dbac = dbac.replace(".", ",")
+
     replace_text({'<DBAC>':  dbac}, shapes)
     replace_text({'<DEG>':  Class.DEG}, shapes)
 
 def elementsToReplaceCalcul(Class, shapes):
     replace_text({'<DDCI>': Class.DDCI}, shapes) 
+
     replace_text({'<F0s>':  Class.F0s}, shapes)
 
 
@@ -62,17 +92,23 @@ def elementsToReplaceCalcul(Class, shapes):
     replace_text({'<DDR>': Class.DDR}, shapes)
     replace_text({'<DIC>': Class.DIC}, shapes)
     
-    pdiperf = str(Class.PDIPERF) + "%"
+    pdiperf = str(int(Class.PDIPERF)) + "%"
+    pdiperf = pdiperf.replace(".", ",")
+
     replace_text({'<PDIPERF>': pdiperf}, shapes)
     replace_text({'<1PR>': Class.PR1}, shapes)
     replace_text({'<DPRR>': Class.DPRR}, shapes)
     replace_text({'<TDP>': Class.TDP}, shapes)
     replace_text({'<GC>': Class.GC}, shapes)
     gca = str(Class.GCA) + "%"
+    gca = gca.replace(".", ",")
+
     replace_text({'<GCA>': gca}, shapes)
     gce = str(Class.GCE) + "%"
+    gce = gce.replace(".", ",")
+
     replace_text({'<GCE>': gce}, shapes)
-    abac = str(Class.ABAC) + ""
+    abac = str(Class.ABAC) + "%"
     replace_text({'<ABAC>': abac}, shapes)
     replace_text({'<NDR>': Class.NDR }, shapes)
     replace_text({'<ADPR>': Class.ADPR}, shapes)
@@ -94,10 +130,9 @@ def elementsToReplaceCalcul(Class, shapes):
     replace_text({'<NOMSOUSJACENT>': Class.NOMSOUSJACENT}, shapes)
     replace_text({'<DIVIDENDE>': Class.DIVIDENDE}, shapes)
     replace_text({'<SITE>': Class.Site}, shapes)
-    replace_text({'<test>': "TESTTTTTTTTTTTTTTT"}, shapes)
+    replace_text({'<DPCI>': Class.DPCI}, shapes) 
 
-
-
+    replace_text({'<test>': Class.test}, shapes) 
 
 
 
@@ -154,7 +189,13 @@ def ChangeTextOnPpt(Class):
     prs_string = "templates/"+ Class.template + ".pptx" 
     prs = Presentation(prs_string)
     shapes = getAllSlides(prs)
-
+    elementsToReplaceDegressivite(Class, shapes)
     elementsToReplaceRemplacement(Class, shapes)
     elementsToReplaceCalcul(Class, shapes)
-    prs.save(NAME)
+    
+    prs.save(NAME)  
+
+#emission, mois jours
+
+#arrondir a 2 apres la , meme si c est des 0
+#balise date format anglais

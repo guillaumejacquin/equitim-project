@@ -22,5 +22,7 @@ def GCA(Class):
         i = 365
     
     GCA = float(Class.CPN) * i
+    GCA = round(GCA, 2)
+    GCA = (f'{GCA:.2f}')
     Class.GCA = str(GCA)
 
