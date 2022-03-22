@@ -86,8 +86,6 @@ def DPRR(Class):
     #avant derniere periode
     avantderniereperiode = abs(result -1)
 
-
-
     # avantderniereperiode = frequence + " " + str(avantderniereperiode)
 
     Class.DPRR = int(result)
@@ -108,12 +106,10 @@ def f1_f2(Class):
         Class.F1 = "mensuelle"
         Class.F2 = "écoulé"
     
-
     if (frequence == "année"):
         Class.F1 = "annuelle"
         Class.F2 = "écoulée"
     
-
     if (frequence == "semestre"):
         Class.F1 = "semestrielle"
         Class.F2 = "écoulé"

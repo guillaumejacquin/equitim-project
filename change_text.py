@@ -2,8 +2,10 @@ from cmd import Cmd
 from dataclasses import dataclass
 from typing import List
 from unicodedata import name
+from calculs.abac import abac
 from pptx import Presentation
-
+from PIL import Image
+from pptx.util import Inches
 
 def elementsToReplaceDegressivite(Class, shapes):
     #si degressif on supprime les balises
@@ -13,7 +15,6 @@ def elementsToReplaceDegressivite(Class, shapes):
         Class.SDBAC = ""
         Class.PDINSM = ""
         Class.ETPDI = ""
-
 
 #TOUS LES REMPLACEMENTS 
 def elementsToReplaceRemplacement(Class, shapes):
@@ -81,13 +82,25 @@ def elementsToReplaceRemplacement(Class, shapes):
     replace_text({'<DEG>':  Class.DEG}, shapes)
 
 def elementsToReplaceCalcul(Class, shapes):
+    replace_text({'<balisedeg1>': Class.balisedeg}, shapes) 
+    replace_text({'<balisedeg2>': Class.balisedeg2}, shapes)     
+    replace_text({'<balisedeg3>': Class.balisedeg3}, shapes) 
+    replace_text({'<baliseCM>': Class.baliseCM}, shapes) 
+    replace_text({'<baliseCM2>': Class.baliseCM2}, shapes)
+    replace_text({'<baliseCM22>': Class.baliseCM22}, shapes) 
+
+    replace_text({'<baliseCM3>': Class.baliseCM3}, shapes) 
+    replace_text({'<baliseCM4>': Class.baliseCM4}, shapes)
+    replace_text({'<SV>': Class.SV}, shapes) 
+
     replace_text({'<DDCI>': Class.DDCI}, shapes) 
+
 
     replace_text({'<F0s>':  Class.F0s}, shapes)
 
 
     replace_text({'<1PDC>': Class.PDC1_affichage}, shapes) 
- 
+    
     replace_text({'<2PDC>': Class.PDC2_affichage}, shapes) 
     replace_text({'<DDR>': Class.DDR}, shapes)
     replace_text({'<DIC>': Class.DIC}, shapes)
@@ -108,8 +121,7 @@ def elementsToReplaceCalcul(Class, shapes):
     gce = gce.replace(".", ",")
 
     replace_text({'<GCE>': gce}, shapes)
-    abac = str(Class.ABAC) + "%"
-    replace_text({'<ABAC>': abac}, shapes)
+    replace_text({'<ABAC>': Class.ABAC}, shapes)
     replace_text({'<NDR>': Class.NDR }, shapes)
     replace_text({'<ADPR>': Class.ADPR}, shapes)
     replace_text({'<SJR1>': Class.SJR1}, shapes)
@@ -117,6 +129,9 @@ def elementsToReplaceCalcul(Class, shapes):
     replace_text({'<SJR3>': Class.SJR3}, shapes)
     replace_text({'<SJR4>': Class.SJR4}, shapes)
     replace_text({'<SJR5>': Class.SJR5}, shapes)
+    replace_text({'<SJR6>': Class.SJR6}, shapes)
+    replace_text({'<SJR7>': Class.SJR7}, shapes)
+
     replace_text({'<F1>': Class.F1}, shapes)
     replace_text({'<F2>': Class.F2}, shapes)
 
@@ -134,17 +149,14 @@ def elementsToReplaceCalcul(Class, shapes):
 
     replace_text({'<test>': Class.test}, shapes) 
 
-
-
-
-
-
-
     #CHANGER LE NOM DE LA BALISE ET DE LA CLASS dans myclass.py
     replace_text({'<balise>': Class.balise}, shapes)
 
+    hardcode_replace(Class, shapes)
 
-
+def hardcode_replace(Class, shapes):
+    replace_text({"l' année": "l'année"}, shapes)
+    
 
 #PREMIER RAPPEL A DATE DERNIER RAPPEL
 
@@ -156,7 +168,6 @@ def getAllSlides(prs):
     for slide in slides:
         for shape in slide.shapes:
             shapes.append(shape)
-
     return shapes
 
 #remplace le texte sur le ppt 
@@ -172,6 +183,8 @@ def replace_text(replacements: dict, shapes: List):
                             cur_text = run.text
                             new_text = cur_text.replace(str(match), str(replacement))
                             run.text = new_text
+
+
             if shape.has_table:
                 for row in shape.table.rows:
                     for cell in row.cells:
@@ -180,8 +193,6 @@ def replace_text(replacements: dict, shapes: List):
                             cell.text = new_text
 
 
-  
-
 
 #load le ppt, remplace les balises et le sauvegarde
 def ChangeTextOnPpt(Class):
@@ -189,13 +200,69 @@ def ChangeTextOnPpt(Class):
     prs_string = "templates/"+ Class.template + ".pptx" 
     prs = Presentation(prs_string)
     shapes = getAllSlides(prs)
+    Class.shapes = shapes
+    elementsToReplaceDegressivite(Class, shapes)
+    elementsToReplaceRemplacement(Class, shapes)
+    elementsToReplaceCalcul(Class, shapes)
+
+    #on repasse une 2 eme fois au cas ou certaines transformations soient mal placées
     elementsToReplaceDegressivite(Class, shapes)
     elementsToReplaceRemplacement(Class, shapes)
     elementsToReplaceCalcul(Class, shapes)
     
-    prs.save(NAME)  
+    compteur = 0
+    for shape in Class.shapes:
+        textbox = shape
+        for i in Class.deleteblocs:
+            try:
+                if (i in textbox.text):
+                        print("paragraphe supprimé")
+                        compteur+=1
+                        sp = textbox.element
+                        sp.getparent().remove(sp)
 
-#emission, mois jours
+            except Exception:
+                pass
+    if compteur > 1:
+        print(compteur, "paragraphes ont été supprimés")
+    else:
+        print(compteur, "paragraphe a été supprimé")
 
-#arrondir a 2 apres la , meme si c est des 0
-#balise date format anglais
+    compteur = 0
+
+    # replace_text({'<graph1>': img}, shapes)
+
+    # image = Image.open('file_name222.png')
+    # print(image.size)
+    # new_image = image.resize((630, 305))
+    # new_image.save('graph1.png')
+
+    for slide in prs.slides:
+        for shape in slide.shapes:
+            if shape.has_text_frame:
+                if ("<graph1>" in shape.text):
+                    
+                    cur_text = shape.text
+                    new_text = cur_text.replace(str("<graph1>"), str(""))
+                    shape.text = new_text
+                    pic = slide.shapes.add_picture("file_name222.png", Inches(0), Inches(6.75), Inches(7.5))
+                
+                if ("<graph2>" in shape.text):  
+                    cur_text = shape.text
+                    new_text = cur_text.replace(str("<graph2"), str(""))
+                    shape.text = new_text
+                    pic = slide.shapes.add_picture("file_name222.png", Inches(0), Inches(2), Inches(5))
+
+                if ("<graph5>" in shape.text):  
+                        cur_text = shape.text
+                        new_text = cur_text.replace(str("<graph5>"), str(""))
+                        shape.text = new_text
+                        pic = slide.shapes.add_picture("file_name222.png", Inches(0), Inches(5), Inches(8))
+
+
+    prs.save(NAME)
+
+
+#si degressive page 7 deg2 au lieu de toute la phrase (95%)
+
+

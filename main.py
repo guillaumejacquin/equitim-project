@@ -24,8 +24,11 @@ from calculs.balise import *
 from database.mongo import *
 from calculs.ebac import *
 from calculs.dates.ADCF import *
+from calculs.wordingdeg.SV import *
+from calculs.wordingdeg.balisedeg import *
 import time
 from files import *
+from graph import *
 
 #traitement des données
 def start_processus_template(Class):
@@ -57,12 +60,15 @@ def start_processus_template(Class):
     takeinformations(Class)
     # apdr_(Class)
     ebac(Class)
+
+    #si coupon autocall
+    # Class.test = bloc2(Class)
+    #si coupon Phoenix = 3Blocs ou si jsp quoi est détaché
     Class.test = bloc3(Class)
-    Class.test.show()
+    # Class.test.show()
+    SV(Class)
+    balisedeg(Class)
     ChangeTextOnPpt(Class)
-
-
-
 
 def main():
     start = time.time()
@@ -74,3 +80,5 @@ def main():
 
 
 main()
+
+

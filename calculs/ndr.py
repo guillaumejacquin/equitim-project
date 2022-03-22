@@ -14,10 +14,6 @@ def ndr(Class):
     else:
         Class.NDR = "ERREUR!!!!!!"
 
+    if (Class.sous_jacent == "equipondéré indice" or Class.sous_jacent == "equipondéré action"):
+        Class.NDR = "Niveau initial"
 
-#quand c 'est action  et strike normal ndr  = cours initial 
-# si action et best strike ou strike moyenne = cours de reférence
-# #quand c 'est indice  et strike normal ndr  = niveau initial
-
-# si indice et best strike ou strike moyenne = niveau de référence
-#quand c est panier on dit niveau de référence ou niveau initial
