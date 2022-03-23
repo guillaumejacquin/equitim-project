@@ -31,7 +31,7 @@ class InformationsForm():
         self.PDI = "60"
         self.BAC = "100"
         self.BAC_is_degressif = ""
-        self.BCPN = "100"
+        self.BCPN = "80"
         self.BCPN_is_degressif = ""
 
         self.PEM = "100"
@@ -40,8 +40,8 @@ class InformationsForm():
         self.NSM = "70"
         self.NSF = "115"
 
-        self.ABDAC = "100"
-        self.DBAC = "60"
+        self.ABDAC = "81"
+        self.DBAC = "80"
         self.DEG = "0"
 
 

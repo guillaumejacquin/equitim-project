@@ -6,7 +6,8 @@ from calculs.abac import abac
 from pptx import Presentation
 from PIL import Image
 from pptx.util import Inches
-
+from pptx.enum.text import PP_ALIGN
+import os
 def elementsToReplaceDegressivite(Class, shapes):
     #si degressif on supprime les balises
     if Class.BAC_is_degressif == "oui":
@@ -192,7 +193,6 @@ def replace_text(replacements: dict, shapes: List):
                             cell.text = new_text
 
 
-
 #load le ppt, remplace les balises et le sauvegarde
 def ChangeTextOnPpt(Class):
     NAME = "result/"+ Class.Nom + "- " + Class.Isin + "result.pptx" 
@@ -213,6 +213,7 @@ def ChangeTextOnPpt(Class):
     for shape in Class.shapes:
         textbox = shape
         for i in Class.deleteblocs:
+
             try:
                 if (i in textbox.text):
                         print("paragraphe supprimé")
@@ -222,38 +223,55 @@ def ChangeTextOnPpt(Class):
 
             except Exception:
                 pass
+            
     if compteur > 1:
         print(compteur, "paragraphes ont été supprimés")
     else:
+
         print(compteur, "paragraphe a été supprimé")
 
     compteur = 0
 
     for slide in prs.slides:
         for shape in slide.shapes:
+
             if shape.has_text_frame:
+                
                 if ("<graph1>" in shape.text):
                     cur_text = shape.text
                     new_text = cur_text.replace(str("<graph1>"), str(""))
                     shape.text = new_text
-                    pic = slide.shapes.add_picture("graph1.png", Inches(0), Inches(6.75), Inches(5.25))
+                    pic = slide.shapes.add_picture("graph1.png", Inches(0), Inches(6.75), Inches(7))
                 
-                # if ("<graph2>" in shape.text):  
-                #     cur_text = shape.text
-                #     new_text = cur_text.replace(str("<graph2"), str(""))
-                #     shape.text = new_text
-                #     pic = slide.shapes.add_picture("graph2.png", Inches(0), Inches(2), Inches(5))
+                if ("<graph2>" in shape.text):  
+                    cur_text = shape.text
+                    new_text = cur_text.replace(str("<graph2"), str(""))
+                    shape.text = new_text
+                    pic = slide.shapes.add_picture("graph2.png", Inches(0), Inches(2), Inches(4.25))
 
-                # if ("<graph5>" in shape.text):  
-                #         cur_text = shape.text
-                #         new_text = cur_text.replace(str("<graph5>"), str(""))
-                #         shape.text = new_text
-                #         pic = slide.shapes.add_picture("graph2.png", Inches(0), Inches(5), Inches(8))
+                if ("<graph5>" in shape.text):  
+                        cur_text = shape.text
+                        new_text = cur_text.replace(str("<graph5>"), str(""))
+                        shape.text = new_text
+                        pic = slide.shapes.add_picture("graph2.png", Inches(0), Inches(5.25), Inches(7))
 
+    
 
+    try:
+        print("Nettoyage du projet, supression des documents inutiles")
+        os.remove("graph1.png")
+        print("Suppression de graph1.png")
+        os.remove("graph2.png")
+        print("Suppression de graph2.png")
+        os.remove("graph3.png")
+        print("Suppression de graph3.png")
+        os.remove("graph4.png")
+        print("Suppression de graph4.png")
+        os.remove("graph5.png")
+        print("Suppression de graph5.png")
+
+    except Exception:
+        print("OH NONNNN")
     prs.save(NAME)
-
-
-#si degressive page 7 deg2 au lieu de toute la phrase (95%)
 
 

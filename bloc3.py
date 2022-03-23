@@ -8,12 +8,15 @@ import kaleido
         ## Possibilité qu'il y ait uniquement deux bloc dans le cas ou la balise (tag) de Non-Call (1PR) == 0
         ## Sinon, NC > 0, alors toujours 3 blocs et dans le premier bloc se trouveras uniquement la barrière coupon(bleu marine)
 
-def bloc3(Class):
+def bloc3(Class, name, whitestrap=False):
     bloc = 3
-        
-    niveau_autocall = [0, 0, 100, 77.5, 70] #ligne verte
-    niveau_coupon = [70, 70, 70, 70, 70] #ligne noire  niveau coupon
-    niveau_capital = 40 #Ligne rouge
+    print("abdac = ", Class.ABDAC)
+    print("DBAC = ", Class.DBAC)
+    print("BAC =", Class.BAC)
+    niveau_autocall = [-50, -50, int(Class.BAC), int(Class.ABDAC), int(Class.DBAC)] #ligne verte
+    niveau_coupon = [int(Class.BCPN), int(Class.BCPN), int(Class.BCPN), int(Class.BCPN), int(Class.BCPN)] #ligne noire  niveau coupon
+    niveau_capital = int(Class.PDI) #Ligne rouge
+    print("BCPN = ", Class.BCPN)
     niveau_median = niveau_coupon[0] - niveau_capital
     labels = [5, 17, 39]
     widths = [10,20,10]
@@ -49,7 +52,7 @@ def bloc3(Class):
             hoverinfo ='none',
         ))
     fig.update_layout(barmode="stack",uniformtext=dict(mode="hide", minsize=10),
-
+    
     )
 #axe des abcisses
 #------------------------------------------NE BOUGE PAS----------------------------------------------------------------------------------------------
@@ -96,6 +99,8 @@ def bloc3(Class):
         type="line", line_color="green", line_width=3, opacity=1, line_dash="dot",
         x0=5, x1=15, y0=niveau_autocall[0], y1=niveau_autocall[1]
     )
+    print("autocall2 = ", niveau_autocall[2])
+    print("autocall3 = ", niveau_autocall[3])
     fig.add_shape( # add la ligne horizontale deuxieme block line degressive
         type="line", line_color="green", line_width=3, opacity=1, line_dash="dot",
         x0=17, x1=37, y0=niveau_autocall[2], y1=niveau_autocall[3]
@@ -168,47 +173,119 @@ def bloc3(Class):
     fig.add_annotation(x=3.0, y=niveau_capital,text= str(niveau_capital) +"%", showarrow=False,
                     font=dict(family="Proxima Nova", size=14, color="Red" ),
                     )
-    # fig.add_annotation(x=3.75, y=1,text= str("0%"), showarrow=False,
-    #                 font=dict( family="Proxima Nova", size=14, color="Black" ),
-    #                 )
+   
 #-------------------------------------!Pas fini, doit gerer les 100%! ----------------------------------------------------
 
     #le premier parametre de range x, permet de mettre ou non un blanc entre le 0 et le premier bloc
-    fig.update_xaxes(range=[0,50])
+    fig.update_xaxes(range=[0,61])
     fig.update_yaxes(range=[0,130])
 
     #enlever le fond blanc
     fig.update_layout({
         'plot_bgcolor': 'rgba(0, 0, 0, 0)',
         })
+    if (whitestrap == True):
+            fig.add_trace(go.Scatter(x=[5,15,15,5], 
+                                    y=[niveau_autocall[0] +1 ,niveau_autocall[1] + 1, niveau_autocall[1] -1, niveau_autocall[0] -1],
+                                    fill='toself',
+                                    fillcolor='white',
+                                    line=dict(width=0),
+                                    showlegend=False,
+                                    mode='lines',  
+                                    hoverinfo ='none',))
 
+            fig.add_trace(go.Scatter(x=[17,37,37,17], 
+                                    y=[niveau_autocall[2] +1 ,niveau_autocall[3] + 1, niveau_autocall[3] -1, niveau_autocall[2] -1],
+                                    fill='toself',
+                                    fillcolor='white',
+                                    line=dict(width=0),
+                                    showlegend=False,
+                                    mode='lines',  
+                                    hoverinfo ='none',))
+
+            fig.add_trace(go.Scatter(x=[17,37,37,17], 
+                                    y=[niveau_autocall[4] +1 ,niveau_autocall[4] + 1, niveau_autocall[4] -1, niveau_autocall[4] -1],
+                                    fill='toself',
+                                    fillcolor='white',
+                                    line=dict(width=0),
+                                    showlegend=False,
+                                    mode='lines',  
+                                    hoverinfo ='none',))
+                            
+            fig.add_trace(go.Scatter(x=[39,49,49,39], 
+                                    y=[niveau_capital +1 ,niveau_capital + 1, niveau_capital -1, niveau_capital -1],
+                                    fill='toself',
+                                    fillcolor='white',
+                                    line=dict(width=0),
+                                    showlegend=False,
+                                    mode='lines',  
+                                    hoverinfo ='none',))
+
+            fig.add_trace(go.Scatter(x=[5,15,15,5], 
+                                    y=[niveau_coupon[0] +1 ,niveau_coupon[1] + 1, niveau_coupon[1] -1, niveau_coupon[0] -1],
+                                    fill='toself',
+                                    fillcolor='white',
+                                    line=dict(width=0),
+                                    showlegend=False,
+                                    mode='lines',  
+                                    hoverinfo ='none',))
+
+            fig.add_trace(go.Scatter(x=[17,37,37,17], 
+                                    y=[niveau_coupon[2] +1 ,niveau_coupon[3] + 1, niveau_coupon[3] -1, niveau_coupon[2] -1],
+                                    fill='toself',
+                                    fillcolor='white',
+                                    line=dict(width=0),
+                                    showlegend=False,
+                                    mode='lines',  
+                                    hoverinfo ='none',))
+            
+            fig.add_trace(go.Scatter(x=[39,49,49,39], 
+                                    y=[niveau_coupon[4] +1 ,niveau_coupon[4] + 1, niveau_coupon[4] -1, niveau_coupon[4] -1],
+                                    fill='toself',
+                                    fillcolor='white',
+                                    line=dict(width=0),
+                                    showlegend=False,
+                                    mode='lines',  
+                                    hoverinfo ='none',))
+
+
+    fig.add_shape(type="line",
+    x0=51, y0=116, x1=60, y1=116,
+    line=dict(color="green",width=1),  line_dash="dot")
+    
+    
+    fig.add_annotation(x=55, y=96,text= ("Seuil d'activation du <br> mécanisme de <br> remboursement anticipé <br> automatique à partir de la fin du <br> trimestre 4 jusqu'à la fin du trimestre <br> 20 et de versement des gains à <br> l'échéance"), showarrow=False,
+                    font=dict(family="Proxima Nova", size=12, color="Black" ), align="left"
+                    )
+
+    fig.add_shape(type="line",
+    x0=51, y0=60, x1=60, y1=60,
+    line=dict(color="red",width=1),  line_dash="dot")
+    
+    
+    fig.add_annotation(x=54, y=52,text= ("Seuil de perte en capital <br> à l'échéance"), showarrow=False,
+                    font=dict(family="Proxima Nova", size=12, color="Black" ), align="left",
+                    )
+    
     fig.update_layout(
-                        legend=dict(
-                        # Adjust click behavior
-                            itemclick="toggleothers",
-                            itemdoubleclick="toggle"),
-                        #legend_title_font_color=f'''rgb({front['barr_green']})''',
-                        autosize=True,
-                        width=1400,#1400
-                        height=675,#800
-                        plot_bgcolor='rgb(255,255,255)',
-                        margin=dict(
-                            l=50,
-                            r=0,
-                            b=20,
-                            t=50,
-                            pad=0),
-                        paper_bgcolor='white')
-    fig.write_image("file_name222.png", format="png", scale=2, engine='kaleido')
+                            legend=dict(
+                                itemclick="toggleothers",
+                                itemdoubleclick="toggle"),
+                            autosize=True,
+                            width=1400,#1400
+                            height=675,#800
+                            plot_bgcolor='rgb(255,255,255)',
+                            margin=dict(
+                                l=50,
+                                r=0,
+                                b=20,
+                                t=50,
+                                pad=0),
+                            paper_bgcolor='white')
+    fig.write_image(name, format="png", scale=2, engine='kaleido')
     fig.show()
-    # fig.show()
-    #fig.write_image("2.png", format="png", scale=2, engine='kaleido')
+
 
     return(fig)
-
-    #NIVEAU de reference seulement si 100 % sinon creer bloc 90%(classique) et au dessu sniveau de reference100% (en noir)
-
-    #
-
 
     #REGARDER SI POSSIBLE DE FAIRE  ALIGNER DISTRIBUER VERTICALEMENT

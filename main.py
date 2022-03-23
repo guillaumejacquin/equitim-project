@@ -27,8 +27,8 @@ from calculs.dates.ADCF import *
 from calculs.wordingdeg.SV import *
 from calculs.wordingdeg.balisedeg import *
 import time
-from files import *
-from graph import *
+from bloc3 import *
+from bloc2 import *
 
 #traitement des données
 def start_processus_template(Class):
@@ -63,7 +63,7 @@ def start_processus_template(Class):
 
     #si coupon autocall
     Class.graph1 = bloc2(Class, "graph1.png", whitestrap=False)
-    Class.graph2 = bloc2(Class, "graph2.png", whitestrap=True)
+    Class.graph2 = bloc3(Class, "graph2.png", whitestrap=True)
 
     #si coupon Phoenix = 3Blocs ou si jsp quoi est détaché
     #Class.test = bloc3(Class)

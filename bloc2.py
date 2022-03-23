@@ -10,21 +10,32 @@ import kaleido
         ## Sinon, NC > 0, alors toujours 3 blocs et dans le premier bloc se trouveras uniquement la barrière coupon(bleu marine)
 
 def bloc2(Class, name, whitestrap=False):
+
+    #Variables des courbes
     x0 = 4
     x1 = x0+0.5
-    niveau_autocall = [100, 77.5, 70] #ligne verte
-    niveau_coupon = [70, 70, 70] #ligne noire  niveau coupon
-    niveau_capital = 65 #Ligne rouge
-
+    niveau_autocall = [int(Class.BAC), int(Class.ABDAC), int(Class.DBAC)] #ligne verte
+    niveau_coupon = [int(Class.BCPN), int(Class.BCPN), int(Class.BCPN)] #ligne noire  niveau coupon
+    niveau_capital = int(Class.PDI) #Ligne rouge
     niveau_median = niveau_coupon[0] - niveau_capital
+    #:
+    # !Variables des courbes
 
+#Size des blocs (positions + taille)
     labels = [5, 27]
     widths = [20,10]
+#Size des blocs (positions + taille)
 
     fig = go.Figure()
 
+    # data = {
+    #     "x1": [niveau_coupon[0],niveau_coupon[0]],
+    #     "x2": [niveau_coupon[0],0,niveau_median],
+    #     "x3": [0,niveau_coupon[0],niveau_coupon[0]],
+    # }    
+    
     data = {
-        "x1": [niveau_coupon[0],niveau_coupon[0]],
+        "x1": [niveau_coupon[0],niveau_coupon[0],niveau_capital],
         "x2": [niveau_coupon[0],0,niveau_median],
         "x3": [0,niveau_coupon[0],niveau_coupon[0]],
     }
@@ -184,7 +195,7 @@ def bloc2(Class, name, whitestrap=False):
    
     fig.add_shape(type="line",
     x0=38, y0=116, x1=45, y1=116,
-    line=dict(color="green",width=2),  line_dash="dot")
+    line=dict(color="green",width=1),  line_dash="dot")
     
     
     fig.add_annotation(x=41.5, y=96,text= ("Seuil d'activation du <br> mécanisme de <br> remboursement anticipé <br> automatique à partir de la fin du <br> trimestre 4 jusqu'à la fin du trimestre <br> 20 et de versement des gains à <br> l'échéance"), showarrow=False,
@@ -258,8 +269,5 @@ def bloc2(Class, name, whitestrap=False):
     fig.write_image(name, format="png", scale=4, engine='kaleido')
     fig.show()
     return(fig)
-    
-
-
 
     #REGARDER SI POSSIBLE DE FAIRE  ALIGNER DISTRIBUER VERTICALEMENT
