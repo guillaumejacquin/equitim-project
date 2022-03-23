@@ -9,7 +9,7 @@ import kaleido
         ## Possibilité qu'il y ait uniquement deux bloc dans le cas ou la balise (tag) de Non-Call (1PR) == 0
         ## Sinon, NC > 0, alors toujours 3 blocs et dans le premier bloc se trouveras uniquement la barrière coupon(bleu marine)
 
-def bloc2(Class, whitestrap=False):
+def bloc2(Class, name, whitestrap=False):
     x0 = 4
     x1 = x0+0.5
     niveau_autocall = [100, 77.5, 70] #ligne verte
@@ -210,7 +210,7 @@ def bloc2(Class, whitestrap=False):
         })
 
 
-    if (whitestrap == False):
+    if (whitestrap == True):
         fig.add_trace(go.Scatter(x=[5,25,25,5], 
                                 y=[niveau_autocall[0] +1 ,niveau_autocall[1] + 1, niveau_autocall[1] -1, niveau_autocall[0] -1],
                                 fill='toself',
@@ -237,24 +237,25 @@ def bloc2(Class, whitestrap=False):
                                 mode='lines',  
                                 hoverinfo ='none',))     
                                    
-        fig.update_layout(
+    fig.update_layout(
                         legend=dict(
                         # Adjust click behavior
                             itemclick="toggleothers",
                             itemdoubleclick="toggle"),
                         #legend_title_font_color=f'''rgb({front['barr_green']})''',
                         autosize=True,
-                        width=1400,#1400
-                        height=675,#800
+                        width=1280,#1400
+                        height=700,#800
                         plot_bgcolor='rgb(255,255,255)',
                         margin=dict(
                             l=50,
                             r=0,
-                            b=20,
+                            b=0,
                             t=50,
                             pad=0),
                         paper_bgcolor='white')
-    fig.write_image("file_name222.png", format="png", scale=2, engine='kaleido')
+
+    fig.write_image(name, format="png", scale=4, engine='kaleido')
     fig.show()
     return(fig)
     

@@ -131,7 +131,14 @@ class InformationsForm():
         self.SDBAC = "strictement inférieur à <DBAC> mais "
         self.PDINSM = "mais supérieur à <PDI> de ce dernier (<NSM> dans cet exemple)"
         self.ETPDI = "et <PDI> "
+        self.var_graphs()
         
+    def var_graphs(self):
+        self.graph1 = ""
+        self.graph2 = ""
+        self.graph3 = ""
+        self.graph4 = ""
+        self.graph5 = ""
 #si barriere degressive page 2 indice cloture  "DBAC"
 
 #page 3 supprimer de son niveau de référence SI dégressif

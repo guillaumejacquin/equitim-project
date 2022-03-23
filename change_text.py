@@ -147,7 +147,6 @@ def elementsToReplaceCalcul(Class, shapes):
     replace_text({'<SITE>': Class.Site}, shapes)
     replace_text({'<DPCI>': Class.DPCI}, shapes) 
 
-    replace_text({'<test>': Class.test}, shapes) 
 
     #CHANGER LE NOM DE LA BALISE ET DE LA CLASS dans myclass.py
     replace_text({'<balise>': Class.balise}, shapes)
@@ -230,34 +229,26 @@ def ChangeTextOnPpt(Class):
 
     compteur = 0
 
-    # replace_text({'<graph1>': img}, shapes)
-
-    # image = Image.open('file_name222.png')
-    # print(image.size)
-    # new_image = image.resize((630, 305))
-    # new_image.save('graph1.png')
-
     for slide in prs.slides:
         for shape in slide.shapes:
             if shape.has_text_frame:
                 if ("<graph1>" in shape.text):
-                    
                     cur_text = shape.text
                     new_text = cur_text.replace(str("<graph1>"), str(""))
                     shape.text = new_text
-                    pic = slide.shapes.add_picture("file_name222.png", Inches(0), Inches(6.75), Inches(7.5))
+                    pic = slide.shapes.add_picture("graph1.png", Inches(0), Inches(6.75), Inches(5.25))
                 
-                if ("<graph2>" in shape.text):  
-                    cur_text = shape.text
-                    new_text = cur_text.replace(str("<graph2"), str(""))
-                    shape.text = new_text
-                    pic = slide.shapes.add_picture("file_name222.png", Inches(0), Inches(2), Inches(5))
+                # if ("<graph2>" in shape.text):  
+                #     cur_text = shape.text
+                #     new_text = cur_text.replace(str("<graph2"), str(""))
+                #     shape.text = new_text
+                #     pic = slide.shapes.add_picture("graph2.png", Inches(0), Inches(2), Inches(5))
 
-                if ("<graph5>" in shape.text):  
-                        cur_text = shape.text
-                        new_text = cur_text.replace(str("<graph5>"), str(""))
-                        shape.text = new_text
-                        pic = slide.shapes.add_picture("file_name222.png", Inches(0), Inches(5), Inches(8))
+                # if ("<graph5>" in shape.text):  
+                #         cur_text = shape.text
+                #         new_text = cur_text.replace(str("<graph5>"), str(""))
+                #         shape.text = new_text
+                #         pic = slide.shapes.add_picture("graph2.png", Inches(0), Inches(5), Inches(8))
 
 
     prs.save(NAME)

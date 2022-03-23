@@ -62,9 +62,11 @@ def start_processus_template(Class):
     ebac(Class)
 
     #si coupon autocall
-    # Class.test = bloc2(Class)
+    Class.graph1 = bloc2(Class, "graph1.png", whitestrap=False)
+    Class.graph2 = bloc2(Class, "graph2.png", whitestrap=True)
+
     #si coupon Phoenix = 3Blocs ou si jsp quoi est détaché
-    Class.test = bloc3(Class)
+    #Class.test = bloc3(Class)
     # Class.test.show()
     SV(Class)
     balisedeg(Class)
