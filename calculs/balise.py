@@ -21,6 +21,6 @@ def balise(Class):
         mystring = "Le "+ Class.NDR + " correspond à la moyenne arithmétique des " + sjr3 + " de clôture de " + sjr1 + " du " + ddi + " au " + ddi2
 
     if (strike == "best strike"):
-        mystring = "Le "+ Class.NDR + " correspond au " + sjr3 + " le plus bas observé aux dates suivantes: " + ddi
+        mystring = "Le "+ Class.NDR + " correspond au " + sjr3 + " le plus bas observé aux dates suivantes : " + ddi
 
     Class.balise = mystring

@@ -10,7 +10,7 @@ from pptx.enum.text import PP_ALIGN
 import os
 def elementsToReplaceDegressivite(Class, shapes):
     #si degressif on supprime les balises
-    if Class.BAC_is_degressif == "oui":
+    if Class.BAC_is_degressif != "":
         Class.desonndr = ""
         Class.longuephrase = ""
         Class.SDBAC = ""
@@ -75,12 +75,18 @@ def elementsToReplaceRemplacement(Class, shapes):
     replace_text({'<NSM>':  nsm}, shapes)
     nsf = str(Class.NSF) + "%"
     replace_text({'<NSF>':  nsf}, shapes)
-    replace_text({'<ABDAC>':  Class.ABDAC}, shapes)
+
+    abdac = str(Class.ABDAC).replace(".", ",")
+    replace_text({'<ABDAC>':  abdac}, shapes)
+    
     dbac = str(Class.DBAC) + "%"
     dbac = dbac.replace(".", ",")
 
     replace_text({'<DBAC>':  dbac}, shapes)
-    replace_text({'<DEG>':  Class.DEG}, shapes)
+    
+    deg = str(Class.DEG)
+    deg = deg.replace(".", ",")
+    replace_text({'<DEG>':  deg}, shapes)
 
 def elementsToReplaceCalcul(Class, shapes):
     replace_text({'<balisedeg1>': Class.balisedeg}, shapes) 
@@ -156,7 +162,7 @@ def elementsToReplaceCalcul(Class, shapes):
 
 def hardcode_replace(Class, shapes):
     replace_text({"l' année": "l'année"}, shapes)
-    
+    replace_text({" , ": ", "}, shapes)
 
 #PREMIER RAPPEL A DATE DERNIER RAPPEL
 

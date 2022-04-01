@@ -10,13 +10,9 @@ import kaleido
 
 def bloc3(Class, name, whitestrap=False):
     bloc = 3
-    print("abdac = ", Class.ABDAC)
-    print("DBAC = ", Class.DBAC)
-    print("BAC =", Class.BAC)
-    niveau_autocall = [-50, -50, int(Class.BAC), int(Class.ABDAC), int(Class.DBAC)] #ligne verte
-    niveau_coupon = [int(Class.BCPN), int(Class.BCPN), int(Class.BCPN), int(Class.BCPN), int(Class.BCPN)] #ligne noire  niveau coupon
-    niveau_capital = int(Class.PDI) #Ligne rouge
-    print("BCPN = ", Class.BCPN)
+    niveau_autocall = [-50, -50, float(Class.BAC), float(Class.ABDAC), float(Class.DBAC)] #ligne verte
+    niveau_coupon = [float(Class.BCPN), float(Class.BCPN), float(Class.BCPN), float(Class.BCPN), float(Class.BCPN)] #ligne noire  niveau coupon
+    niveau_capital = float(Class.PDI) #Ligne rouge
     niveau_median = niveau_coupon[0] - niveau_capital
     labels = [5, 17, 39]
     widths = [10,20,10]
@@ -99,8 +95,6 @@ def bloc3(Class, name, whitestrap=False):
         type="line", line_color="green", line_width=3, opacity=1, line_dash="dot",
         x0=5, x1=15, y0=niveau_autocall[0], y1=niveau_autocall[1]
     )
-    print("autocall2 = ", niveau_autocall[2])
-    print("autocall3 = ", niveau_autocall[3])
     fig.add_shape( # add la ligne horizontale deuxieme block line degressive
         type="line", line_color="green", line_width=3, opacity=1, line_dash="dot",
         x0=17, x1=37, y0=niveau_autocall[2], y1=niveau_autocall[3]
@@ -283,7 +277,7 @@ def bloc3(Class, name, whitestrap=False):
                                 pad=0),
                             paper_bgcolor='white')
     fig.write_image(name, format="png", scale=2, engine='kaleido')
-    fig.show()
+    # fig.show()
 
 
     return(fig)

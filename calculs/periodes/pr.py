@@ -20,7 +20,7 @@ def PR1(Class):
     
     if (frequence == "mois"):
         result = int(months)
-        if (months % days >=15):
+        if (months % days >= 15):
             result += 1
 
     if (frequence == "année"):

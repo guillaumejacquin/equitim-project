@@ -2,36 +2,36 @@ class InformationsForm():
     def __init__(self):
         #LES VARIABLES QU ON VA REMPLIR INITIEES VIA LE FORMULAIRE
         self.template = "testmercredi"
-        self.Nom = "Cap dix"
+        self.Nom = "Actions BSV Mensuel Avril 2022"
         self.Typologie = "athéna"
         self.Droit = "français"
-        self.Isin = "F100140085F1"
-        self.Emission = "2022-02-11"
-        self.DCI = "11-03-2022"
-        self.DR1 = "2023-03-13"
-        self.DPR = "2023-03-27"
-        self.DADR = "2027-12-27"
-        self.DCF = "2028-03-13"
-        self.DEC = "2028-03-27"
-        self.ADCF = "2027-12-13"
+        self.Isin = "FR0014009DK8"
+        self.Emission = "2022-04-22"
+        self.DCI = "14-04-2022, 18-03-2022"
+        self.DR1 = "2023-04-14"
+        self.DPR = "2023-04-28"
+        self.DADR = "2027-06-28"
+        self.DCF = "2027-07-14"
+        self.DEC = "2027-07-28"
+        self.ADCF = "2027-06-14"
 
-        self.F0 = "trimestre"
-        self.TSJ = ["BNP FP Equity", "STLA IM Equity", "", "", ""]
+        self.F0 = "mois"
+        self.TSJ = ["BNP FP Equity", "STLA FP Equity", "VIE FP Equity", "", ""]
 
 
         self.PCS1 = "Euronext Paris"
         self.PCS2 = "Euronext Paris"
-        self.PCS3 = ""
+        self.PCS3 = "Euronext Paris"
         self.PCS4 = ""
         self.PCS5 = ""
 
 
-        self.CPN = "2.25"
+        self.CPN = "1.00"
         self.CPN_is_memoire = ""
-        self.PDI = "60"
-        self.BAC = "100"
-        self.BAC_is_degressif = ""
-        self.BCPN = "80"
+        self.PDI = "50"
+        self.BAC = "95"
+        self.BAC_is_degressif = "oui"
+        self.BCPN = "95"
         self.BCPN_is_degressif = ""
 
         self.PEM = "100"
@@ -40,13 +40,13 @@ class InformationsForm():
         self.NSM = "70"
         self.NSF = "115"
 
-        self.ABDAC = "81"
-        self.DBAC = "80"
-        self.DEG = "0"
+        self.ABDAC = "67.5"
+        self.DBAC = "66.95"
+        self.DEG = "0.55"
 
 
-        self.type_strike = "strike normal"
-        self.type_bar = "airbag"
+        self.type_strike = "best strike"
+        self.type_bar = "degressif"
 
         #self.sous_jacent_nom = ""
         self.sous_jacent = "wo action"
@@ -99,7 +99,7 @@ class InformationsForm():
         self.Emission_affichage = ""
         self.F0s = "s"
 
-        self.sponsor = "sponsor"
+        self.SPONSOR = "sponsor"
         self.balise = ""
         self.DU = "du"
         self.NOMSOUSJACENT = ""
@@ -139,6 +139,16 @@ class InformationsForm():
         self.graph3 = ""
         self.graph4 = ""
         self.graph5 = ""
+        self.TRA_graphs()
+
+    def TRA_graphs(self):
+        TRA_A_S1 = ""
+        TRA_A_S2_100 = ""
+        TRA_A_S2_gain = ""
+        TRA_A_S3 = ""
+        TRA_PDI = ""
+        TRA_A_E_1 = ""
+
 #si barriere degressive page 2 indice cloture  "DBAC"
 
 #page 3 supprimer de son niveau de référence SI dégressif
@@ -146,3 +156,12 @@ class InformationsForm():
 
 
 #page 3 date strike moyen pas verifie
+
+
+
+
+
+
+#NOMP1 MAJUSCULE
+#NOMSOUSJACENT1 MAJUSCULE
+#SJR6 MAJUSCULE

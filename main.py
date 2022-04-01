@@ -27,8 +27,9 @@ from calculs.dates.ADCF import *
 from calculs.wordingdeg.SV import *
 from calculs.wordingdeg.balisedeg import *
 import time
-from bloc3 import *
-from bloc2 import *
+from graphs.bloc3 import *
+from graphs.bloc2 import *
+from calculs.TRA.tra import *
 
 #traitement des données
 def start_processus_template(Class):
@@ -60,6 +61,14 @@ def start_processus_template(Class):
     takeinformations(Class)
     # apdr_(Class)
     ebac(Class)
+    Class.TRA_A_S1 = (xirr_test(Class, Class.PDC2, Class.DEC, Class.NSD))
+    Class.TRA_A_S2_100 = (xirr_test(Class, Class.PDC2, Class.DEC))
+    Class.TRA_A_S2_gain = (xirr_test(Class, Class.PDC2, Class.DEC, float(Class.GCE)+100))
+
+    tra_pdi_var = (float(Class.PR1) * float(Class.CPN)) + 100 
+    Class.TRA_PDI = (xirr_test(Class, Class.PDC2, Class.DEC, tra_pdi_var))
+
+    Class.TRA_A_E_1 = (xirr_test(Class, Class.PDC2, Class.DEC, Class.NSD))
 
     #si coupon autocall
     Class.graph1 = bloc2(Class, "graph1.png", whitestrap=False)
@@ -70,17 +79,19 @@ def start_processus_template(Class):
     # Class.test.show()
     SV(Class)
     balisedeg(Class)
+
     ChangeTextOnPpt(Class)
 
-def main():
+def main(Class):
     start = time.time()
-    Myvar = InformationsForm()
-    start_processus_template(Myvar)
+    start_processus_template(Class)
     end = time.time()
     elapsed = end - start
     print("Votre pdf a été réalisé en", round(elapsed, 2), "secondes")
 
 
-main()
+# main()
 
 
+
+ #mongo py checker variables (sont rempalcés apres)

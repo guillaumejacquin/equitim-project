@@ -53,7 +53,6 @@ def add_value():
     wb.save(file_path)
 # add_value()
 
-
 def takeinformations(Class):
     #Recupere le sous jacent
     cluster = MongoClient("mongodb+srv://guillaume:guigui@cluster0.eczef.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
@@ -62,11 +61,15 @@ def takeinformations(Class):
     collection = db["clients"]
 
     #remplacer par le bon element(ici ticker)
-    results = collection.find({"Ticker":"CA FP Equity"})
+    results = collection.find({"Ticker":Class.TSJ[0]})
 
     for result in results:
-        Class.NOMSOUSJACENT = result["Equity"]
-        Class.DIVIDENDE = result["Dividende"]
-        Class.SPONSOR = result["Sponsor"]
-        Class.Site = result["SiteWeb"]
-        Class.Ticker = result["Ticker"]
+        try:
+            Class.NOMSOUSJACENT = result["Equity"]
+            Class.DIVIDENDE = result["Dividende"]
+            Class.SPONSOR = result["Sponsor"]
+            Class.Site = result["SiteWeb"]
+            Class.TICKER = result["Ticker"]
+
+        except Exception:
+            pass

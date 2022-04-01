@@ -14,9 +14,9 @@ def bloc2(Class, name, whitestrap=False):
     #Variables des courbes
     x0 = 4
     x1 = x0+0.5
-    niveau_autocall = [int(Class.BAC), int(Class.ABDAC), int(Class.DBAC)] #ligne verte
-    niveau_coupon = [int(Class.BCPN), int(Class.BCPN), int(Class.BCPN)] #ligne noire  niveau coupon
-    niveau_capital = int(Class.PDI) #Ligne rouge
+    niveau_autocall = [float(Class.BAC), float(Class.ABDAC), float(Class.DBAC)] #ligne verte
+    niveau_coupon = [float(Class.BCPN), float(Class.BCPN), float(Class.BCPN)] #ligne noire  niveau coupon
+    niveau_capital = float(Class.PDI) #Ligne rouge
     niveau_median = niveau_coupon[0] - niveau_capital
     #:
     # !Variables des courbes
@@ -267,7 +267,7 @@ def bloc2(Class, name, whitestrap=False):
                         paper_bgcolor='white')
 
     fig.write_image(name, format="png", scale=4, engine='kaleido')
-    fig.show()
+    #fig.show()
     return(fig)
 
     #REGARDER SI POSSIBLE DE FAIRE  ALIGNER DISTRIBUER VERTICALEMENT
