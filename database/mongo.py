@@ -60,9 +60,12 @@ def takeinformations(Class):
     db = cluster["templates"]
     collection = db["clients"]
 
+    stringlongue = ""
     #remplacer par le bon element(ici ticker)
+    for i in Class.TSJ:
+        print(i)
     results = collection.find({"Ticker":Class.TSJ[0]})
-
+    print(Class.TSJ[0])
     for result in results:
         try:
             Class.NOMSOUSJACENT = result["Equity"]
@@ -70,6 +73,6 @@ def takeinformations(Class):
             Class.SPONSOR = result["Sponsor"]
             Class.Site = result["SiteWeb"]
             Class.TICKER = result["Ticker"]
-
+            print(Class.Ticker)
         except Exception:
             pass

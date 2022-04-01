@@ -30,9 +30,12 @@ def xirr_test(Class, date1, date2, variable=100):
     flux_varNet = float(flux_var)*0.99**(float(soustract2dates)/365)
 
     result = (xirr([first_date,second_date], [-100, float(flux_varNet) ]))
-    result = float(result) *100
-    result = round(result, 2)
-    result = (f'{result:.2f}')
+    try:
+        result = float(result) *100
+        result = round(result, 2)
+        result = (f'{result:.2f}')
+    except Exception:
+        pass
     return(result)
 
 
