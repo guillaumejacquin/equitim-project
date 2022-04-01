@@ -1,5 +1,6 @@
 from P_D_E.myclass import *
 from calculs.dates.DR1 import DR1
+from calculs.style.SJR6P1 import SJR6P1
 from change_text import *
 from calculs.dates.PDC1 import *
 from calculs.dates.DDR import *
@@ -30,6 +31,8 @@ import time
 from graphs.bloc3 import *
 from graphs.bloc2 import *
 from calculs.TRA.tra import *
+from calculs.style.NOMP1 import *
+from calculs.style.NOMSOUSJACENTP1 import *
 
 #traitement des données
 def start_processus_template(Class):
@@ -59,6 +62,9 @@ def start_processus_template(Class):
     F0du(Class)
     balise(Class)
     takeinformations(Class)
+    NOMP1(Class)
+    NOMSOUSJACENTP1(Class)
+    SJR6P1(Class)
     # apdr_(Class)
     ebac(Class)
     Class.TRA_A_S1 = (xirr_test(Class, Class.PDC2, Class.DEC, Class.NSD))
@@ -91,7 +97,5 @@ def main(Class):
 
 
 # main()
-
-
 
  #mongo py checker variables (sont rempalcés apres)

@@ -142,26 +142,15 @@ class InformationsForm():
         self.TRA_graphs()
 
     def TRA_graphs(self):
-        TRA_A_S1 = ""
-        TRA_A_S2_100 = ""
-        TRA_A_S2_gain = ""
-        TRA_A_S3 = ""
-        TRA_PDI = ""
-        TRA_A_E_1 = ""
+        self.TRA_A_S1 = ""
+        self.TRA_A_S2_100 = ""
+        self.TRA_A_S2_gain = ""
+        self.TRA_A_S3 = ""
+        self.TRA_PDI = ""
+        self.TRA_A_E_1 = ""
+        self.var_style()
 
-#si barriere degressive page 2 indice cloture  "DBAC"
-
-#page 3 supprimer de son niveau de référence SI dégressif
-#DDR
-
-
-#page 3 date strike moyen pas verifie
-
-
-
-
-
-
-#NOMP1 MAJUSCULE
-#NOMSOUSJACENT1 MAJUSCULE
-#SJR6 MAJUSCULE
+    def var_style(self):
+        self.NOMP1 = ""
+        self.NOMSOUSJACENTP1 = ""
+        self.SJR6P1 = ""

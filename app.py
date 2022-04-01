@@ -19,7 +19,7 @@ def add_articles():
     Myclass = InformationsForm()
 
     data = request.json
-    print(data)
+    # print(data)
     Myclass.template = data["template"]
     Myclass.Nom = data["Nom"]
     Myclass.Typologie = data["Typologie"]
@@ -49,15 +49,11 @@ def add_articles():
     dec = data["DEC"]
     Myclass.DEC = dec[0:10]
 
-    
     Myclass.ADCF = data["ADCF"]
     Myclass.F0 = data["F0"]
-    Myclass.TSJ = data["TSJ"]
-    Myclass.PCS1 = data["PCS1"]
-    Myclass.PCS2 = data["PCS2"]
-    Myclass.PCS3 = data["PCS3"]
-    Myclass.PCS4 = data["PCS4"]
-    Myclass.PCS5 = data["PCS5"]
+    TSJ = data["TSJ"]
+    Myclass.TSJ = list(TSJ.split(", "))
+
 
     Myclass.CPN = data["CPN"]
     Myclass.CPN_is_memoire = data["CPN_is_memoire"]
@@ -165,4 +161,3 @@ def generate_pdf():
     else:
         main(Myclass)
         return("done")
-

@@ -8,6 +8,11 @@ import { ButtonGroup } from '@material-ui/core';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { FaJs } from 'react-icons/fa';
+import { GiNotebook } from "react-icons/gi";
+import { VscGraphLine } from "react-icons/vsc";
+import { GiSpiralLollipop } from "react-icons/gi";
+
+
 import Page2 from "./page2";
 import DatePicker from '@mui/lab/DatePicker';
 import InputLabel from '@mui/material/InputLabel';
@@ -24,8 +29,8 @@ const Page_beta = ({ formData, setForm, navigation }) => {
     return(
       <div style={{width: "20%", border: '1px solid grey', borderRadius:"4%", height:"5%", marginLeft:"10%"}}>
         <Container maxWidth="xs" style={{marginTop: "10%", marginBottom:"10%"}}>
-          <h3 style={{textAlign:"center"}}> <FaPiedPiperAlt/> Premier Bloc</h3>
-          <TextField label="Nom" name="Nom" 
+          <h3 style={{textAlign:"center"}}> <GiNotebook/> Caractéristiques</h3>
+          <TextField label="Nom du produit" name="Nom" 
           style={{marginTop:"8%"}}
             onChange={(e)=>setNom(e.target.value)}
             margin="normal"
@@ -41,12 +46,12 @@ const Page_beta = ({ formData, setForm, navigation }) => {
           label="Typologie"
           onChange={(e)=>setTypologie(e.target.value)}
           >
-          <MenuItem value={"athéna"}>Athéna</MenuItem>
-          <MenuItem value={"phoenix"}>Phoénix</MenuItem>
+          <MenuItem value={"athéna"}>Athena</MenuItem>
+          <MenuItem value={"phoenix"}>Phoenix</MenuItem>
 
 
         </Select> 
-        <InputLabel style={{marginTop:"5%" }}id="F0">Droit</InputLabel>
+        <InputLabel style={{marginTop:"5%" }}id="F0">Droit applicable</InputLabel>
         <Select
           labelId="Droit"
           id="Droit"
@@ -54,8 +59,9 @@ const Page_beta = ({ formData, setForm, navigation }) => {
           label="Droit"
           onChange={(e)=>setDroit(e.target.value)}
           >
-          <MenuItem value={"français"}>français</MenuItem>
-          <MenuItem value={"suisse"}>suisse</MenuItem>
+          <MenuItem value={"français"}>Français</MenuItem>
+          <MenuItem value={"anglais"}>Anglais</MenuItem>
+          <MenuItem value={"suisse"}>Suisse</MenuItem>
 
 
         </Select> 
@@ -85,7 +91,7 @@ const Page_beta = ({ formData, setForm, navigation }) => {
               </LocalizationProvider>
               <div style={{marginTop:"8%"}}></div>
               <TextField
-            label="Dates de constatations initiales"
+            label="Date(s) de constatation(s) initiale(s)"
             name="DCI"
             onChange={(e)=>setDCI(e.target.value)}
             margin="normal"
@@ -124,7 +130,7 @@ const Page_beta = ({ formData, setForm, navigation }) => {
             <div style={{marginTop:"8%"}}></div>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
-                label="avant derniere date de rappel"
+                label="Avant dernière date de remboursement"
                 value={DADR}
                 onChange={(DADR) => {
                   setDADR(DADR);
@@ -149,7 +155,7 @@ const Page_beta = ({ formData, setForm, navigation }) => {
             <div style={{marginTop:"8%"}}></div>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
-                label="Date d'echeance"
+                label="Date d'échéance"
                 value={DEC}
                 onChange={(DEC) => {
                   setDEC(DEC);
@@ -161,7 +167,7 @@ const Page_beta = ({ formData, setForm, navigation }) => {
             <div style={{marginTop:"8%"}}></div>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
-                label="Avant derniere date de constatation finale"
+                label="Avant dernière date de constatation finale"
                 value={ADCF}
                 onChange={(ADCF) => {
                   setADCF(ADCF);
@@ -177,10 +183,10 @@ const Page_beta = ({ formData, setForm, navigation }) => {
       return(
         <div style={{width: "20%", height:"5%", border: '1px solid grey', borderRadius:"4%", marginLeft:"10%"}}>
         <Container maxWidth="xs" style={{marginTop: "10%", marginBottom:"10%"}}>
-          <h3 style={{textAlign:"center"}}><FaInternetExplorer/> Second Bloc</h3>
+          <h3 style={{textAlign:"center"}}><VscGraphLine/> Pay-off</h3>
   
 
-      <InputLabel style={{marginTop:"5%" }}id="F0">Frequence</InputLabel>
+      <InputLabel style={{marginTop:"5%" }}id="F0">Fréquence</InputLabel>
         <Select
           labelId="F0"
           id="F0"
@@ -188,68 +194,24 @@ const Page_beta = ({ formData, setForm, navigation }) => {
           label="F0"
           onChange={(e)=>setF0(e.target.value)}
           >
-          <MenuItem value={"jours"}>jours</MenuItem>
-          <MenuItem value={"mois"}>mois</MenuItem>
-          <MenuItem value={"trimestre"}>trimestre</MenuItem>
-          <MenuItem value={"semestre"}>semestre</MenuItem>
-          <MenuItem value={"année"}>année</MenuItem>
+          <MenuItem value={"jours"}>Quotidienne</MenuItem>
+          <MenuItem value={"mois"}>Mensuelle</MenuItem>
+          <MenuItem value={"trimestre"}>Trimestrielle</MenuItem>
+          <MenuItem value={"semestre"}>Semestrielle</MenuItem>
+          <MenuItem value={"année"}>Annuelle</MenuItem>
 
         </Select>
         <TextField
-            label="TSJ"
+            label="Sous-jacent(s)"
             name="TSJ"
             onChange={(e)=>setTSJ(e.target.value)}
             margin="normal"
             variant="outlined"
             autoComplete="on"
             fullWidth/>
+      
         <TextField
-            label="sponsor1"
-            name="PCS1"
-            onChange={(e)=>setPCS1(e.target.value)}
-            margin="normal"
-            variant="outlined"
-            autoComplete="on"
-            fullWidth/>
-
-        <TextField
-            label="sponsor2"
-            name="PCS2"
-            onChange={(e)=>setPCS2(e.target.value)}
-            margin="normal"
-            variant="outlined"
-            autoComplete="on"
-            fullWidth/>
-        
-        <TextField
-            label="sponsor3"
-            name="PCS3"
-            onChange={(e)=>setPCS3(e.target.value)}
-            margin="normal"
-            variant="outlined"
-            autoComplete="on"
-            fullWidth/>
-        <TextField
-            label="sponsor4"
-            name="PCS4"
-            onChange={(e)=>setPCS4(e.target.value)}
-            margin="normal"
-            variant="outlined"
-            autoComplete="on"
-            fullWidth/>
-
-        <TextField
-            label="sponsor5"
-            name="PCS5"
-            onChange={(e)=>setPCS5(e.target.value)}
-            margin="normal"
-            variant="outlined"
-            autoComplete="on"
-            fullWidth/>
-
-
-        <TextField
-            label="CPN"
+            label="Coupon périodique"
             name="CPN"
             onChange={(e)=>setCPN(e.target.value)}
             margin="normal"
@@ -257,17 +219,22 @@ const Page_beta = ({ formData, setForm, navigation }) => {
             autoComplete="on"
             fullWidth/>
 
+  
+        
+    <InputLabel style={{marginTop:"5%" }}id="F0">Barrière coupon mémoire</InputLabel>
+        <Select
+          labelId="CPN_is_memoire"
+          id="CPN_is_memoire"
+          value={CPN_is_memoire}
+          label="CPN_is_memoire"
+          onChange={(e)=>setCPN_is_memoire(e.target.value)}
+          >
+          <MenuItem value={"oui"}>oui</MenuItem>
+          <MenuItem value={"non"}>non</MenuItem>
+        </Select>
+
         <TextField
-            label="CPN_is_memoire"
-            name="CPN_is_memoire"
-            onChange={(e)=>setCPN_is_memoire(e.target.value)}
-            margin="normal"
-            variant="outlined"
-            autoComplete="on"
-            fullWidth/>
-            
-        <TextField
-            label="PDI"
+            label="Barrière de protection"
             name="PDI"
             onChange={(e)=>setPDI(e.target.value)}
             margin="normal"
@@ -276,7 +243,7 @@ const Page_beta = ({ formData, setForm, navigation }) => {
             fullWidth/>
       
       <TextField
-            label="BAC"
+            label="Barrière de remboursement anticipé"
             name="BAC"
             onChange={(e)=>setBAC(e.target.value)}
             margin="normal"
@@ -284,35 +251,40 @@ const Page_beta = ({ formData, setForm, navigation }) => {
             autoComplete="on"
             fullWidth/>
 
-        <TextField
-            label="BAC_is_degressif"
-            name="BAC_is_degressif"
-            onChange={(e)=>setBAC_is_degressif(e.target.value)}
-            margin="normal"
-            variant="outlined"
-            autoComplete="on"
-            fullWidth/>
-
+        
+        <InputLabel style={{marginTop:"5%" }}id="F0">Barrière de remboursement anticipé dégressive</InputLabel>
+        <Select
+          labelId="BAC_is_degressif"
+          id="BAC_is_degressif"
+          value={BAC_is_degressif}
+          label="BAC_is_degressif"
+          onChange={(e)=>setBAC_is_degressif(e.target.value)}
+          >
+          <MenuItem value={"oui"}>oui</MenuItem>
+          <MenuItem value={"non"}>non</MenuItem>
+        </Select>
       <TextField
-            label="BCPN"
+            label="Barrière de coupon"
             name="BCPN"
             onChange={(e)=>setBCPN(e.target.value)}
             margin="normal"
             variant="outlined"
             autoComplete="on"
             fullWidth/>
-        <TextField
-            label="BCPN_is_degressif"
-            name="BCPN_is_degressif"
-            onChange={(e)=>setBCPN_is_degressif(e.target.value)}
-            margin="normal"
-            variant="outlined"
-            autoComplete="on"
-            fullWidth/>
+
+        <InputLabel style={{marginTop:"5%" }}id="F0">Barrière de coupon dégressive</InputLabel>
+        <Select
+          labelId="BCPN_is_degressif"
+          id="BCPN_is_degressif"
+          value={BCPN_is_degressif}
+          label="BCPN_is_degressif"
+          onChange={(e)=>setBCPN_is_degressif(e.target.value)}
+          >
+          <MenuItem value={"oui"}>oui</MenuItem>
+          <MenuItem value={"non"}>non</MenuItem>
+        </Select>
         </Container>
 
-
-        
       </div>
       )}
 
@@ -409,9 +381,9 @@ return (
 
       <div style={{width: "20%", height:"5%", border: '1px solid grey', borderRadius:"4%", marginLeft:"10%"}}>
         <Container maxWidth="xs" style={{marginTop: "10%", marginBottom:"10%"}}>
-          <h3 style={{textAlign:"center"}}> <FaJs/> Troisieme bloc</h3>
+          <h3 style={{textAlign:"center"}}> <GiSpiralLollipop/> Scénarios</h3>
 
-          <TextField label="PEM" name="PEM"
+          <TextField label="Prix d'émission" name="PEM"
             style={{marginTop:"8%"}}
 
             onChange={(e)=>setPEM(e.target.value)}
@@ -422,7 +394,7 @@ return (
           />
           
           <TextField
-            label="COM"
+            label="Commission"
             name="COM"
             onChange={(e)=>setCOM(e.target.value)}
             margin="normal"
@@ -432,7 +404,7 @@ return (
           />
 
         <TextField
-            label="NSD"
+            label="Niveau de scénario défavorable"
             name="NSD"
             onChange={(e)=>setNSD(e.target.value)}
             margin="normal"
@@ -441,7 +413,7 @@ return (
             fullWidth
           />
         <TextField
-            label="NSM"
+            label="Niveau de scénario médian"
             name="NSM"
             onChange={(e)=>setNSM(e.target.value)}
             margin="normal"
@@ -451,7 +423,7 @@ return (
           />
 
         <TextField
-            label="NSF"
+            label="Niveau de scénario favorable"
             name="NSF"
             onChange={(e)=>setNSF(e.target.value)}
             margin="normal"
@@ -461,7 +433,7 @@ return (
           />
 
         <TextField
-            label="ABDAC"
+            label="Avant dernier niveau de barrière dégressive"
             name="ABDAC"
             onChange={(e)=>setABDAC(e.target.value)}
             margin="normal"
@@ -471,7 +443,7 @@ return (
           />
 
         <TextField
-            label="DBAC"
+            label="Dernier niveau de barrière dégressive/airbag"
             name="DBAC"
             onChange={(e)=>setDBAC(e.target.value)}
             margin="normal"
@@ -480,7 +452,7 @@ return (
             fullWidth
           />
         <TextField
-            label="DEG"
+            label="Pas de degressivité"
             name="DEG"
             onChange={(e)=>setDEG(e.target.value)}
             margin="normal"
@@ -489,7 +461,7 @@ return (
             fullWidth
           />
 
-    <InputLabel style={{marginTop:"5%" }}id="F0">type strike</InputLabel>
+    <InputLabel style={{marginTop:"5%" }}id="F0">Type de strike</InputLabel>
         <Select
           labelId="type_strike"
           id="type_strike"
@@ -497,14 +469,14 @@ return (
           label="type_strike"
           onChange={(e)=>settype_strike(e.target.value)}
           >
-          <MenuItem value={"best strike"}>strike normal</MenuItem>
-          <MenuItem value={"strike moyen"}>strike moyen</MenuItem>
-          <MenuItem value={"best strike"}>best strike</MenuItem>
+          <MenuItem value={"strike normal"}>Strike normal</MenuItem>
+          <MenuItem value={"strike moyen"}>Strike moyen</MenuItem>
+          <MenuItem value={"best strike"}>Best strike</MenuItem>
 
         </Select>
 
 
-        <InputLabel style={{marginTop:"5%" }}id="F0">type bar</InputLabel>
+        <InputLabel style={{marginTop:"5%" }}id="F0">Type de barrière</InputLabel>
         <Select
           labelId="type_bar"
           id="type_bar"
@@ -512,12 +484,13 @@ return (
           label="type_bar"
           onChange={(e)=>settype_bar(e.target.value)}
           >
-          <MenuItem value={"degressif"}>dégressif</MenuItem>
-          <MenuItem value={"airbag"}>airbag</MenuItem>
+          <MenuItem value={"degressif"}>Dégressive</MenuItem>
+          <MenuItem value={"airbag"}>Airbag</MenuItem>
+          <MenuItem value={"normal"}>Normale</MenuItem>
         </Select> 
 
 
-        <InputLabel style={{marginTop:"5%" }}id="F0">sous jacent</InputLabel>
+        <InputLabel style={{marginTop:"5%" }}id="F0">Type de sous jacent</InputLabel>
         <Select
           labelId="sous_jacent"
           id="sous_jacent"
@@ -525,11 +498,12 @@ return (
           label="sous_jacent"
           onChange={(e)=>setsous_jacent(e.target.value)}
           >
-          <MenuItem value={"mono action"}>mono action</MenuItem>
-          <MenuItem value={"wo action"}>wo action</MenuItem>
-          <MenuItem value={"equipondéré action"}>équipondéré action</MenuItem>
-          <MenuItem value={"mono indice"}>mono indice</MenuItem>
-          <MenuItem value={"equipondéré indice"}>équipondéré indice</MenuItem>
+          <MenuItem value={"mono action"}>Mono action</MenuItem>
+          <MenuItem value={"wo action"}>WO actions</MenuItem>
+          <MenuItem value={"equipondéré action"}>Equipondéré actions</MenuItem>
+          <MenuItem value={"mono indice"}>Mono indice</MenuItem>
+          <MenuItem value={"equipondéré indice"}>Equipondéré indices</MenuItem>
+          <MenuItem value={"wo indice"}>WO indices</MenuItem>
 
         </Select> 
 
