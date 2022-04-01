@@ -45,11 +45,11 @@ def elementsToReplaceRemplacement(Class, shapes):
     # replace_text({'<TSJ3>':  Class.TSJ3}, shapes)
     # replace_text({'<TSJ4>':  Class.TSJ4}, shapes)
     # replace_text({'<TSJ5>':  Class.TSJ5}, shapes)
-    replace_text({'<PCS1>':  Class.PCS1}, shapes)
-    replace_text({'<PCS2>':  Class.PCS2}, shapes)
-    replace_text({'<PCS3>':  Class.PCS3}, shapes)
-    replace_text({'<PCS4>':  Class.PCS4}, shapes)
-    replace_text({'<PCS5>':  Class.PCS5}, shapes)
+    # replace_text({'<PCS1>':  Class.PCS1}, shapes)
+    # replace_text({'<PCS2>':  Class.PCS2}, shapes)
+    # replace_text({'<PCS3>':  Class.PCS3}, shapes)
+    # replace_text({'<PCS4>':  Class.PCS4}, shapes)
+    # replace_text({'<PCS5>':  Class.PCS5}, shapes)
     cpn = Class.CPN + "%"
     cpn = cpn.replace(".", ",")
     replace_text({'<CPN>':  cpn}, shapes)
@@ -153,6 +153,10 @@ def elementsToReplaceCalcul(Class, shapes):
     replace_text({'<DIVIDENDE>': Class.DIVIDENDE}, shapes)
     replace_text({'<SITE>': Class.Site}, shapes)
     replace_text({'<DPCI>': Class.DPCI}, shapes) 
+    replace_text({'<NOMP1>': Class.NOMP1}, shapes) 
+    replace_text({'<NOMSOUSJACENTP1>': Class.NOMSOUSJACENTP1}, shapes) 
+    replace_text({'<SJR6P1>': Class.SJR6P1}, shapes) 
+
 
 
     #CHANGER LE NOM DE LA BALISE ET DE LA CLASS dans myclass.py
@@ -279,5 +283,3 @@ def ChangeTextOnPpt(Class):
     except Exception:
         print("OH NONNNN")
     prs.save(NAME)
-
-
