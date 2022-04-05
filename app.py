@@ -4,6 +4,7 @@ from flask import render_template, url_for, request
 import sys
 from main import *
 from flask_cors import CORS
+from flask import jsonify
 
 
 sys.path.append("../")
@@ -63,7 +64,6 @@ def add_articles():
     Myclass.BCPN = data["BCPN"]
     Myclass.BCPN_is_degressif = data["BCPN_is_degressif"]
 
-    Myclass.PEM = data["PEM"]
     Myclass.COM = data["COM"]
     Myclass.NSD = data["NSD"]
     Myclass.NSM = data["NSM"]
@@ -74,90 +74,8 @@ def add_articles():
     Myclass.type_strike = data["type_strike"]
     Myclass.type_bar = data["type_bar"]
     Myclass.sous_jacent = data["sous_jacent"]
+    main(Myclass)  
+    return jsonify("AHHHHH")
 
-
-
-    main(Myclass)
-
-    
-    return "AHHHHH"
-
-@app.route('/test', methods=["POST" , "GET"])
-def test():
-    print("?")
-    if (request.method == "POST"):
-        print("?????")
-        # print(request.headers)
-        # template = request.form["name"]
-        print('-------------')
-        #print(template)
-        print("------------")
-
-    return 'Hello, aaa!'
-
-
-def remplissage_classe(request_form, Class):
-        Class.template = request.form["template"]
-        Class.Nom =  request.form["Nom"]
-        Class.Typologie = request.form["Typologie"]
-        Class.Droit = request.form["Droit"]
-        Class.Isin = request.form["Isin"]
-        Class.Emission = request.form["Emission"]
-        Class.DCI = request.form["DCI"]
-        Class.DR1 = request.form["DR1"]
-        Class.DPR = request.form["DPR"]
-        Class.DADR =  request.form["DADR"]
-        Class.DCF =  request.form["DCF"]
-        Class.DEC =  request.form["DEC"]
-        Class.ADCF =  request.form["ADCF"]
-        Class.F0 = request.form["F0"]
-        Class.TSJ = request.form["TSJ"]
-        Class.PCS1 = request.form["PCS1"]
-        Class.PCS2 = request.form["PCS2"]
-        Class.PCS3 = request.form["PCS3"]
-        Class.PCS4 = request.form["PCS4"]
-        Class.PCS5 = request.form["PCS5"]
-        Class.CPN =  request.form["CPN"]
-        Class.CPN_is_memoire =  request.form["CPN_is_memoire"]
-        Class.PDI =  request.form["PDI"]
-        Class.BAC =  request.form["BAC"]
-        Class.BAC_is_degressif = request.form["BAC_is_degressif"]
-        Class.BCPN = request.form["BCPN"]
-        Class.BCPN_is_degressif = request.form["BCPN_is_degressif"]
-
-        Class.PEM = request.form["PEM"]
-        Class.COM = request.form["COM"]
-        Class.NSD = request.form["NSD"]
-        Class.NSM = request.form["NSM"]
-        Class.NSF =  request.form["NSF"]
-
-        Class.ABDAC = request.form["ABDAC"]
-        Class.DBAC = request.form["DBAC"]
-        Class.DEG = request.form["DEG"]
-
-
-        Class.type_strike = request.form["type_strike"]
-        Class.type_bar = request.form["type_bar"]
-
-        Class.sous_jacent = request.form["sous_jacent"]
-        Class.Template = request.form["Template"]
-
-        
-        #Class.typeoffre = ""
-        #Class.sous_jacent_nom = ""
-
-
-@app.route('/generate-pdf', methods=["POST" , "GET"])
-def generate_pdf():
-    Myclass = InformationsForm()
-
-    if (request.method == "POST"):
-        request.form["sous_jacent"]
-        remplissage_classe(request, Myclass)
-        main(Myclass)
-
-        return("POUET POUET")
-
-    else:
-        main(Myclass)
-        return("done")
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port='5000', debug=True)

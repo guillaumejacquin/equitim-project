@@ -64,8 +64,7 @@ def elementsToReplaceRemplacement(Class, shapes):
 
     replace_text({'<BAC>':  bac}, shapes)
     replace_text({'<BCPN>':  Class.BCPN}, shapes)
-    pem = str(Class.PEM) + "%"
-    replace_text({'<PEM>':  pem}, shapes)
+
     com = str(Class.COM) + "%"
     com = com.replace(".", ",")
     replace_text({'<COM>':  com}, shapes)
@@ -101,8 +100,9 @@ def elementsToReplaceCalcul(Class, shapes):
     replace_text({'<SV>': Class.SV}, shapes) 
 
     replace_text({'<DDCI>': Class.DDCI}, shapes) 
+    print(Class.BLOCDIVIDENDE)
 
-
+    replace_text({'BLOCDIVIDENDE': Class.BLOCDIVIDENDE}, shapes)
     replace_text({'<F0s>':  Class.F0s}, shapes)
 
 

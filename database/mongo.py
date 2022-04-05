@@ -2,6 +2,8 @@ import site
 import pymongo
 from pymongo import MongoClient
 
+from calculs.sponsor import sponsor
+
 #ajoute une valeud dans la collection clients qui se trouve dans la base de donnees templates
 def add_value_data_base(ticker, equity, dividende="", sponsor="", siteweb="", inconvénient=""):
     cluster = MongoClient("mongodb+srv://guillaume:guigui@cluster0.eczef.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
@@ -64,15 +66,27 @@ def takeinformations(Class):
     #remplacer par le bon element(ici ticker)
     for i in Class.TSJ:
         print(i)
-    results = collection.find({"Ticker":Class.TSJ[0]})
-    print(Class.TSJ[0])
-    for result in results:
-        try:
-            Class.NOMSOUSJACENT = result["Equity"]
-            Class.DIVIDENDE = result["Dividende"]
-            Class.SPONSOR = result["Sponsor"]
-            Class.Site = result["SiteWeb"]
-            Class.TICKER = result["Ticker"]
-            print(Class.Ticker)
-        except Exception:
-            pass
+
+
+    myresults = []
+    for i in Class.TSJ:
+        myresults.append(collection.find({"Ticker":i}))
+
+    compteur = 0
+    for result in myresults:
+            if compteur == 0:
+                mot = ""
+            else:
+                mot = " et "
+        
+            test = result[0]
+            Class.NOMSOUSJACENT = Class.NOMSOUSJACENT + mot + (test["Equity"])
+            Class.DIVIDENDE = Class.DIVIDENDE + mot + test["Dividende"]
+            Class.SPONSOR = Class.SPONSOR + mot + test["Sponsor"]
+            Class.Site = Class.Site + mot + test["SiteWeb"]
+            Class.TICKER = Class.TICKER + mot + test["Ticker"]
+            Class.BLOCDIVIDENDE = Class.BLOCDIVIDENDE + mot + test["Equity"] + "(" + test["Dividende"] + "; code Bloomberg : " + test["Ticker"] +  ";  <sponsor> : "+ test["Sponsor"] +  "; " + test["SiteWeb"] + ") -------------" 
+
+            compteur+=1
+
+    print(Class.NOMSOUSJACENT)

@@ -34,7 +34,6 @@ class InformationsForm():
         self.BCPN = "95"
         self.BCPN_is_degressif = ""
 
-        self.PEM = "100"
         self.COM = "1.0"
         self.NSD = "30"
         self.NSM = "70"
@@ -123,6 +122,7 @@ class InformationsForm():
         self.PRS = ""
         self.shapes = []
         self.deleteblocs = []
+        self.BLOCDIVIDENDE = ""
         self.var_degressivite()
 
     def var_degressivite(self):
