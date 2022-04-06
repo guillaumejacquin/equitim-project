@@ -30,6 +30,8 @@ from calculs.wordingdeg.balisedeg import *
 import time
 from graphs.bloc3 import *
 from graphs.bloc2 import *
+from graphs.bloc4 import *
+
 from calculs.TRA.tra import *
 from calculs.style.NOMP1 import *
 from calculs.style.NOMSOUSJACENTP1 import *
@@ -79,10 +81,9 @@ def start_processus_template(Class):
     #si coupon autocall
     Class.graph1 = bloc2(Class, "graph1.png", whitestrap=False)
     Class.graph2 = bloc3(Class, "graph2.png", whitestrap=True)
+    Class.graph4 = bloc4(Class, "graph4.png")
 
-    #si coupon Phoenix = 3Blocs ou si jsp quoi est détaché
-    #Class.test = bloc3(Class)
-    # Class.test.show()
+
     SV(Class)
     balisedeg(Class)
 

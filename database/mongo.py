@@ -64,8 +64,7 @@ def takeinformations(Class):
 
     stringlongue = ""
     #remplacer par le bon element(ici ticker)
-    for i in Class.TSJ:
-        print(i)
+
 
 
     myresults = []
@@ -78,15 +77,21 @@ def takeinformations(Class):
                 mot = ""
             else:
                 mot = " et "
-        
-            test = result[0]
-            Class.NOMSOUSJACENT = Class.NOMSOUSJACENT + mot + (test["Equity"])
-            Class.DIVIDENDE = Class.DIVIDENDE + mot + test["Dividende"]
-            Class.SPONSOR = Class.SPONSOR + mot + test["Sponsor"]
-            Class.Site = Class.Site + mot + test["SiteWeb"]
-            Class.TICKER = Class.TICKER + mot + test["Ticker"]
-            Class.BLOCDIVIDENDE = Class.BLOCDIVIDENDE + mot + test["Equity"] + "(" + test["Dividende"] + "; code Bloomberg : " + test["Ticker"] +  ";  <sponsor> : "+ test["Sponsor"] +  "; " + test["SiteWeb"] + ") -------------" 
+            try:
+                test = result[0]
+                Class.NOMSOUSJACENT = Class.NOMSOUSJACENT + mot + (test["Equity"])
+                Class.DIVIDENDE = Class.DIVIDENDE + mot + test["Dividende"]
+                Class.SPONSOR = Class.SPONSOR + mot + test["Sponsor"]
+                Class.Site = Class.Site + mot + test["SiteWeb"]
+                Class.TICKER = Class.TICKER + mot + test["Ticker"]
+            except Exception:
+                Class.NOMSOUSJACENT + mot + ("ERREUR LES POTES")
+                Class.DIVIDENDE = Class.DIVIDENDE + mot + "ERREUR"
+                Class.SPONSOR = Class.SPONSOR + mot + "ERREUR"
+                Class.Site = Class.Site + mot + "ERREUR"
+                Class.TICKER = Class.TICKER + mot + "ERREUR"
+            
+            Class.BLOCDIVIDENDE = Class.BLOCDIVIDENDE + mot + test["Equity"] + " (" + test["Dividende"] + "; code Bloomberg : " + test["Ticker"] +  ";  <sponsor> : "+ test["Sponsor"] +  "; " + test["SiteWeb"] + ")" 
 
             compteur+=1
 
-    print(Class.NOMSOUSJACENT)

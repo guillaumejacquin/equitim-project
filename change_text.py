@@ -100,9 +100,8 @@ def elementsToReplaceCalcul(Class, shapes):
     replace_text({'<SV>': Class.SV}, shapes) 
 
     replace_text({'<DDCI>': Class.DDCI}, shapes) 
-    print(Class.BLOCDIVIDENDE)
 
-    replace_text({'BLOCDIVIDENDE': Class.BLOCDIVIDENDE}, shapes)
+    replace_text({'<BLOCDIVIDENDE>': Class.BLOCDIVIDENDE}, shapes)
     replace_text({'<F0s>':  Class.F0s}, shapes)
 
 
