@@ -64,9 +64,14 @@ def bloc3(Class, name, whitestrap=False):
     
     # Periode + le nombre (exempla trimestre 1 a 3)
     firstvaluexabciss = Class.F0 + Class.F0s + " 1 à " + str(Class.PR1)
+    firstvaluexabciss = firstvaluexabciss.capitalize()
+
     secondvaluexabciss = Class.F0 + Class.F0s + " " +  str(int(Class.PR1) + 1)  + " à " + str(int(Class.DPRR) - 1)
+    secondvaluexabciss = secondvaluexabciss.capitalize()
+  
     thirdvaluexabciss = Class.F0  +" " + str(Class.DPRR)
-    
+    thirdvaluexabciss = thirdvaluexabciss.capitalize()
+
     fig.update_xaxes(tickangle=0,
                     tickmode = 'array',
                     tickvals = [10, 27, 44.5],
@@ -325,8 +330,6 @@ def bloc3(Class, name, whitestrap=False):
         x = 20
     else:
         x= 28
-
-    print(x)
 
     mystring = "<b>Remboursement anticipé :</b> <br><br><br>L'intégralité du capital initial <br> + <br> Un coupon de " + str(Class.CPN) + "% est versé <br> (soit un rendement total de " + str(gce) + "%)"
     fig.add_annotation(

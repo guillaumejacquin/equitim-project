@@ -79,11 +79,19 @@ def start_processus_template(Class):
     Class.TRA_A_E_1 = (xirr_test(Class, Class.PDC2, Class.DEC, Class.NSD))
 
     #si coupon autocall
-    Class.graph1 = bloc2(Class, "graph1.png", whitestrap=False)
+    if (Class.Typologie == "coupon autocall"):
+        Class.graph1 = bloc2(Class, "graph1.png", whitestrap=False)
+    if (Class.Typologie == "coupon phoenix"):
+        Class.graph1 = bloc3(Class, "graph1.png", whitestrap=False)
+
+
+    # Class.graph1 = bloc2(Class, "graph1.png", whitestrap=False)
     Class.graph2 = bloc3(Class, "graph2.png", whitestrap=True)
     Class.graph4 = bloc4(Class, "graph4.png")
     
-
+    print("ABAC =", Class.ABAC)
+    print("EBAC = ",Class.EBAC)
+    print("bac", Class.BAC)
 
     SV(Class)
     balisedeg(Class)

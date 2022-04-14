@@ -6,7 +6,7 @@ import plotly.express as px
 def bloc4(Class, Name):
     tickers = ['AAPL']
     #recuper les tickers de la base de donnée
-    tickers = ['AAPL', 'MSFT', '^GSPC']
+    tickers = ['WFC', 'RNO.PA', '^GSPC']
     ###ici####
     
     if (len(tickers) == 1):
@@ -93,7 +93,6 @@ def bloc4_multiple_tickers(tickers, Class, Name):
 
         adj_close = panel_data["Adj Close"]
         lastvalue = adj_close.iloc[0]
-        print(lastvalue)
         
         panel_data[datas] = (panel_data['Adj Close'] / lastvalue) * 100
         result[datas] = (panel_data['Adj Close'] / lastvalue) * 100
@@ -101,7 +100,7 @@ def bloc4_multiple_tickers(tickers, Class, Name):
 
         # result = ((lastvalue/firstvalue) -1) * 100
 
-    print(name)
+    print("bloc4 names", name)
     
     if len(name) == 2:
         fig = px.line(data_frame = adj_close

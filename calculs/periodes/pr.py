@@ -90,7 +90,7 @@ def DPRR(Class):
 
     Class.DPRR = int(result)
     Class.GCE = float(Class.DPRR) * float(Class.CPN)
-    Class.GCE = int(Class.GCE)
+    Class.GCE = float(Class.GCE)
 
     Class.ADPR = avantderniereperiode
 

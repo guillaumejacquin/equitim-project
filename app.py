@@ -34,7 +34,7 @@ def add_articles():
     Myclass.Emission = emission[0:10]
 
     dci = data["DCI"]
-    Myclass.DCI = dci[0:10]
+    Myclass.DCI = dci
     
 
     dr1 = data["DR1"]

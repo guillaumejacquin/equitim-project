@@ -5,7 +5,6 @@ def balise(Class):
     sjr3 = Class.SJR3
     ddi = Class.DDCI_affichage
     ddi2 = Class.DPCI
-
     
 
     if (Class.TDP == "action"):
@@ -21,6 +20,6 @@ def balise(Class):
         mystring = "Le "+ Class.NDR + " correspond à la moyenne arithmétique des " + sjr3 + " de clôture de " + sjr1 + " du " + ddi + " au " + ddi2
 
     if (strike == "best strike"):
-        mystring = "Le "+ Class.NDR + " correspond au " + sjr3 + " le plus bas observé aux dates suivantes : " + ddi
+        mystring = "Le "+ Class.NDR + " correspond au " + sjr3 + " le plus bas observé aux dates suivantes : " + Class.DCI + "."
 
     Class.balise = mystring

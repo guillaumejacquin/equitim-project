@@ -154,3 +154,26 @@ class InformationsForm():
         self.NOMP1 = ""
         self.NOMSOUSJACENTP1 = ""
         self.SJR6P1 = ""
+
+
+
+
+
+
+
+
+
+
+#Graph 2 blocs, si strike moyen ou best strike, afficher dans les blocs en haut la date max des constatations initiales
+#niveau de référence cours de référence bloc 2
+
+
+
+
+
+
+
+
+
+#SI possible page 3, ajouter les libelles puis les dates
+#transormer les (1) en (^1)

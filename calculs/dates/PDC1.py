@@ -31,6 +31,7 @@ def PDC2(Class):
 
     min_mylist = max(myreallist)
     date_min = (max(Class.Emission, min_mylist))
+
     
     Class.PDC2 = date_min
     

@@ -199,7 +199,7 @@ def bloc4_multiple_tickers(tickers):
     for i, new_name in enumerate(name):
         fig.data[i].name = new_name
 
-    fig.show()
+    # fig.show()
 
     fig.write_image("test.png", format="png", scale=4, engine='kaleido')
 

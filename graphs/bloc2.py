@@ -10,8 +10,12 @@ import kaleido
         ## Sinon, NC > 0, alors toujours 3 blocs et dans le premier bloc se trouveras uniquement la barrière coupon(bleu marine)
 
 def bloc2(Class, name, whitestrap=False):
-    secondvaluexabciss = Class.F0 + Class.F0s + " " + str(int(Class.PR1) + 1)  + " à " + str(int(Class.DPRR) - 1)
+    secondvaluexabciss = Class.F0 + Class.F0s + " " + str(int(Class.PR1))  + " à " + str(int(Class.DPRR) - 1)
+    secondvaluexabciss = secondvaluexabciss.capitalize()
     thirdvaluexabciss = Class.F0  +" " + str(Class.DPRR)
+    thirdvaluexabciss = thirdvaluexabciss.capitalize()
+    gce = ("{:.2f}".format(Class.GCE))
+
     green = "#00B050"
     blue = "#002E8A"
     red = "#C00000"
@@ -19,12 +23,13 @@ def bloc2(Class, name, whitestrap=False):
     #Variables des courbes
     x0 = 4
     x1 = x0+0.5
-    print(Class.BAC)
-    print(Class.ABDAC, Class.DBAC)
+
     niveau_autocall = [float(Class.BAC), float(Class.ABDAC), float(Class.DBAC)] #ligne verte
     niveau_coupon = [float(Class.BCPN), float(Class.BCPN), float(Class.BCPN)] #ligne noire  niveau coupon
     niveau_capital = float(Class.PDI) #Ligne rouge
     niveau_median = niveau_coupon[0] - niveau_capital
+
+   
     #:
     # !Variables des courbes
 
@@ -136,6 +141,12 @@ def bloc2(Class, name, whitestrap=False):
         x0=27, x1=37, y0=niveau_capital, y1=niveau_capital
     )
 
+
+    if ((niveau_capital) <= -2):
+        fig.add_shape( # add la ligne horizontale deuxieme block line degressive
+        type="line", line_color=red, line_width=2, opacity=1, line_dash="dash",
+        x0=27, x1=37, y0=float(Class.DBAC) - 1, y1=float(Class.DBAC) -1
+    )
 #     #!LIGNE ROUGE
 
     if (niveau_autocall[1] > 0):
@@ -206,7 +217,7 @@ def bloc2(Class, name, whitestrap=False):
     line=dict(color=green,width=1),  line_dash="dot")
     
     
-    fig.add_annotation(x=41.5, y=96,text= ("Seuil d'activation du <br> mécanisme de <br> remboursement anticipé <br> automatique à partir de la fin du <br> trimestre 4 jusqu'à la fin du trimestre <br> 20 et de versement des gains à <br> l'échéance"), showarrow=False,
+    fig.add_annotation(x=41.5, y=99,text= ("Seuil d'activation du <br> mécanisme de <br> remboursement anticipé <br> automatique à partir de la fin du <br> trimestre 4 jusqu'à la fin du trimestre <br> 20 et de versement des gains à <br> l'échéance"), showarrow=False,
                     font=dict(family="Proxima Nova", size=12, color=black ), align="left"
                     )
 
@@ -287,7 +298,7 @@ def bloc2(Class, name, whitestrap=False):
     )
     gca = ("{:.2f}".format(float(Class.GCA)))
 
-    mystring = "<b>Remboursement à l'échéance : </b><br><br> Le capital inital diminué de l'intégralité <br> de la baisse enregistrée par <br> l'action la moins performante <br><br> <b>(perte en capital partielle voire totale)</b>"
+    mystring = "<b>Remboursement à l'échéance : </b><br><br> Le capital inital diminué de l'intégralité <br> de la baisse enregistrée par <br> l'action la moins performante <br> entre la date de constatation initiale <br> et la date de constatation finale <br><br> <b>(perte en capital partielle voire totale)</b>"
     fig.add_annotation(
         x=32,
         y=(niveau_capital/2),
@@ -307,11 +318,11 @@ def bloc2(Class, name, whitestrap=False):
         font=dict(color=black, size=10)
     )      
 
-    
-    mystring = "<b>Remboursement à l'échéance: </b><br><br>L'intégralité du capital initial<br>+<br>Un gain de " + Class.CPN + "% par " + Class.F0 + " écoulé <br> depuis la date de constatation initiale <br> (soit un gain de "+ str(gca) + "%  par année écoulée)"
+
+    mystring = "<b>Remboursement à l'échéance: </b><br><br>L'intégralité du capital initial<br>+<br>Un gain de " + Class.CPN + "% par " + Class.F0 + " écoulé <br> depuis la date de constatation initiale <br> (soit un gain de "+ str(gce) + "%  par année écoulée)"
     fig.add_annotation(
         x=(32),
-        y=(niveau_coupon[2] + (130-niveau_coupon[2]) /2 +5),
+        y=(float(Class.DBAC) + (130- float(Class.DBAC)) /2 +5),
         text=mystring,
         showarrow=False,
         font=dict(color=black, size=10)

@@ -8,6 +8,8 @@ from PIL import Image
 from pptx.util import Inches
 from pptx.enum.text import PP_ALIGN
 import os
+
+
 def elementsToReplaceDegressivite(Class, shapes):
     #si degressif on supprime les balises
     if Class.BAC_is_degressif != "":
@@ -166,6 +168,9 @@ def elementsToReplaceCalcul(Class, shapes):
 def hardcode_replace(Class, shapes):
     replace_text({"l' année": "l'année"}, shapes)
     replace_text({" , ": ", "}, shapes)
+    replace_text({"(1)": "⁽¹⁾"}, shapes)
+    replace_text({"(2)": "⁽²⁾"}, shapes)
+
 
 #PREMIER RAPPEL A DATE DERNIER RAPPEL
 
