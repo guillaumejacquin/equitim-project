@@ -1,5 +1,5 @@
 def GC(Class):
-    if Class.BCPN_is_degressif != "" and Class.Typologie != "athéna":
+    if Class.BCPN_is_degressif != "" and Class.Typologie != "coupon autocall":
         Class.GC = "coupon"
     else:
         Class.GC = "gain"

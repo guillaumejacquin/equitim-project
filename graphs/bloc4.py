@@ -5,8 +5,10 @@ import plotly.express as px
 
 def bloc4(Class, Name):
     tickers = ['AAPL']
+    #recuper les tickers de la base de donnée
     tickers = ['AAPL', 'MSFT', '^GSPC']
-
+    ###ici####
+    
     if (len(tickers) == 1):
         bloc4_simple_tickers(tickers, Class, Name)
     
@@ -86,21 +88,19 @@ def bloc4_multiple_tickers(tickers, Class, Name):
     result = pd.DataFrame()
     name = []
     # User pandas_reader.data.DataReader to load the desired data. As simple as that.
-    compteur = 0
     for datas in tickers:
         panel_data = data.DataReader(datas, 'yahoo', start_date, end_date)
 
         adj_close = panel_data["Adj Close"]
         lastvalue = adj_close.iloc[0]
         print(lastvalue)
-
+        
         panel_data[datas] = (panel_data['Adj Close'] / lastvalue) * 100
         result[datas] = (panel_data['Adj Close'] / lastvalue) * 100
         name.append(datas)
 
         # result = ((lastvalue/firstvalue) -1) * 100
 
-        compteur += 1
     print(name)
     
     if len(name) == 2:
@@ -162,6 +162,6 @@ def bloc4_multiple_tickers(tickers, Class, Name):
         showlegend=False,
         plot_bgcolor='white'
     )
-    fig.show()
+    #fig.show()
     fig.write_image(Name, format="png", scale=4, engine='kaleido')
 

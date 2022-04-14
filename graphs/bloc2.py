@@ -10,10 +10,17 @@ import kaleido
         ## Sinon, NC > 0, alors toujours 3 blocs et dans le premier bloc se trouveras uniquement la barrière coupon(bleu marine)
 
 def bloc2(Class, name, whitestrap=False):
-
+    secondvaluexabciss = Class.F0 + Class.F0s + " " + str(int(Class.PR1) + 1)  + " à " + str(int(Class.DPRR) - 1)
+    thirdvaluexabciss = Class.F0  +" " + str(Class.DPRR)
+    green = "#00B050"
+    blue = "#002E8A"
+    red = "#C00000"
+    black = "#000000"
     #Variables des courbes
     x0 = 4
     x1 = x0+0.5
+    print(Class.BAC)
+    print(Class.ABDAC, Class.DBAC)
     niveau_autocall = [float(Class.BAC), float(Class.ABDAC), float(Class.DBAC)] #ligne verte
     niveau_coupon = [float(Class.BCPN), float(Class.BCPN), float(Class.BCPN)] #ligne noire  niveau coupon
     niveau_capital = float(Class.PDI) #Ligne rouge
@@ -27,12 +34,6 @@ def bloc2(Class, name, whitestrap=False):
 #Size des blocs (positions + taille)
 
     fig = go.Figure()
-
-    # data = {
-    #     "x1": [niveau_coupon[0],niveau_coupon[0]],
-    #     "x2": [niveau_coupon[0],0,niveau_median],
-    #     "x3": [0,niveau_coupon[0],niveau_coupon[0]],
-    # }    
     
     data = {
         "x1": [niveau_coupon[0],niveau_coupon[0],niveau_capital],
@@ -78,7 +79,7 @@ def bloc2(Class, name, whitestrap=False):
     fig.update_xaxes(tickangle=0,
                     tickmode = 'array',
                     tickvals = [14, 31.5],
-                    ticktext= ["Trimestre 4 à 39", "Trimestre 40"],
+                    ticktext= [secondvaluexabciss, thirdvaluexabciss],
                     tickfont_size = 12             
                     )
 
@@ -92,31 +93,38 @@ def bloc2(Class, name, whitestrap=False):
     lol = 1
     if ( lol == 0):
         fig.add_shape( # add la ligne horizontale deuxieme block line
-            type="line", line_color="black", line_width=3, opacity=1, line_dash="dot",
+            type="line", line_color=black, line_width=3, opacity=1, line_dash="dot",
             x0=5, x1=25, y0=niveau_coupon[0], y1=niveau_coupon[1]
         )
 
         fig.add_shape( # add la ligne horizontale troisieme block line
-            type="line", line_color="black", line_width=3, opacity=1, line_dash="dot",
+            type="line", line_color=black, line_width=3, opacity=1, line_dash="dot",
             x0=27, x1=37, y0=niveau_coupon[2], y1=niveau_coupon[2]
         )
         fig.add_shape(type="line",
         x0=x0, y0=niveau_coupon[-1], x1=x1, y1=niveau_coupon[-1],
-        line=dict(color="black",width=3))
+        line=dict(color=black,width=3))
         fig.add_annotation(x=3.0, y=niveau_coupon[-1], text= str(niveau_coupon[-1]) +"%", showarrow=False,
-                        font=dict( family="Proxima Nova", size=14, color="Black", ),align="left",
+                        font=dict( family="Proxima Nova", size=14, color=black, ),align="left",
                         )
 #     # !LIGNE NOIRE
 
 #     #LIGNE VERTE
-
+    fig.add_trace(go.Scatter(x=[5,25,25,5],
+                            y=[130 ,130 ,niveau_autocall[1],niveau_autocall[0]],
+                            fill='toself',
+                            fillcolor='#D9CD9F',
+                            line=dict(width=0),
+                            showlegend=False,
+                            mode='lines',  
+                            hoverinfo ='none',))
     fig.add_shape( # add la ligne horizontale deuxieme block line degressive
-        type="line", line_color="green", line_width=3, opacity=1, line_dash="dot",
+        type="line", line_color=green, line_width=3, opacity=1, line_dash="dot",
         x0=5, x1=25, y0=niveau_autocall[0], y1=niveau_autocall[1]
     )
 
     fig.add_shape( # add la ligne horizontale deuxieme block line degressive
-        type="line", line_color="green", line_width=3, opacity=1, line_dash="dot",
+        type="line", line_color=green, line_width=3, opacity=1, line_dash="dot",
         x0=27, x1=37, y0=niveau_autocall[2], y1=niveau_autocall[2]
     )
 #     #!LIGNE VERTE
@@ -157,7 +165,7 @@ def bloc2(Class, name, whitestrap=False):
 
     fig.add_shape(type="line",
     x0=x0, y0=niveau_autocall[0], x1=x1, y1=niveau_autocall[0],
-    line=dict(color="green",width=3))
+    line=dict(color=green,width=3))
 
     fig.add_shape(type="line",
     x0=x0, y0=niveau_capital, x1=x1, y1=niveau_capital,
@@ -170,24 +178,24 @@ def bloc2(Class, name, whitestrap=False):
 
 #     #les valeurs qu on va mettre
     if (niveau_autocall[0] != 100):
-        fig.add_annotation(x=2.5, y=100 - 2,text= ("Niveau de Référence<br> (100%)"), showarrow=False,
-                    font=dict( family="Proxima Nova", size=14, color="Green" ),align="left",
+        fig.add_annotation(x=2.5, y=100,text= ("Niveau de Référence<br> (100%)"), showarrow=False,
+                    font=dict( family="Proxima Nova", size=8, color=green ),align="center",
                     )
 
         fig.add_annotation(x=3.0, y=niveau_autocall[0], text= str(niveau_autocall[0]) +"%", showarrow=False,
-                    font=dict( family="Proxima Nova", size=14, color="Green" ),align="left")
+                    font=dict( family="Proxima Nova", size=14, color=green ),align="left")
     else:
         fig.add_annotation(x=2.25, y=100 - 2,text= ("Niveau de<br> Référence<br> (" + str(niveau_autocall[0]) + "%)"), showarrow=False,
-                    font=dict( family="Proxima Nova", size=14, color="Green" ),align="left",
+                    font=dict( family="Proxima Nova", size=14, color=green ),align="left",
                     )
 
 
     fig.add_annotation(x=2.0, y=130, text= "Niveau de  <br> l'indice par <br> rapport à son <br> Niveau initial", showarrow=False,
-                    font=dict( family="Proxima Nova", size=12, color="black" ),align="right",
+                    font=dict( family="Proxima Nova", size=12, color=black ),align="right",
                     )
                     
     fig.add_annotation(x=3.0, y=niveau_capital,text= str(niveau_capital) +"%", showarrow=False,
-                    font=dict( family="Proxima Nova", size=14, color="Red" ),align="left",
+                    font=dict( family="Proxima Nova", size=14, color=red ),align="left",
                     )
 # #-------------------------------------!Pas fini, doit gerer les 100%! ----------------------------------------------------
 
@@ -195,21 +203,21 @@ def bloc2(Class, name, whitestrap=False):
    
     fig.add_shape(type="line",
     x0=38, y0=116, x1=45, y1=116,
-    line=dict(color="green",width=1),  line_dash="dot")
+    line=dict(color=green,width=1),  line_dash="dot")
     
     
     fig.add_annotation(x=41.5, y=96,text= ("Seuil d'activation du <br> mécanisme de <br> remboursement anticipé <br> automatique à partir de la fin du <br> trimestre 4 jusqu'à la fin du trimestre <br> 20 et de versement des gains à <br> l'échéance"), showarrow=False,
-                    font=dict(family="Proxima Nova", size=12, color="Black" ), align="left"
+                    font=dict(family="Proxima Nova", size=12, color=black ), align="left"
                     )
 
 
     fig.add_shape(type="line",
     x0=38, y0=60, x1=45, y1=60,
-    line=dict(color="red",width=1),  line_dash="dot")
+    line=dict(color=red,width=1),  line_dash="dot")
     
     
     fig.add_annotation(x=40.5, y=52,text= ("Seuil de perte en capital <br> à l'échéance"), showarrow=False,
-                    font=dict(family="Proxima Nova", size=12, color="Black" ), align="left",
+                    font=dict(family="Proxima Nova", size=12, color=black ), align="left",
                     )
     
     fig.update_xaxes(range=[2,48])
@@ -221,7 +229,7 @@ def bloc2(Class, name, whitestrap=False):
         })
 
 
-    if (whitestrap == True):
+    if (whitestrap == False):
         fig.add_trace(go.Scatter(x=[5,25,25,5], 
                                 y=[niveau_autocall[0] +1 ,niveau_autocall[1] + 1, niveau_autocall[1] -1, niveau_autocall[0] -1],
                                 fill='toself',
@@ -247,7 +255,105 @@ def bloc2(Class, name, whitestrap=False):
                                 showlegend=False,
                                 mode='lines',  
                                 hoverinfo ='none',))     
-                                   
+
+      
+        fig.add_trace(go.Scatter(x=[27,37,37,27], 
+                                y=[130 ,130 + 1, niveau_autocall[2], niveau_autocall[2]],
+                                fill='toself',
+                                fillcolor='#F7F4E9',
+                                line=dict(width=0),
+                                showlegend=False,
+                                mode='lines',  
+                                hoverinfo ='none',))  
+
+        fig.add_trace(go.Scatter(x=[5,25,25,5],
+                            y=[130 ,130 ,niveau_autocall[1],niveau_autocall[0]],
+                            fill='toself',
+                            fillcolor='#F7F4E9',
+                            line=dict(width=0),
+                            showlegend=False,
+                            mode='lines',  
+                            hoverinfo ='none',))   
+
+    #####################TEXTE DE SES MORTS##############################################
+    #autocall[1]
+    texta = "<b>Le produit continue </b>:<br><br><br> Aucun coupon n'est versé"
+    fig.add_annotation(
+        x=(15),
+        y=(niveau_coupon[1]/2 + 10),
+        text=texta,
+        showarrow=False,
+        font=dict(color=black, size=10)
+    )
+    gca = ("{:.2f}".format(float(Class.GCA)))
+
+    mystring = "<b>Remboursement à l'échéance : </b><br><br> Le capital inital diminué de l'intégralité <br> de la baisse enregistrée par <br> l'action la moins performante <br><br> <b>(perte en capital partielle voire totale)</b>"
+    fig.add_annotation(
+        x=32,
+        y=(niveau_capital/2),
+        text=mystring,
+        showarrow=False,
+        font=dict(color=black, size=10)
+    )                        
+
+
+
+    mystring = "<b>Remboursement anticipé automatique: </b><br>+<br>Un gain de " + Class.CPN + "% par " + Class.F0 + " écoulé <br> depuis la date de constatation initiale <br> (soit un gain de "+ str(gca) + "%  par année écoulée)"
+    fig.add_annotation(
+        x=(15),
+        y=(niveau_coupon[0] + (130-niveau_coupon[0]) /2 +5),
+        text=mystring,
+        showarrow=False,
+        font=dict(color=black, size=10)
+    )      
+
+    
+    mystring = "<b>Remboursement à l'échéance: </b><br><br>L'intégralité du capital initial<br>+<br>Un gain de " + Class.CPN + "% par " + Class.F0 + " écoulé <br> depuis la date de constatation initiale <br> (soit un gain de "+ str(gca) + "%  par année écoulée)"
+    fig.add_annotation(
+        x=(32),
+        y=(niveau_coupon[2] + (130-niveau_coupon[2]) /2 +5),
+        text=mystring,
+        showarrow=False,
+        font=dict(color=black, size=10)
+    )   
+
+    mystring = "<b>Remboursement à l'échéance: </b><br><br>L'intégralité du capital initial)"
+
+    if (float(Class.DBAC) - niveau_capital < 10):
+        fig.add_annotation(
+        x=(41.5),
+        y=(30),
+        text=mystring,
+        showarrow=False,
+        font=dict(color=black, size=10)
+    )       
+    
+        fig.add_annotation(
+            x=32,  # arrows' head
+            ay=31,  # arrows' head
+            ax=38,  # arrows' tail
+            y=float(Class.DBAC) - (float(Class.DBAC) - niveau_capital)/2 - 10,  # arrows' tail
+            xref='x',
+            yref='y',
+            axref='x',
+            ayref='y',
+            text='',  # if you want only the arrow
+            showarrow=True,
+            arrowhead=3,
+            arrowsize=1,
+            arrowwidth=1,
+            arrowcolor='black'
+        )
+    
+    else:
+        fig.add_annotation(
+            x=(32),
+            y=(float(Class.DBAC) - (float(Class.DBAC) - niveau_capital)/2),
+            text=mystring,
+            showarrow=False,
+            font=dict(color=black, size=10)
+        )       
+#---------------------------------------------------------------------------------        
     fig.update_layout(
                         legend=dict(
                         # Adjust click behavior

@@ -1,11 +1,12 @@
 from ast import Return
+from matplotlib.pyplot import ticklabel_format
 from pandas_datareader import data
 import pandas as pd
 import plotly.express as px
 
 def bloc4():
     tickers = ['AAPL']
-    # tickers = ['AAPL', 'MSFT', '^GSPC']
+    tickers = ['AAPL', 'MSFT', '^GSPC']
 
     if (len(tickers) == 1):
         bloc4_simple_tickers(tickers)
@@ -71,7 +72,7 @@ def bloc4_simple_tickers(tickers):
                 color='rgb(82, 82, 82)',
                 )
         ),
-        showlegend=False,
+        showlegend=True,
 
         plot_bgcolor='white'
 
@@ -85,8 +86,8 @@ def bloc4_simple_tickers(tickers):
 
 
 def bloc4_multiple_tickers(tickers):
-    start_date = '2017-01-01'
-    end_date = "2022-01-01"
+    start_date = '2017-04-04'
+    end_date = "2022-04-04"
 
     result = pd.DataFrame()
     name = []
@@ -98,36 +99,34 @@ def bloc4_multiple_tickers(tickers):
 
         adj_close = panel_data["Adj Close"]
         lastvalue = adj_close.iloc[0]
-        print(lastvalue)
 
-        panel_data[datas] = (panel_data['Adj Close'] / lastvalue) * 100
-        result[datas] = (panel_data['Adj Close'] / lastvalue) * 100
+        result[datas] = ((panel_data['Adj Close'] / lastvalue) - 1) * 100
         name.append(datas)
 
         # result = ((lastvalue/firstvalue) -1) * 100
 
-
-
-
-
         compteur += 1
-    print(name)
     
     if len(name) == 2:
         fig = px.line(data_frame = adj_close
                 ,x = adj_close.index
                 ,y = [result[name[0]],result[name[1]]]
+                ,color_discrete_sequence = ['#B9A049', '#002060']# #00B5E, #599295
+
                 )
-   
     if len(name) == 3:
         fig = px.line(data_frame = adj_close
                 ,x = adj_close.index
                 ,y = [result[name[0]],result[name[1]], result[name[2]]]
+                ,color_discrete_sequence = ['#B9A049', '#002060', '#404040']# #00B5E, #599295
+    #gold, bleu marine, gris, bleu equitim clair, vert canard gris
                 )
     if len(name) == 4:
         fig = px.line(data_frame = adj_close
                 ,x = adj_close.index
                 ,y = [result[name[0]],result[name[1]], result[name[2]], result[name[3]]]
+                ,color_discrete_sequence = ['#B9A049', '#002060', '#404040', '#00B5E'] #599295
+
                 )
 
 
@@ -135,14 +134,19 @@ def bloc4_multiple_tickers(tickers):
         fig = px.line(data_frame = adj_close
                 ,x = adj_close.index
                 ,y = [result[name[0]],result[name[1]], result[name[2]], result[name[3]], result[name[4]]]
+                ,color_discrete_sequence = ['#B9A049', '#002060', '#404040', '#00B5E', '#599295']
+
                 )
-    #fig = px.line()
-
-    # fig.data[0].line.color = 'rgb(197, 175, 92)'
-    # fig.data[0].line.width = 1
-
-
+    
     fig.update_layout(
+        width=1000,#1400
+        autosize=True,
+            margin=dict(
+                l=50,
+                r=0,
+                b=20,
+                t=50,
+                pad=0),
         xaxis=dict(
             showline=True,
             showgrid=True,
@@ -150,24 +154,28 @@ def bloc4_multiple_tickers(tickers):
             linecolor='rgb(0, 0, 0)',
             linewidth= 1,
             ticks='outside',
+            tickformat='%m/%Y',
             title=None,
             tickfont=dict(
                 family='Proxima Nova',
                 size=12,
                 color='rgb(82, 82, 82)',   
             ),
+            
         ),
         yaxis=dict(
             showgrid=True,
             zeroline=False,
             showline=True,
             showticklabels=True,
+            autorange = True,
             ticks='outside',
             gridwidth=1,
             gridcolor='rgb(242, 242, 242)',
             linecolor='rgb(0, 0, 0)',
             linewidth= 1,
             title=None,
+            ticksuffix="%",
             tickfont=dict(
                 family='Proxima Nova',
                 size=13,
@@ -176,11 +184,21 @@ def bloc4_multiple_tickers(tickers):
         ),
 
 
-        showlegend=False,
+        showlegend=True,
 
         plot_bgcolor='white'
 
     )
+    
+    fig.update_layout(legend=dict(
+        yanchor="top",
+        y=-0.065,
+        xanchor="left",
+        x=0.48
+    ))
+    for i, new_name in enumerate(name):
+        fig.data[i].name = new_name
+
     fig.show()
 
     fig.write_image("test.png", format="png", scale=4, engine='kaleido')

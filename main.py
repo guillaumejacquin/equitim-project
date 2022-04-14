@@ -82,6 +82,7 @@ def start_processus_template(Class):
     Class.graph1 = bloc2(Class, "graph1.png", whitestrap=False)
     Class.graph2 = bloc3(Class, "graph2.png", whitestrap=True)
     Class.graph4 = bloc4(Class, "graph4.png")
+    
 
 
     SV(Class)
