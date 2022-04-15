@@ -8,7 +8,7 @@ import kaleido
         ## Possibilité qu'il y ait uniquement deux bloc dans le cas ou la balise (tag) de Non-Call (1PR) == 0
         ## Sinon, NC > 0, alors toujours 3 blocs et dans le premier bloc se trouveras uniquement la barrière coupon(bleu marine)
 
-def bloc3(Class, name, whitestrap=False):
+def bloc3(Class, name, whitestrap=True):
     bloc = 3
     green = "#00B050"
     blue = "#002E8A"
@@ -20,13 +20,20 @@ def bloc3(Class, name, whitestrap=False):
     niveau_median = niveau_coupon[0] - niveau_capital
     labels = [5, 17, 39]
     widths = [10,20,10]
+    myvar = niveau_capital
 
     fig = go.Figure()
     
+    print("-------------------")
+    print(niveau_coupon[0],niveau_coupon[0],niveau_capital)
+    print("-------------------")
+    x2=  130 - niveau_coupon[0]
+    secondblock = float(Class.DBAC) - niveau_capital
+    x3_3 = 130 - (niveau_capital + secondblock)
     data = {
         "x1": [niveau_coupon[0],niveau_coupon[0],niveau_capital],
-        "x2": [niveau_coupon[0],0,niveau_median],
-        "x3": [0,niveau_coupon[0],niveau_coupon[0]],
+        "x2": [x2,0,secondblock],
+        "x3": [0,x2, x3_3],
     }
 
     color = {
@@ -283,7 +290,7 @@ def bloc3(Class, name, whitestrap=False):
     mystring = "<b>Le produit continue </b>:<br><br><br>Aucun coupon n'est versé, il est mis en mémoire"
     fig.add_annotation(
         x=(28),
-        y=(niveau_autocall[2] /2),
+        y=(niveau_autocall[3] /2),
         text=mystring,
         showarrow=False,
         font=dict(color=black, size=10)
@@ -298,19 +305,54 @@ def bloc3(Class, name, whitestrap=False):
         showarrow=False,
         font=dict(color=black,size=10)
     )
-
-    
+  
     mystring = "<b>Remboursement à l'échéance</b>:<br><br><br>Le capital initial diminué de <br> l'intégralité de la baisse enregistrée <br> par l'indice entre <br> la date de constatation initale et finale"
+    if (niveau_capital < 0 ):
+        y = float(Class.DBAC)
+    else:
+        y = niveau_capital
     fig.add_annotation(
         x=(44.5),
-        y=niveau_capital/2,
+        y= y/2,
         text=mystring,
         showarrow=False,
         font=dict(color=black,size=10)
     )
+    
+    if (niveau_capital <= 0):
+        mystring= " "
+    else:
+        mystring = "<b>Remboursement à l'échéance</b>:<br><br>L'intégralité du capital initial "
+    
+    if (float(Class.DBAC) - niveau_capital < 10 or  niveau_capital < 0):
+        mystring = "<b>Remboursement à l'échéance</b>:<br><br>L'intégralité du capital initial"
 
-    mystring = "<b>Remboursement à l'échéance</b>:<br><br><br>Le capital initial initial "
-    fig.add_annotation(
+        fig.add_annotation(
+        x=(55),
+        y=(30),
+        text=mystring,
+        showarrow=False,
+        font=dict(color=black, size=10)
+    )       
+        y_arrow =abs(float(myvar - (myvar  - float(Class.DBAC))))
+        fig.add_annotation(
+            x=44,  # arrows' head
+            ay=27,  # arrows' head
+            ax=51,  # arrows' tail
+            y=y_arrow - (float(Class.DBAC) - niveau_capital)/2,  # arrows' tail
+            xref='x',
+            yref='y',
+            axref='x',
+            ayref='y',
+            text='',  # if you want only the arrow
+            showarrow=True,
+            arrowhead=3,
+            arrowsize=1,
+            arrowwidth=1,
+            arrowcolor='black'
+        )
+    else:
+        fig.add_annotation(
         x=(44.5),
         y= float(Class.DBAC) - (float(Class.DBAC) - niveau_capital)/2,
         text=mystring,
@@ -373,6 +415,13 @@ def bloc3(Class, name, whitestrap=False):
     x0=51, y0=50, x1=60, y1=50,
     line=dict(color=red,width=3), line_dash="dash")
     
+    print(niveau_capital)
+    if ((niveau_capital) <= -2):
+        fig.add_shape( # add la ligne horizontale deuxieme block line degressive
+        type="line", line_color=red, line_width=2, opacity=1, line_dash="dash",
+        x0=39, x1=49, y0=float(Class.DBAC) - 1, y1=float(Class.DBAC) -1
+    )
+
     fig.add_annotation(x=54, y=45,text= ("Seuil de perte en capital <br> à l'échéance"), showarrow=False,
                     font=dict(family="Proxima Nova", size=12, color=black ), align="left",
                     )

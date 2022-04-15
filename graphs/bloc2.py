@@ -328,8 +328,9 @@ def bloc2(Class, name, whitestrap=False):
         font=dict(color=black, size=10)
     )   
 
+    
     mystring = "<b>Remboursement à l'échéance: </b><br><br>L'intégralité du capital initial)"
-
+    #FLECHE ET MOUVEMENT DE TEXTE SI PAS ASSEZ DE PLACE
     if (float(Class.DBAC) - niveau_capital < 10):
         fig.add_annotation(
         x=(41.5),

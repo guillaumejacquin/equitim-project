@@ -25,4 +25,3 @@ def GCA(Class):
     GCA = round(GCA, 2)
     GCA = (f'{GCA:.2f}')
     Class.GCA = str(GCA)
-
