@@ -196,8 +196,8 @@ const Page_beta = ({ formData, setForm, navigation }) => {
           label="Typologie"
           onChange={(e)=>setTypologie(e.target.value)}
           >
-          <MenuItem value={"athéna"}>Athena</MenuItem>
-          <MenuItem value={"phoenix"}>Phoenix</MenuItem>
+          <MenuItem value={"coupon autocall"}>Coupon Autocall</MenuItem>
+          <MenuItem value={"coupon phoenix"}>Coupon Phoenix</MenuItem>
 
 
         </Select> 
