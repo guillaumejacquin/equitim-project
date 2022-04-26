@@ -31,11 +31,13 @@ import time
 from graphs.bloc3 import *
 from graphs.bloc2 import *
 from graphs.bloc4 import *
+from graphs.bloc6 import *
 
+from calculs.Memoire.memoire import *
 from calculs.TRA.tra import *
 from calculs.style.NOMP1 import *
 from calculs.style.NOMSOUSJACENTP1 import *
-
+from calculs.dates.DDPP import *
 #traitement des données
 def start_processus_template(Class):
     PDC1(Class)
@@ -67,8 +69,19 @@ def start_processus_template(Class):
     NOMP1(Class)
     NOMSOUSJACENTP1(Class)
     SJR6P1(Class)
+    abac2(Class)
     # apdr_(Class)
     ebac(Class)
+    Memoire(Class)
+    Memoire2(Class)
+    Memoire3(Class)
+    Memoire4(Class)
+    Memoire5(Class)
+    Memoire6(Class)
+    BFP(Class)
+    PAGE(Class)
+    DDPP(Class)
+
     Class.TRA_A_S1 = (xirr_test(Class, Class.PDC2, Class.DEC, Class.NSD))
     Class.TRA_A_S2_100 = (xirr_test(Class, Class.PDC2, Class.DEC))
     Class.TRA_A_S2_gain = (xirr_test(Class, Class.PDC2, Class.DEC, float(Class.GCE)+100))
@@ -82,7 +95,7 @@ def start_processus_template(Class):
     if (Class.Typologie == "coupon autocall"):
         Class.graph1 = bloc2(Class, "graph1.png", whitestrap=False)
     if (Class.Typologie == "coupon phoenix"):
-        Class.graph1 = bloc3(Class, "graph1.png", whitestrap=False)
+        Class.graph1 = bloc3_4(Class, "graph1.png", whitestrap=False)
 
 
     # Class.graph1 = bloc2(Class, "graph1.png", whitestrap=False)
@@ -104,8 +117,3 @@ def main(Class):
     end = time.time()
     elapsed = end - start
     print("Votre pdf a été réalisé en", round(elapsed, 2), "secondes")
-
-
-# main()
-
- #mongo py checker variables (sont rempalcés apres)

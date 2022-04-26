@@ -84,6 +84,8 @@ def takeinformations(Class):
                 Class.SPONSOR = Class.SPONSOR + mot + test["Sponsor"]
                 Class.Site = Class.Site + mot + test["SiteWeb"]
                 Class.TICKER = Class.TICKER + mot + test["Ticker"]
+                Class.BLOCDIVIDENDE = Class.BLOCDIVIDENDE + mot + test["Equity"] + " (" + test["Dividende"] + "; code Bloomberg : " + test["Ticker"] +  ";  <sponsor> : "+ test["Sponsor"] +  "; " + test["SiteWeb"] + ")" 
+
             except Exception:
                 Class.NOMSOUSJACENT + mot + ("ERREUR LES POTES")
                 Class.DIVIDENDE = Class.DIVIDENDE + mot + "ERREUR"
@@ -91,7 +93,7 @@ def takeinformations(Class):
                 Class.Site = Class.Site + mot + "ERREUR"
                 Class.TICKER = Class.TICKER + mot + "ERREUR"
             
-            Class.BLOCDIVIDENDE = Class.BLOCDIVIDENDE + mot + test["Equity"] + " (" + test["Dividende"] + "; code Bloomberg : " + test["Ticker"] +  ";  <sponsor> : "+ test["Sponsor"] +  "; " + test["SiteWeb"] + ")" 
+            Class.BLOCDIVIDENDE = "ERRORRRRRRRRRR ERRORRRRRRRRRRRRRR ERRORRRRRR"
 
             compteur+=1
 

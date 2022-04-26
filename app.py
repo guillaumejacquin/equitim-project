@@ -74,6 +74,14 @@ def add_articles():
     Myclass.type_strike = data["type_strike"]
     Myclass.type_bar = data["type_bar"]
     Myclass.sous_jacent = data["sous_jacent"]
+
+    ddp = data["DDP"]
+    if (ddp == None):
+        Myclass.DDP = "error"
+
+    else: 
+        Myclass.DDP = ddp[0:10]
+    Myclass.type_bar2 = data["type_bar2"]
     main(Myclass)  
     return jsonify("AHHHHH")
 

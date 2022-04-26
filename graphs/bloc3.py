@@ -1,4 +1,5 @@
 from cgitb import text
+from flask import Flask
 import plotly.graph_objects as go
 import kaleido
 
@@ -8,7 +9,7 @@ import kaleido
         ## Possibilité qu'il y ait uniquement deux bloc dans le cas ou la balise (tag) de Non-Call (1PR) == 0
         ## Sinon, NC > 0, alors toujours 3 blocs et dans le premier bloc se trouveras uniquement la barrière coupon(bleu marine)
 
-def bloc3(Class, name, whitestrap=True):
+def bloc3(Class, name, whitestrap=False):
     bloc = 3
     green = "#00B050"
     blue = "#002E8A"
@@ -70,10 +71,10 @@ def bloc3(Class, name, whitestrap=True):
     showarrow=True, arrowhead=3, arrowwidth=2, arrowcolor='black')
     
     # Periode + le nombre (exempla trimestre 1 a 3)
-    firstvaluexabciss = Class.F0 + Class.F0s + " 1 à " + str(Class.PR1)
+    firstvaluexabciss = Class.F0 + Class.F0s + " 1 à " +  str(int(Class.PR1) - 1)
     firstvaluexabciss = firstvaluexabciss.capitalize()
 
-    secondvaluexabciss = Class.F0 + Class.F0s + " " +  str(int(Class.PR1) + 1)  + " à " + str(int(Class.DPRR) - 1)
+    secondvaluexabciss = Class.F0 + Class.F0s + " " +  str(int(Class.PR1))  + " à " + str(int(Class.DPRR) - 1)
     secondvaluexabciss = secondvaluexabciss.capitalize()
   
     thirdvaluexabciss = Class.F0  +" " + str(Class.DPRR)
@@ -122,7 +123,7 @@ def bloc3(Class, name, whitestrap=True):
     )
 
     fig.add_shape( # add la ligne horizontale deuxieme block line degressive
-        type="line", line_color=green, line_width=3, opacity=1, line_dash="dot",
+        type="line", line_color=blue, line_width=3, opacity=1, line_dash="dot",
         x0=39, x1=49, y0=niveau_autocall[4], y1=niveau_autocall[4]
     )
     #!LIGNE VERTE
@@ -168,17 +169,18 @@ def bloc3(Class, name, whitestrap=True):
     #NIVEAU de reference seulement si 100 % sinon creer bloc 90%(classique) et au dessu sniveau de reference100% (en noir)
 
     #les valeurs qu on va mettre
+    mystring = "100%"
     if (niveau_autocall[2] != 100):
-        fig.add_annotation(x=2.5, y=100,text= ("Niveau de Référence<br> (100%)"), showarrow=False,
-                    font=dict(family="Proxima Nova", size=8, color=green ),
+        fig.add_annotation(x=3, y=niveau_coupon[0],text= (niveau_coupon[0]), showarrow=False,
+                    font=dict(family="Proxima Nova", size=14, color=green ),
                     )
    
         fig.add_annotation(x=3.0, y=niveau_autocall[2], text= str(niveau_autocall[2]) +"%", showarrow=False,
                     font=dict(family="Proxima Nova", size=14, color=green ))
     else:
-
-        fig.add_annotation(x=2.5, y=100 - 2,text= ("Niveau de<br> Référence<br> (" + str(niveau_autocall[2]) + "%)"), showarrow=False,
-                    font=dict(family="Proxima Nova", size=10, color=green ),
+        mystring = str(Class.BAC) + "%"
+        fig.add_annotation(x=3, y=str(Class.BAC),text= (mystring), showarrow=False,
+                    font=dict(family="Proxima Nova", size=14, color=green ),
                     )
 
     fig.add_annotation(x=3.0, y=niveau_coupon[-1], text= str(niveau_coupon[-1]) +"%", showarrow=False,
@@ -268,16 +270,23 @@ def bloc3(Class, name, whitestrap=True):
         x0=5, x1=15, y0=niveau_autocall[0], y1=niveau_autocall[1]
     )
 
-    texta = "<b>Le produit continue </b>:<br><br><br> Aucun coupon n'est versé, il <br> est mis en mémoire"
+    texta = "<b>Le produit continue </b>:<br><br> Aucun coupon n'est versé, il <br> est mis en mémoire"
     fig.add_annotation(
         x=(10),
-        y=(niveau_coupon[0]/2),
+        y=(niveau_coupon[0] - (niveau_coupon[0]/2) + 10),
         text=texta,
         showarrow=False,
         font=dict(color=black, size=10)
     )
-    gca = ("{:.2f}".format(float(Class.GCA)))
-    mystring = "<b>Le produit continue </b>:<br><br><br> Un coupon de " + Class.CPN + "% est versé <br><br>(soit " + str(gca) + "% par année écoulée)"
+    cpn = ("{:.2f}".format(float(Class.CPN)))
+    cpn = cpn.replace(".", ",")
+
+ 
+    gce = ("{:.2f}".format(float(Class.GCE)))
+    gce = gce.replace(".", ",")
+
+
+    mystring = "<b>Le produit continue </b>:<br><br>  Un coupon de " + cpn + "% <br> + <br> Les éventuels coupons mémorisés <br> au préalable"
     fig.add_annotation(
         x=(10),
         y=(niveau_coupon[0] + (130-niveau_coupon[0]) /2),
@@ -287,7 +296,7 @@ def bloc3(Class, name, whitestrap=True):
         
     )
 
-    mystring = "<b>Le produit continue </b>:<br><br><br>Aucun coupon n'est versé, il est mis en mémoire"
+    mystring = "<b>Le produit continue </b>:<br><br> Aucun coupon versé, il est mis en mémoire"
     fig.add_annotation(
         x=(28),
         y=(niveau_autocall[3] /2),
@@ -297,7 +306,7 @@ def bloc3(Class, name, whitestrap=True):
     )
    
 
-    mystring = "<b>Le produit continue </b>:<br><br><br>Aucun coupon n'est versé, il est mis en mémoire"
+    mystring = "<b>Le produit continue </b>:<br><br>Aucun coupon n'est versé, il est mis en mémoire"
     fig.add_annotation(
         x=(28),
         y=niveau_autocall[1]/2,
@@ -306,13 +315,15 @@ def bloc3(Class, name, whitestrap=True):
         font=dict(color=black,size=10)
     )
   
-    mystring = "<b>Remboursement à l'échéance</b>:<br><br><br>Le capital initial diminué de <br> l'intégralité de la baisse enregistrée <br> par l'indice entre <br> la date de constatation initale et finale"
+    mystring = "<b>Remboursement à l'échéance(1)</b> :<br><br>Le capital initial diminué de <br> l'intégralité de la baisse enregistrée <br> par l'indice entre <br> la date de constatation initiale <br> et la date de constatation finale"
+    mystring = mystring.replace("(1)", "⁽¹⁾")
+
     if (niveau_capital < 0 ):
         y = float(Class.DBAC)
     else:
         y = niveau_capital
     fig.add_annotation(
-        x=(44.5),
+        x=(44),
         y= y/2,
         text=mystring,
         showarrow=False,
@@ -322,13 +333,15 @@ def bloc3(Class, name, whitestrap=True):
     if (niveau_capital <= 0):
         mystring= " "
     else:
-        mystring = "<b>Remboursement à l'échéance</b>:<br><br>L'intégralité du capital initial "
-    
+        mystring = "<b>Remboursement à l'échéance(1)</b> :<br><br>L'intégralité du capital initial "
+        mystring = mystring.replace("(1)", "⁽¹⁾")
+
     if (float(Class.DBAC) - niveau_capital < 10 or  niveau_capital < 0):
-        mystring = "<b>Remboursement à l'échéance</b>:<br><br>L'intégralité du capital initial"
+        mystring = "<b>Remboursement à l'échéance(1)</b> :<br><br>L'intégralité du capital initial"
+        mystring = mystring.replace("(1)", "⁽¹⁾")
 
         fig.add_annotation(
-        x=(55),
+        x=(54),
         y=(30),
         text=mystring,
         showarrow=False,
@@ -359,8 +372,9 @@ def bloc3(Class, name, whitestrap=True):
         showarrow=False,
         font=dict(color=black,size=10)
     )
-    gce = ("{:.2f}".format(Class.GCE))
-    mystring = "<b>Remboursement anticipé:</b><br><br><br>L'intégralité du capital initial <br> + <br> Un coupon de " + str(Class.CPN) + " % est versé <br> (soit un rendement total de " + str(gce) + " %)"
+    mystring = "<b>Remboursement anticipé automatique(1) :</b><br><br>L'intégralité du capital initial <br> + <br> Un coupon de " + str(cpn) + " % <br> + <br> Les éventuels coupons mémorisés au préalable"
+    mystring = mystring.replace("(1)", "⁽¹⁾")
+
     fig.add_annotation(
         x=(28),
         y= 130 - (130 - niveau_autocall[2])/2,
@@ -373,7 +387,7 @@ def bloc3(Class, name, whitestrap=True):
     else:
         x= 28
 
-    mystring = "<b>Remboursement anticipé :</b> <br><br><br>L'intégralité du capital initial <br> + <br> Un coupon de " + str(Class.CPN) + "% est versé <br> (soit un rendement total de " + str(gce) + "%)"
+    mystring = "<b>Le produit continue :</b> <br><br>L'intégralité du capital initial <br> + <br> Un coupon de " + str(cpn) + "% est versé <br> + <br> Les éventuels coupons mémorisés au préalable "
     fig.add_annotation(
             x=(x),
             y= niveau_autocall[2] - (niveau_autocall[2] - niveau_coupon[0])/2,
@@ -383,8 +397,10 @@ def bloc3(Class, name, whitestrap=True):
             # align="left"
         )
         
+    
+    mystring = "<b>Remboursement à l'échéance(1)</b> :<br><br>L'intégralité du capital initial <br> + <br> Un coupon de " + str(cpn) + " % <br> + <br>Les éventuels coupons <br> mémorisés au préalable <br> (soit un rendement total de " + str(gce) + "%)"
+    mystring = mystring.replace("(1)", "⁽¹⁾")
 
-    mystring = "<b>Remboursement à l'échéance</b>:<br><br><br>L'intégralité du capital initial <br> + <br> Un coupon de " + str(Class.CPN) + " % est versé <br> (soit un rendement total de " + str(gce) + "%)"
     fig.add_annotation(
         x=(44.5),
         y= 130 - (130 - niveau_autocall[4])/2,
@@ -397,7 +413,7 @@ def bloc3(Class, name, whitestrap=True):
     fig.add_shape(type="line",
     x0=50.5, y0=116, x1=60, y1=116,
     line=dict(color=green,width=3),  line_dash="dot")
-    fig.add_annotation(x=55, y=102.5,text= ("Seuil d'activation du <br> mécanisme de <br> remboursement anticipé <br> automatique à partir de la fin du <br> trimestre 4 jusqu'à la fin du trimestre <br> 20 et de versement des gains à <br> l'échéance"), showarrow=False,
+    fig.add_annotation(x=55, y=102.5,text= ("Seuil d'activation du <br> mécanisme de <br> remboursement anticipé <br> automatique à partir de la fin du <br>" + Class.F0 +" " + str(int(Class.PR1)) + " jusqu'à la fin du " + str(Class.F0) +"<br> " + str(int(Class.DPRR)-1) ), showarrow=False,
                     font=dict(family="Proxima Nova", size=12, color=black ), align="left"
                     )
 
@@ -450,4 +466,5 @@ def bloc3(Class, name, whitestrap=True):
 
     return(fig)
 
-    #REGARDER SI POSSIBLE DE FAIRE  ALIGNER DISTRIBUER VERTICALEMENT
+
+#page 2 voir de l indice espace

@@ -14,12 +14,12 @@ def balise(Class):
 
 
     if (strike == "strike normal"):
-        mystring = "Le "+ Class.NDR + " correspond au " + sjr3 + " de clôture de " + sjr1 + " le " + ddi
+        mystring = "Le "+ Class.NDR + " correspond au " + sjr3 + " de clôture de " + sjr1 + " " + Class.NOMSOUSJACENT +  " le " + ddi
 
     if (strike == "strike moyen"):
-        mystring = "Le "+ Class.NDR + " correspond à la moyenne arithmétique des " + sjr3 + " de clôture de " + sjr1 + " du " + ddi + " au " + ddi2
+        mystring = "Le "+ Class.NDR + " correspond à la moyenne arithmétique des " + sjr3 + " de clôture de " + sjr1 + " " + Class.NOMSOUSJACENT + " du " + ddi + " au " + ddi2
 
     if (strike == "best strike"):
-        mystring = "Le "+ Class.NDR + " correspond au " + sjr3 + " le plus bas observé aux dates suivantes : " + Class.DCI + "."
+        mystring = "Le "+ Class.NDR + " correspond au " + sjr3 + " " + Class.NOMSOUSJACENT + " le plus bas observé aux dates suivantes : " + Class.DCI + "."
 
     Class.balise = mystring

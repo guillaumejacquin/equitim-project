@@ -162,5 +162,5 @@ def bloc4_multiple_tickers(tickers, Class, Name):
         plot_bgcolor='white'
     )
     #fig.show()
-    fig.write_image(Name, format="png", scale=4, engine='kaleido')
+    fig.write_image(Name, format="png", scale=2, engine='kaleido')
 

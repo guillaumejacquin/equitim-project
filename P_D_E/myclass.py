@@ -51,7 +51,7 @@ class InformationsForm():
         self.sous_jacent = "wo action"
         #self.typeoffre = ""
     
-
+        self.DDP = ""
 
         #on appelle la fonction pour  initier les variables de calcul
         self.var_calculs()
@@ -92,15 +92,16 @@ class InformationsForm():
         self.PDC1_affichage = ""
         self.PDC2_affichage = ""
         self.ADCF_affichage = ""
-        self.DDCI = ""
         self.DEC_affichage = ""
         self.DFC_affichage = ""
         self.Emission_affichage = ""
         self.F0s = "s"
 
         self.SPONSOR = "sponsor"
+        self.sponsor = ""
         self.balise = ""
         self.DU = "du"
+        self.DU1 = "Du"
         self.NOMSOUSJACENT = ""
         self.DIVIDENDE = ""
         self.TICKER = ""
@@ -112,17 +113,32 @@ class InformationsForm():
         self.balisedeg = ""
         self.balisedeg2 = ""
         self.balisedeg3 = ""
+        self.balisedeg4 = ""
         self.baliseCM = ""
         self.baliseCM22 = ""
         self.baliseCM2 = ""
 
         self.baliseCM3 = ""
         self.baliseCM4 = ""
+        self.baliseCM5 = ""
+        self.baliseCM6 = ""
+
         self.SV = ""
         self.PRS = ""
         self.shapes = []
         self.deleteblocs = []
         self.BLOCDIVIDENDE = ""
+        self.PR1_1 = ""
+
+        self.ABAC2 = ""
+        self.type_bar2 = ""
+        self.Memoire = ""
+        self.Memoire2 = ""
+        self.Memoire3 = ""
+        self.Memoire4 = ""
+        self.DDPP = ""
+        self.BFP = ""
+        self.PAGE = ""
         self.var_degressivite()
 
     def var_degressivite(self):
@@ -155,25 +171,5 @@ class InformationsForm():
         self.NOMSOUSJACENTP1 = ""
         self.SJR6P1 = ""
 
-
-
-
-
-
-
-
-
-
 #Graph 2 blocs, si strike moyen ou best strike, afficher dans les blocs en haut la date max des constatations initiales
 #niveau de référence cours de référence bloc 2
-
-
-
-
-
-
-
-
-
-#SI possible page 3, ajouter les libelles puis les dates
-#transormer les (1) en (^1)

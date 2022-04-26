@@ -40,3 +40,19 @@ def balisedeg(Class):
     else: 
         Class.baliseCM4 = """À la date de constatation finale(¹), <SJR1> clôture à un <SJR3> strictement inférieur à <DBAC> de son <NDR> (<NSM> dans cet exemple). L’investisseur récupère alors l’intégralité de son capital initialement investi.
         """
+
+    if (Class.type_bar2 == "degressif"):
+        Class.balisedeg4 = "La barrière de versement du coupon est dégressive au fil du temps. Elle est fixée à <BCPN>% du <NDR> en fin <DU> <F0> 1, puis décroît de <DEG>% chaque <F0> à partir de la fin <DU> <F0> <DDPP> (inclus), pour atteindre <DBAC> du <NDR> à la fin <DU> <F0> <DPRR>."
+
+    if (Class.BFP == Class.PDI):
+        Class.baliseCM5 = "À la date de constatation finale(1), <SJR1> clôture à un <SJR3> strictement supérieur à <PDI> de son <NDR>" 
+    else: 
+        Class.baliseCM5 = "À la date de constatation finale(1), <SJR1> clôture à un <SJR3> strictement inférieur à <BFP> mais supérieur ou égal à <PDI> de son <NDR>"
+
+    if (Class.BFP == Class.PDI):
+        Class.baliseCM6= "À la date de constatation finale(1), <SJR1> clôture à un <SJR3> strictement supérieur à <BFP> de son <NDR> (<NSM> dans cet exemple). L’investisseur récupère alors l’intégralité de son capital initialement investi majorée du coupon de <CPN> <Mémoire6>."
+    else:
+       Class.baliseCM6 = "À la date de constatation finale(1), <SJR1> clôture à un <SJR3> strictement inférieur à <BFP> de son <NDR> (<NSM> dans cet exemple) mais strictement supérieur à <PDI> de son <NDR>. L’investisseur récupère alors l’intégralité de son capital initialement investi."
+    
+
+    

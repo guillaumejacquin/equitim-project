@@ -40,7 +40,7 @@ def PR1(Class):
 
     result = abs(result)
     #result = frequence + " " + str(result)
-
+    Class.PR1_1 = result -1
     Class.PR1 = result
 
 

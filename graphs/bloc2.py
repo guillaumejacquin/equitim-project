@@ -188,19 +188,22 @@ def bloc2(Class, name, whitestrap=False):
 #     #NIVEAU de reference seulement si 100 % sinon creer bloc 90%(classique) et au dessu sniveau de reference100% (en noir)
 
 #     #les valeurs qu on va mettre
+    mystring =  Class.SJR3 + "de Référence<br> (100%)"
+
     if (niveau_autocall[0] != 100):
-        fig.add_annotation(x=2.5, y=100,text= ("Niveau de Référence<br> (100%)"), showarrow=False,
-                    font=dict( family="Proxima Nova", size=8, color=green ),align="center",
+        fig.add_annotation(x=3, y=100,text= (mystring), showarrow=False,
+                    font=dict( family="Proxima Nova", size=14, color=green ),align="center",
                     )
 
         fig.add_annotation(x=3.0, y=niveau_autocall[0], text= str(niveau_autocall[0]) +"%", showarrow=False,
                     font=dict( family="Proxima Nova", size=14, color=green ),align="left")
     else:
-        fig.add_annotation(x=2.25, y=100 - 2,text= ("Niveau de<br> Référence<br> (" + str(niveau_autocall[0]) + "%)"), showarrow=False,
+        mystring =  mystring =  Class.SJR3 + "de Référence<br>(" + str(niveau_autocall[0]) + "%)"
+        fig.add_annotation(x=2.25, y=100 - 2,text= (mystring), showarrow=False,
                     font=dict( family="Proxima Nova", size=14, color=green ),align="left",
                     )
 
-
+    mystring = Class.SJR3 + " de  <br> l'indice par <br> rapport à son <br> " + Class.SJR3 + " initial"
     fig.add_annotation(x=2.0, y=130, text= "Niveau de  <br> l'indice par <br> rapport à son <br> Niveau initial", showarrow=False,
                     font=dict( family="Proxima Nova", size=12, color=black ),align="right",
                     )
@@ -308,8 +311,10 @@ def bloc2(Class, name, whitestrap=False):
     )                        
 
 
+    cpn = Class.CPN.replace(".", ",")
 
-    mystring = "<b>Remboursement anticipé automatique: </b><br>+<br>Un gain de " + Class.CPN + "% par " + Class.F0 + " écoulé <br> depuis la date de constatation initiale <br> (soit un gain de "+ str(gca) + "%  par année écoulée)"
+
+    mystring = "<b>Remboursement anticipé automatique: </b><br>+<br>Un gain de " + cpn + "% par " + Class.F0 + " écoulé <br> depuis la date de constatation initiale <br> (soit un gain de "+ str(gca) + "%  par année écoulée)"
     fig.add_annotation(
         x=(15),
         y=(niveau_coupon[0] + (130-niveau_coupon[0]) /2 +5),
@@ -319,7 +324,7 @@ def bloc2(Class, name, whitestrap=False):
     )      
 
 
-    mystring = "<b>Remboursement à l'échéance: </b><br><br>L'intégralité du capital initial<br>+<br>Un gain de " + Class.CPN + "% par " + Class.F0 + " écoulé <br> depuis la date de constatation initiale <br> (soit un gain de "+ str(gce) + "%  par année écoulée)"
+    mystring = "<b>Remboursement à l'échéance: </b><br><br>L'intégralité du capital initial<br>+<br>Un gain de " + str(cpn) + "% par " + Class.F0 + " écoulé <br> depuis la date de constatation initiale <br> (soit un gain de "+ str(gce) + "%  par année écoulée)"
     fig.add_annotation(
         x=(32),
         y=(float(Class.DBAC) + (130- float(Class.DBAC)) /2 +5),
@@ -384,8 +389,7 @@ def bloc2(Class, name, whitestrap=False):
                             pad=0),
                         paper_bgcolor='white')
 
-    fig.write_image(name, format="png", scale=4, engine='kaleido')
+    fig.write_image(name, format="png", scale=2, engine='kaleido')
     #fig.show()
     return(fig)
 
-    #REGARDER SI POSSIBLE DE FAIRE  ALIGNER DISTRIBUER VERTICALEMENT

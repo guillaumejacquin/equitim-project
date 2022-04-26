@@ -3,3 +3,4 @@
 def F0du(Class):
     if (Class.F0 == "année"):
         Class.DU = "de l'"
+        Class.DU1 = "De l'"

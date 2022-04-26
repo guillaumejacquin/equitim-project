@@ -24,6 +24,8 @@ def elementsToReplaceRemplacement(Class, shapes):
     #mise en avant car transforme en bac
 
     replace_text({'<NDRTES>': Class.desonndr}, shapes)
+    replace_text({'<DESONNDR>': Class.desonndr}, shapes)
+
     replace_text({'<longuephrase>': Class.longuephrase}, shapes)
     replace_text({'<SDBAC>': Class.SDBAC}, shapes)
     replace_text({'<PDINSM>': Class.PDINSM}, shapes)
@@ -43,6 +45,7 @@ def elementsToReplaceRemplacement(Class, shapes):
     replace_text({'<F0>':  Class.F0}, shapes)
     replace_text({'<DDCI>':  Class.DDCI_affichage}, shapes)
     replace_text({'<TSJ1>':  Class.TSJ[0]}, shapes)
+
     # replace_text({'<TSJ2>':  Class.TSJ2}, shapes)
     # replace_text({'<TSJ3>':  Class.TSJ3}, shapes)
     # replace_text({'<TSJ4>':  Class.TSJ4}, shapes)
@@ -52,7 +55,8 @@ def elementsToReplaceRemplacement(Class, shapes):
     # replace_text({'<PCS3>':  Class.PCS3}, shapes)
     # replace_text({'<PCS4>':  Class.PCS4}, shapes)
     # replace_text({'<PCS5>':  Class.PCS5}, shapes)
-    cpn = Class.CPN + "%"
+    cpn = (f'{float(Class.CPN):.2f}')
+    cpn = str(cpn) + "%"
     cpn = cpn.replace(".", ",")
     replace_text({'<CPN>':  cpn}, shapes)
     pdi = Class.PDI + "%"
@@ -65,6 +69,7 @@ def elementsToReplaceRemplacement(Class, shapes):
     bac = bac.replace(".", ",")
 
     replace_text({'<BAC>':  bac}, shapes)
+    
     replace_text({'<BCPN>':  Class.BCPN}, shapes)
 
     com = str(Class.COM) + "%"
@@ -92,13 +97,18 @@ def elementsToReplaceRemplacement(Class, shapes):
 def elementsToReplaceCalcul(Class, shapes):
     replace_text({'<balisedeg1>': Class.balisedeg}, shapes) 
     replace_text({'<balisedeg2>': Class.balisedeg2}, shapes)     
-    replace_text({'<balisedeg3>': Class.balisedeg3}, shapes) 
+    replace_text({'<balisedeg3>': Class.balisedeg3}, shapes)
+    replace_text({'<balisedeg4>': Class.balisedeg4}, shapes) 
+
     replace_text({'<baliseCM>': Class.baliseCM}, shapes) 
     replace_text({'<baliseCM2>': Class.baliseCM2}, shapes)
     replace_text({'<baliseCM22>': Class.baliseCM22}, shapes) 
 
     replace_text({'<baliseCM3>': Class.baliseCM3}, shapes) 
     replace_text({'<baliseCM4>': Class.baliseCM4}, shapes)
+    replace_text({'<baliseCM5>': Class.baliseCM5}, shapes)
+    replace_text({'<baliseCM6>': Class.baliseCM6}, shapes)
+
     replace_text({'<SV>': Class.SV}, shapes) 
 
     replace_text({'<DDCI>': Class.DDCI}, shapes) 
@@ -125,7 +135,8 @@ def elementsToReplaceCalcul(Class, shapes):
     gca = gca.replace(".", ",")
 
     replace_text({'<GCA>': gca}, shapes)
-    gce = str(Class.GCE) + "%"
+    gce = ("{:.2f}".format(Class.GCE))
+    gce = str(gce) + "%"
     gce = gce.replace(".", ",")
 
     replace_text({'<GCE>': gce}, shapes)
@@ -145,6 +156,7 @@ def elementsToReplaceCalcul(Class, shapes):
 
     replace_text({'<TDS>': Class.TDS}, shapes)
     replace_text({'<DU>': Class.DU}, shapes)
+    replace_text({'<DU1>':  Class.DU1}, shapes)
 
     replace_text({'<sponsor>': Class.sponsor}, shapes)
     replace_text({'<SPONSOR>': Class.SPONSOR}, shapes)
@@ -157,6 +169,21 @@ def elementsToReplaceCalcul(Class, shapes):
     replace_text({'<NOMP1>': Class.NOMP1}, shapes) 
     replace_text({'<NOMSOUSJACENTP1>': Class.NOMSOUSJACENTP1}, shapes) 
     replace_text({'<SJR6P1>': Class.SJR6P1}, shapes) 
+    replace_text({'<type_bar2>': Class.type_bar2}, shapes) 
+    replace_text({'<1PR-1>': Class.PR1_1}, shapes) 
+    replace_text({'<ABAC2>': Class.ABAC2}, shapes) 
+    replace_text({'<DDP>': Class.DDP}, shapes) 
+    replace_text({'<Mémoire>': Class.Memoire}, shapes) 
+    replace_text({'<Mémoire2>': Class.Memoire2}, shapes) 
+    replace_text({'<Mémoire3>': Class.Memoire3}, shapes) 
+    replace_text({'<Mémoire4>': Class.Memoire4}, shapes)
+    replace_text({'<Mémoire5>': Class.Memoire5}, shapes) 
+    replace_text({'<Mémoire6>': Class.Memoire6}, shapes) 
+    bfp = str(Class.BFP) + "%"
+    replace_text({'<BFP>': bfp}, shapes) 
+    replace_text({'<PAGE>': Class.PAGE}, shapes) 
+
+    replace_text({'<DDPP>': Class.DDPP}, shapes) 
 
 
 
@@ -287,3 +314,4 @@ def ChangeTextOnPpt(Class):
     except Exception:
         print("OH NONNNN")
     prs.save(NAME)
+
