@@ -7,8 +7,6 @@ def DDPP(Class):
         Class.DDPP = ""
         return()
 
-    print(Class.DDP)
-    print(Class.DDCI)
     date_time_obj = datetime.strptime(Class.DDP, '%Y-%m-%d')
     date_time_obj2 = datetime.strptime(Class.DDCI, '%Y-%m-%d')
     diff = date_time_obj2 - date_time_obj

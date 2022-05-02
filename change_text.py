@@ -185,7 +185,7 @@ def elementsToReplaceCalcul(Class, shapes):
 
     replace_text({'<DDPP>': Class.DDPP}, shapes) 
 
-
+    TRA_replace(Class, shapes)
 
     #CHANGER LE NOM DE LA BALISE ET DE LA CLASS dans myclass.py
     replace_text({'<balise>': Class.balise}, shapes)
@@ -198,6 +198,42 @@ def hardcode_replace(Class, shapes):
     replace_text({"(1)": "⁽¹⁾"}, shapes)
     replace_text({"(2)": "⁽²⁾"}, shapes)
 
+def TRA_replace(Class, shapes):
+    replace_text({'<TRA.D.A>': Class.TRA_A_S1}, shapes)
+    replace_text({'<TRA.M.A>': Class.TRA_A_S2_100}, shapes)
+    replace_text({'<TRA.MG.A>': Class.TRA_A_S2_GAIN}, shapes)
+    replace_text({'<TRA.M.SJ>': Class.TRA_M_SJ}, shapes)
+    replace_text({'<TRA.F.A>': Class.TRA_F_A}, shapes)
+    replace_text({'<TRA.F.SJ>': Class.TRA_F_SJ}, shapes)
+    replace_text({'<TRA.MRA.MIN.A>': Class.TRA_MIN_A}, shapes)
+    replace_text({'<TRA.ECHEANCE.PERTE.A>': Class.TRA_echeance_perte_A}, shapes)
+    replace_text({'<BALISECMTRA>': Class.TRA_A_S2_100}, shapes)
+
+    replace_text({'<TRA_D_P>': Class.TRA_D_P}, shapes)
+    replace_text({'<TRA_M_P>': Class.TRA_M_P}, shapes)
+    replace_text({'<TRA_M_PM>': Class.TRA_M_PM}, shapes)
+    replace_text({'<TRA_GM_P>': Class.TRA_GM_P}, shapes)
+    replace_text({'<TRA_GM_PM>': Class.TRA_GM_PM}, shapes)
+    replace_text({'<TRA_GM_PM>': Class.TRA_F_P}, shapes)
+
+    replace_text({'<TRA_MRA_MIN_P>': Class.TRA_MRA_MIN_P}, shapes)
+    replace_text({'<TRA_MRA_MIN_PM>': Class.TRA_MRA_MIN_PM}, shapes)
+    replace_text({'<TRA_TOUT-1_P>': Class.TRA_TOUT_1_P}, shapes)
+    replace_text({'<TRA_MRA_MAX_P>': Class.TRA_MRA_P}, shapes)
+    replace_text({'<TRA_MRD_P>': Class.TRA_MRD_P}, shapes)
+    replace_text({'<TRA_TOUT_SAUF_P>': Class.TRA_TOUT_SAUF_P}, shapes)
+    replace_text({'<TRA_TOUT_P>': Class.TRA_TOUT_P}, shapes)
+    replace_text({'<TRA_MRE_MIN_P>': Class.MRE_MIN_P}, shapes)
+
+
+
+    Dates_maj(Class, shapes)
+
+def Dates_maj(Class, shapes):
+    replace_text({'<1PDC_MAJ>': Class.PDC1_MAJ}, shapes)
+    replace_text({'<2PDC_MAJ>': Class.PDC2_MAJ}, shapes)
+    replace_text({'<DDR_MAJ>': Class.DDR_MAJ}, shapes)
+    replace_text({'<DEC_MAJ>': Class.DEC_MAJ}, shapes)
 
 #PREMIER RAPPEL A DATE DERNIER RAPPEL
 

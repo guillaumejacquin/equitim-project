@@ -82,8 +82,10 @@ def add_articles():
     else: 
         Myclass.DDP = ddp[0:10]
     Myclass.type_bar2 = data["type_bar2"]
-    main(Myclass)  
-    return jsonify("AHHHHH")
-
+    resultmain = main(Myclass)  
+    if resultmain == 0:
+        return jsonify("True")
+    else:
+        return jsonify("False")
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='5000', debug=True)
