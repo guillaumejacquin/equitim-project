@@ -330,9 +330,9 @@ def ChangeTextOnPpt(Class):
                         cur_text = shape.text
                         new_text = cur_text.replace(str("<graph5>"), str(""))
                         shape.text = new_text
-                        pic = slide.shapes.add_picture("graph2.png", Inches(0), Inches(5.25), Inches(7))
+                        pic = slide.shapes.add_picture("graph5.png", Inches(0), Inches(5.25), Inches(7.25))
 
-    
+
 
     try:
         print("Nettoyage du projet, supression des documents inutiles")

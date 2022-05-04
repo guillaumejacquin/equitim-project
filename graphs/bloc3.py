@@ -25,9 +25,6 @@ def bloc3(Class, name, whitestrap=False):
 
     fig = go.Figure()
     
-    print("-------------------")
-    print(niveau_coupon[0],niveau_coupon[0],niveau_capital)
-    print("-------------------")
     x2=  130 - niveau_coupon[0]
     secondblock = float(Class.DBAC) - niveau_capital
     x3_3 = 130 - (niveau_capital + secondblock)
@@ -90,22 +87,18 @@ def bloc3(Class, name, whitestrap=False):
                     tickvals = [0],
                     ticktext= ["","", "", ""],
                     ),
-
-
     #LIGNE NOIRE
-
     fig.add_shape( # add a lignes premier block line
         type="line", line_color=blue, line_width=3, opacity=1, line_dash="dot",
         x0=5, x1=15, y0=niveau_coupon[0], y1=niveau_coupon[1]
     )
-
 
     fig.add_shape( # add la ligne horizontale deuxieme block line
         type="line", line_color=blue, line_width=3, opacity=1, line_dash="dot",
         x0=17, x1=37, y0=niveau_coupon[2], y1=niveau_coupon[3]
     )
 
-    fig.add_shape( # add la ligne horizontale troisieme block line
+    fig.add_shape(# add la ligne horizontale troisieme block line
         type="line", line_color=green, line_width=3, opacity=1, line_dash="dot",
         x0=39, x1=49, y0=niveau_coupon[4], y1=niveau_coupon[4]
     )
@@ -149,7 +142,7 @@ def bloc3(Class, name, whitestrap=False):
 ))
 
     #ici on remplace les valeurs x (ecrites abcisses(ne plus avoir 10 20 30 40 mais trimestre1 etc))
-        # ajout des petites lignes nulles #LES TICK SES FDP
+    #ajout des petites lignes nulles #LES TICK SES FDP
     x0 = 4
     x1 = x0+0.5
     fig.add_shape(type="line",
@@ -333,7 +326,7 @@ def bloc3(Class, name, whitestrap=False):
     if (niveau_capital <= 0):
         mystring= " "
     else:
-        mystring = "<b>Remboursement à l'échéance(1)</b> :<br><br>L'intégralité du capital initial "
+        mystring = "<b>Remboursement à l'échéance:(1)</b> :<br><br>L'intégralité du capital initial "
         mystring = mystring.replace("(1)", "⁽¹⁾")
 
     if (float(Class.DBAC) - niveau_capital < 10 or  niveau_capital < 0):
@@ -346,7 +339,7 @@ def bloc3(Class, name, whitestrap=False):
         text=mystring,
         showarrow=False,
         font=dict(color=black, size=10)
-    )       
+    )
         y_arrow =abs(float(myvar - (myvar  - float(Class.DBAC))))
         fig.add_annotation(
             x=44,  # arrows' head
@@ -431,7 +424,6 @@ def bloc3(Class, name, whitestrap=False):
     x0=51, y0=50, x1=60, y1=50,
     line=dict(color=red,width=3), line_dash="dash")
     
-    print(niveau_capital)
     if ((niveau_capital) <= -2):
         fig.add_shape( # add la ligne horizontale deuxieme block line degressive
         type="line", line_color=red, line_width=2, opacity=1, line_dash="dash",

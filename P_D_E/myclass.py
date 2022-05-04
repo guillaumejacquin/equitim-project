@@ -1,3 +1,6 @@
+from re import S
+
+
 class InformationsForm():
     def __init__(self):
         #LES VARIABLES QU ON VA REMPLIR INITIEES VIA LE FORMULAIRE
@@ -128,6 +131,7 @@ class InformationsForm():
         self.shapes = []
         self.deleteblocs = []
         self.BLOCDIVIDENDE = ""
+        self.Yahoo = []
         self.PR1_1 = ""
 
         self.ABAC2 = ""
@@ -158,18 +162,50 @@ class InformationsForm():
         self.TRA_graphs()
 
     def TRA_graphs(self):
-        self.TRA_A_S1 = ""
-        self.TRA_A_S2_100 = ""
-        self.TRA_A_S2_gain = ""
-        self.TRA_A_S3 = ""
-        self.TRA_PDI = ""
-        self.TRA_A_E_1 = ""
+        #ATHENA
+        self.TRA_A_S1 = "" #oui
+        self.TRA_A_S2_100 = "" #oui
+        self.TRA_A_S2_GAIN = "" #oui
+        self.TRA_M_SJ = "" #oui
+        self.TRA_F_A = "" #oui
+        self.TRA_F_SJ = "" #oui
+        self.TRA_MRA_Min_A = "" #oui
+        self.TRA_echeance_perte_A = "" #oui
+        self.BaliseCMTRA = "" #oui
+        #PHOENIX
+        self.TRA_D_P = "" #oui
+        self.TRA_M_P = "" #oui
+        self.TRA_M_PM = "" #oui
+        self.TRA_GM_P = "" #oui
+        self.TRA_GM_PM = "" #oui
+        self.TRA_F_P = ""
+        self.TRA_MRA_Min_P = "" #oui
+        self.TRA_MRA_Min_PM = "" #oui
+        self.TRA_TOUT_1_P = ""
+        self.TRA_MRA_P = ""
+        self.TRA_MRD_P = ""
+        self.TRA_TOUT_SAUF_P = ""
+        self.TRA_TOUT_P = ""
+        self. MRE_MIN_P = ""
+        self.TRA_MRA_Max_P = ""
+
+
+        self.TRA_MIN_P = ""
+        self.TRA_MRA_MIN_P = ""
+        self.TRA_MRA_MIN_PM = ""
         self.var_style()
 
     def var_style(self):
         self.NOMP1 = ""
         self.NOMSOUSJACENTP1 = ""
         self.SJR6P1 = ""
+        self.dates_style()
+
+    def dates_style(self):
+        self.PDC1_MAJ = ""
+        self.PDC2_MAJ = ""
+        self.DDR_MAJ = ""
+        self.DEC_MAJ = ""
 
 #Graph 2 blocs, si strike moyen ou best strike, afficher dans les blocs en haut la date max des constatations initiales
 #niveau de référence cours de référence bloc 2

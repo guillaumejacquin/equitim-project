@@ -2,16 +2,16 @@ import site
 import pymongo
 from pymongo import MongoClient
 
-from calculs.sponsor import sponsor
+# from calculs.sponsor import sponsor
 
 #ajoute une valeud dans la collection clients qui se trouve dans la base de donnees templates
-def add_value_data_base(ticker, equity, dividende="", sponsor="", siteweb="", inconvénient=""):
+def add_value_data_base(ticker, equity, inconvénient, dividende="", siteweb="", sponsor="", yahoo=""): 
     cluster = MongoClient("mongodb+srv://guillaume:guigui@cluster0.eczef.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-
+    
     db = cluster["templates"]
     collection = db["clients"]
 
-    post1 = {"Ticker": ticker, "Equity" : equity, "Dividende": dividende, "Sponsor": sponsor, "SiteWeb": siteweb, "Inconvénient": inconvénient}
+    post1 = {"Ticker": ticker, "Equity" : equity, "Inconvénient": inconvénient, "Dividende": dividende, "SiteWeb": siteweb, "Sponsor": sponsor, "Yahoo": yahoo}
 
     collection.insert_one(post1)
 
@@ -36,22 +36,29 @@ def show_database():
 from openpyxl import load_workbook
 
 def add_value():
-    file_path = 'Classeur1.xlsx'
+    file_path = 'BDD_MongoDB_Projet_Brochure.xlsm'
     wb = load_workbook(file_path)
     ws = wb['Feuil1']  # or wb.active
     
     i = 2
     while True:
-        mystring = "A" + str(i)
-        secondstring = "B" + str(i)
+        ticker = "A" + str(i)
+        Equity = "B" + str(i)
+        inconvénient = "C" + str(i)
+        dividende = "D" + str(i)
+        siteweb = "E" + str(i)
+        sponsor = "F" + str(i)
+        yahoo = "G" + str(i)
 
-        if (ws[mystring].value is None):
+        if (ws[ticker].value is None):
             exit (2)
 
-        if (ws[mystring].value is None):   
-            ws[mystring].value = " "
-        add_value_data_base(ws[mystring].value, ws[secondstring].value)
+        if (ws[ticker].value is None):   
+            ws[ticker].value = " "
+        
+        add_value_data_base(ws[ticker].value, ws[Equity].value, ws[inconvénient].value, ws[dividende].value, ws[siteweb].value, ws[sponsor].value, ws[yahoo].value )
         i+=1
+        
     wb.save(file_path)
 # add_value()
 
@@ -85,15 +92,16 @@ def takeinformations(Class):
                 Class.Site = Class.Site + mot + test["SiteWeb"]
                 Class.TICKER = Class.TICKER + mot + test["Ticker"]
                 Class.BLOCDIVIDENDE = Class.BLOCDIVIDENDE + mot + test["Equity"] + " (" + test["Dividende"] + "; code Bloomberg : " + test["Ticker"] +  ";  <sponsor> : "+ test["Sponsor"] +  "; " + test["SiteWeb"] + ")" 
-
+                Class.Yahoo.append(test["Yahoo"])
             except Exception:
                 Class.NOMSOUSJACENT + mot + ("ERREUR LES POTES")
                 Class.DIVIDENDE = Class.DIVIDENDE + mot + "ERREUR"
                 Class.SPONSOR = Class.SPONSOR + mot + "ERREUR"
                 Class.Site = Class.Site + mot + "ERREUR"
                 Class.TICKER = Class.TICKER + mot + "ERREUR"
-            
-            Class.BLOCDIVIDENDE = "ERRORRRRRRRRRR ERRORRRRRRRRRRRRRR ERRORRRRRR"
+                Class.Yahoo.append(test["Yahoo"])
+                Class.BLOCDIVIDENDE = "ERRORRRRRRRRRR ERRORRRRRRRRRRRRRR ERRORRRRRR"
 
             compteur+=1
 
+# add_value()

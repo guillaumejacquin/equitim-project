@@ -11,23 +11,20 @@ import { FaJs } from 'react-icons/fa';
 import { GiNotebook } from "react-icons/gi";
 import { VscGraphLine } from "react-icons/vsc";
 import { GiSpiralLollipop } from "react-icons/gi";
-import { usePromiseTracker } from "react-promise-tracker";
 import { useModal } from 'react-hooks-use-modal';
+import PreLoader2 from "../components/PreLoader2";
+import PreLoader1 from "../components/preloader";
 
 
-import Page2 from "./page2";
 import DatePicker from '@mui/lab/DatePicker';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import { trackPromise } from 'react-promise-tracker';
+import Lottie from "react-lottie";
 
+import * as success from "../components/1127-success.json";
 
 const Page_beta = ({ formData, setForm, navigation }) => { 
-  const { go } = navigation;
-
-  const { firstName, lastName, nickName } = formData;
-
   const premiertab = () => {
     return(
       <div style={{width: "20%", border: '1px solid grey', borderRadius:"4%", height:"5%", marginLeft:"10%"}}>
@@ -41,7 +38,6 @@ const Page_beta = ({ formData, setForm, navigation }) => {
             autoComplete="on"
             fullWidth/>
 
-       
         <InputLabel style={{marginTop:"5%" }}id="F0">Droit applicable</InputLabel>
         <Select
           labelId="Droit"
@@ -53,10 +49,7 @@ const Page_beta = ({ formData, setForm, navigation }) => {
           <MenuItem value={"français"}>Français</MenuItem>
           <MenuItem value={"anglais"}>Anglais</MenuItem>
           <MenuItem value={"suisse"}>Suisse</MenuItem>
-
-
         </Select> 
-
             <TextField
             label="ISIN"
             name="Isin"
@@ -77,8 +70,6 @@ const Page_beta = ({ formData, setForm, navigation }) => {
                 }}
                 renderInput={(params) => <TextField {...params} />}
               />
-
-
               </LocalizationProvider>
               <div style={{marginTop:"8%"}}></div>
               <TextField
@@ -89,7 +80,6 @@ const Page_beta = ({ formData, setForm, navigation }) => {
             variant="outlined"
             autoComplete="on"
             fullWidth/>
-
 
               <div style={{marginTop:"8%"}}></div>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -102,9 +92,7 @@ const Page_beta = ({ formData, setForm, navigation }) => {
                 renderInput={(params) => <TextField {...params} />}
               />
             </LocalizationProvider>
-
-
-            
+         
             <div style={{marginTop:"8%"}}></div>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
@@ -332,6 +320,22 @@ const Page_beta = ({ formData, setForm, navigation }) => {
             autoComplete="on"
             fullWidth/>
 
+        <InputLabel style={{marginTop:"5%" }}id="F0">type_bar2</InputLabel>
+        <Select
+          labelId="type_bar2"
+          id="type_bar2"
+          value={type_bar2}
+          label="type_bar2"
+          onChange={(e)=>settype_bar2(e.target.value)}
+          >
+          <MenuItem value={" "}>Aucune</MenuItem>
+          <MenuItem value={"continue"}>Continue</MenuItem>
+          <MenuItem value={"degressif"}>Dégressive</MenuItem>
+          <MenuItem value={"airbag"}>Airbag</MenuItem>
+        </Select>
+
+        <div style={{marginTop:"8%"}}></div>
+
         <InputLabel style={{marginTop:"5%" }}id="F0">Barrière de coupon dégressive</InputLabel>
         <Select
           labelId="BCPN_is_degressif"
@@ -343,8 +347,23 @@ const Page_beta = ({ formData, setForm, navigation }) => {
           <MenuItem value={"oui"}>oui</MenuItem>
           <MenuItem value={"non"}>non</MenuItem>
         </Select>
-        </Container>
+        <InputLabel style={{marginTop:"5%" }}id="F0">Début dégressivité Phoenix</InputLabel>
 
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <DatePicker
+        label="Début dégressivité Phoenix"
+        value={DDP}
+        onChange={(DDP) => {
+          setDDP(DDP);
+        }}
+        renderInput={(params) => <TextField {...params} />}
+      />
+
+
+      </LocalizationProvider>
+        </Container>
+        
+        
       </div>
       )}
 
@@ -449,29 +468,22 @@ const Page_beta = ({ formData, setForm, navigation }) => {
           BAC:BAC, BAC_is_degressif:BAC_is_degressif, BCPN:BCPN, BCPN_is_degressif:BCPN_is_degressif,
            COM:COM, NSD:NSD, NSM:NSM, NSF:NSF,
           ABDAC:ABDAC, DBAC:DBAC, DEG:DEG, type_strike:type_strike,
-          type_bar:type_bar, sous_jacent:sous_jacent, template:template
+          type_bar:type_bar, sous_jacent:sous_jacent, template:template, DDP:DDP, type_bar2:type_bar2
         })
     };
-    setLoading(true);
+    // setLoading(true);
     let test = ""
     fetch('http://localhost:5000/add', requestOptions)
         .then(response => response.json())
-        .then(response => console.log(response))
-        .then(response => setLoading(false))
+        .then(response => setResponse(response))
+        // .then(response => setLoading(false))
 
         .then(response => test = (response))
 
         .catch(error => console.log(error))
 
 
-
       }
-      const mytabs = () => {
-        premiertab()
-        second_tab()
-        troisiemetab()
-      }
-
 
 
   const [Nom, setNom] = useState('')
@@ -488,6 +500,7 @@ const Page_beta = ({ formData, setForm, navigation }) => {
   const [ADCF, setADCF] = useState('')
   const [F0, setF0] = useState('')
   const [TSJ, setTSJ] = useState('')
+  const [DDP, setDDP] = useState('')
 
   const [PCS1, setPCS1] = useState('')
   const [PCS2, setPCS2] = useState('')
@@ -515,15 +528,36 @@ const Page_beta = ({ formData, setForm, navigation }) => {
   const [type_bar, settype_bar] = useState('')
   const [sous_jacent, setsous_jacent] = useState('')
   const [template, settemplate] = useState('')
-
+  const [type_bar2, settype_bar2 ] = useState('')
   const [loading, setLoading] = useState(false)
+
+  const [response, setResponse] = useState("")
+
   const [Modal, open, close, isOpen] = useModal('root', {
     preventScroll: true,
     closeOnOverlayClick: false
   });
+      //{blabla()}
 
+  const blabla = () => {
+    // if (response == "True") {
+    //   return(
+    //     //<PreLoader1/>
+    //   )
+    // }
+    console.log("i")
+  }
   const props = { formData, navigation};
 
+
+  const defaultOptions2 = {
+    loop: true,
+    autoplay: true,
+    animationData: success.default,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
 
 return (
   <div style={{height: "100%"}}>
@@ -533,28 +567,22 @@ return (
     </div>
     <div style={{display: "flex", marginTop:"10%"}}>
       {(loading)
-          ?    <Modal>
-          <div>
-            <h1>Title</h1>
-            <p>This is a customizable modal.</p>
-            <button onClick={close}>CLOSE</button>
+          ? <div style={{backgroundColor:"red"}}> <PreLoader2 /> </div>
+          : <div style={{ textAlign:"center"}}>
           </div>
-        </Modal>
-          : <div style={{ textAlign:"center"}}> tout va bien </div> }
+        }
+      {blabla()}
 
       {premiertab()}
       {second_tab()}
       {troisiemetab()}
-
     </div>
           <Button
           variant="contained"
-            
             color="primary"
             size="large"
-            style={{ marginTop: "8%", left:"40%", width:"20%"}}
+            style={{ marginTop: "6%", left:"40%", width:"20%"}}
             onClick={handleSubmit}
-
           >
             Next
           </Button>

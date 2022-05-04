@@ -4,11 +4,13 @@ import pandas as pd
 import plotly.express as px
 
 def bloc4(Class, Name):
-    tickers = ['AAPL']
+    tickers = ['ALO.PA'] #Exemple de test
     #recuper les tickers de la base de donnée
-    tickers = ['WFC', 'RNO.PA', '^GSPC']
+    tickers = ['WFC', 'RNO.PA', '^GSPC'] #exemple de test
     ###ici####
-    
+    tickers = Class.Yahoo #vraie
+    print("--------------")
+    print(tickers)
     if (len(tickers) == 1):
         bloc4_simple_tickers(tickers, Class, Name)
     
@@ -18,12 +20,34 @@ def bloc4(Class, Name):
     else: 
         print("error")
 
+from pandas.tseries.offsets import Day, BDay
+from datetime import date
+import datetime
+
 
 def bloc4_simple_tickers(tickers, Class, Name):
-    # We would like all available data from 01/01/2000 until 12/31/2016.
-    start_date = '2017-01-01'
-    end_date = "2022-01-01"
+    end_date = Class.DPCI
+    bdays=BDay()
+    start = Class.PDC1
+    end_date = Class.DPCI
 
+    start_date = datetime.datetime.strptime(start, '%Y-%m-%d')
+    is_business_day = bdays.is_on_offset(start_date)
+
+    while is_business_day != True:
+        start_date = start_date - datetime.timedelta(days=1)
+        print(start_date)
+        is_business_day = bdays.is_on_offset(start_date)
+    
+    end_date = datetime.datetime.strptime(end_date, '%Y-%m-%d')
+    is_business_day = bdays.is_on_offset(end_date)
+
+    while is_business_day != True:
+        end_date = end_date + datetime.timedelta(days=1)
+        print(end_date)
+        is_business_day = bdays.is_on_offset(end_date)
+        print("is_business", is_business_day)
+    
     # User pandas_reader.data.DataReader to load the desired data. As simple as that.
     panel_data = data.DataReader(tickers[0], 'yahoo', start_date, end_date)
     panel_data.head(9)
@@ -77,13 +101,33 @@ def bloc4_simple_tickers(tickers, Class, Name):
 
         plot_bgcolor='white'
     )
-    fig.show()
+    
+    #fig.show()
     fig.write_image(Name, format="png", scale=4, engine='kaleido')
 
 
 def bloc4_multiple_tickers(tickers, Class, Name):
-    start_date = '2017-01-01'
-    end_date = "2022-01-01"
+    end_date = Class.DPCI
+    bdays=BDay()
+    start = Class.PDC1
+    end_date = Class.DPCI
+
+    start_date = datetime.datetime.strptime(start, '%Y-%m-%d')
+    is_business_day = bdays.is_on_offset(start_date)
+
+    while is_business_day != True:
+        start_date = start_date - datetime.timedelta(days=1)
+        print(start_date)
+        is_business_day = bdays.is_on_offset(start_date)
+    
+    end_date = datetime.datetime.strptime(end_date, '%Y-%m-%d')
+    is_business_day = bdays.is_on_offset(end_date)
+
+    while is_business_day != True:
+        end_date = end_date + datetime.timedelta(days=1)
+        print(end_date)
+        is_business_day = bdays.is_on_offset(end_date)
+    
 
     result = pd.DataFrame()
     name = []
@@ -161,6 +205,6 @@ def bloc4_multiple_tickers(tickers, Class, Name):
         showlegend=False,
         plot_bgcolor='white'
     )
-    #fig.show()
+    # fig.show()
     fig.write_image(Name, format="png", scale=2, engine='kaleido')
 

@@ -33,11 +33,15 @@ from graphs.bloc2 import *
 from graphs.bloc4 import *
 from graphs.bloc6 import *
 
+from calculs.dates.dates_maj import *
+
 from calculs.Memoire.memoire import *
 from calculs.TRA.tra import *
+from calculs.TRA.CMTRA import *
 from calculs.style.NOMP1 import *
 from calculs.style.NOMSOUSJACENTP1 import *
 from calculs.dates.DDPP import *
+
 #traitement des données
 def start_processus_template(Class):
     PDC1(Class)
@@ -81,39 +85,38 @@ def start_processus_template(Class):
     BFP(Class)
     PAGE(Class)
     DDPP(Class)
-
-    Class.TRA_A_S1 = (xirr_test(Class, Class.PDC2, Class.DEC, Class.NSD))
-    Class.TRA_A_S2_100 = (xirr_test(Class, Class.PDC2, Class.DEC))
-    Class.TRA_A_S2_gain = (xirr_test(Class, Class.PDC2, Class.DEC, float(Class.GCE)+100))
-
-    tra_pdi_var = (float(Class.PR1) * float(Class.CPN)) + 100 
-    Class.TRA_PDI = (xirr_test(Class, Class.PDC2, Class.DEC, tra_pdi_var))
-
-    Class.TRA_A_E_1 = (xirr_test(Class, Class.PDC2, Class.DEC, Class.NSD))
+    PDC1_maj(Class)
+    PDC2_maj(Class)
+    DDR_maj(Class)
+    DEC_maj(Class)
+    ALL_TRA(Class)
+    
 
     #si coupon autocall
     if (Class.Typologie == "coupon autocall"):
         Class.graph1 = bloc2(Class, "graph1.png", whitestrap=False)
     if (Class.Typologie == "coupon phoenix"):
-        Class.graph1 = bloc3_4(Class, "graph1.png", whitestrap=False)
-
+        if (float(Class.ABDAC) <= float(Class.BCPN)):
+            Class.graph1 = bloc3_4(Class, "graph1.png", whitestrap=False)
+        else:
+            Class.graph1 = bloc3(Class, "graph1.png", whitestrap=False)
 
     # Class.graph1 = bloc2(Class, "graph1.png", whitestrap=False)
     Class.graph2 = bloc3(Class, "graph2.png", whitestrap=True)
-    Class.graph4 = bloc4(Class, "graph4.png")
-    
-    print("ABAC =", Class.ABAC)
-    print("EBAC = ",Class.EBAC)
-    print("bac", Class.BAC)
+    Class.graph5 = bloc4(Class, "graph5.png")
 
     SV(Class)
     balisedeg(Class)
+    BaliseCMTRA(Class)
 
     ChangeTextOnPpt(Class)
 
 def main(Class):
-    start = time.time()
-    start_processus_template(Class)
-    end = time.time()
-    elapsed = end - start
-    print("Votre pdf a été réalisé en", round(elapsed, 2), "secondes")
+        start = time.time()
+        start_processus_template(Class)
+        end = time.time()
+        elapsed = end - start
+        print("Votre pdf a été réalisé en", round(elapsed, 2), "secondes")
+        return(0)
+    # except Exception:
+    #     return(1)

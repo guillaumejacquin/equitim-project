@@ -1,4 +1,5 @@
 from datetime import date
+from operator import index
 from pandas import array
 from pyxirr import xirr
 from datetime import datetime, timedelta
@@ -7,31 +8,30 @@ import pandas as pd
 
 
 def tra_athena(Class):
-    Class.TRA_A_S1 = (xirr_test(Class, Class.PDC2, Class.DEC, Class.NSD))
-    Class.TRA_A_S2_100 = (xirr_test(Class, Class.PDC2, Class.DEC, 100))
-    Class.TRA_A_S2_GAIN = (xirr_test(Class, Class.PDC2, Class.DEC, float(Class.GCE)+100))
-    Class.TRA_M_SJ = (xirr_test(Class, Class.PDC2, Class.DEC, float(Class.NSM)))
-    tra_a = float(Class.CPN) * float(Class.PR1) + 100
-    Class.TRA_F_A = (xirr_test(Class, Class.PDC2, Class.DR1, tra_a))
-    Class.TRA_F_SJ = (xirr_test(Class, Class.PDC2, Class.DR1, Class.NSF))
-    tra_mra_min_a =  float(Class.CPN)*float(Class.ADPR)+100
+    Class.TRA_A_S1 = (xirr_test(Class, Class.PDC2, Class.DEC, Class.NSD)) #Scénario défavorable Athena (-100, NSD)
+    Class.TRA_A_S2_100 = (xirr_test(Class, Class.PDC2, Class.DEC, 100)) #Scénario médian Athena (-100, 100)
+    Class.TRA_A_S2_GAIN = (xirr_test(Class, Class.PDC2, Class.DEC, float(Class.GCE)+100)) #Scénario médian + gain Athena(-100, GCE+100)
+    Class.TRA_M_SJ = (xirr_test(Class, Class.PDC2, Class.DEC, float(Class.NSM))) #Scénario médian SJ( -100 , NSM)
+    tra_a = float(Class.CPN) * float(Class.PR1) + 100 #Scénario Favorable Athena( -100, CPN*1PR+100)
+    Class.TRA_F_A = (xirr_test(Class, Class.PDC2, Class.DR1, tra_a)) #Scénario Favorable Athena( -100, CPN*1PR+100)
+    Class.TRA_F_SJ = (xirr_test(Class, Class.PDC2, Class.DR1, Class.NSF)) #Scénario Favorable SJ( -100 , NSF)
+    tra_mra_min_a =  float(Class.CPN)*float(Class.ADPR)+100 #Mécanisme de remboursement échéance perte (-100, PDI)
     Class.ADCF = Class.ADCF[0:10]
-    Class.TRA_MIN_A = (xirr_test(Class, Class.PDC2, Class.DADR, tra_mra_min_a))
-    Class.TRA_echeance_perte_A = (xirr_test(Class, Class.PDC2, Class.DEC, Class.PDI))
+    Class.TRA_MIN_A = (xirr_test(Class, Class.PDC2, Class.DADR, tra_mra_min_a))#Mécanisme de remboursement anticipé MIN(-100, CPN*ADPR+100)
+    Class.TRA_echeance_perte_A = (xirr_test(Class, Class.PDC2, Class.DEC, Class.PDI))#Mécanisme de remboursement échéance perte(-100, PDI)
 
 def phoenix_3dates(Class, période1, période2):
-        Class.TRA_D_P = (xirr_3dates_phoenix(Class, Class.PDC2,str(période1), Class.DEC, Class.CPN, Class.NSD))
-        Class.TRA_M_P = (xirr_3dates_phoenix(Class, Class.PDC2,période2, Class.DEC, Class.CPN, 100))
-        Class.TRA_M_MP = (xirr_3dates_phoenix(Class, Class.PDC2,période2, Class.DEC, float(Class.CPN)*2, 100))
-        Class.TRA_GM_P = (xirr_3dates_phoenix(Class, Class.PDC2,période2, Class.DEC, Class.CPN,  float(Class.CPN) +100))
+        Class.TRA_D_P = (xirr_3dates_phoenix(Class, Class.PDC2,str(période1), Class.DEC, Class.CPN, Class.NSD)) #Scénario défavorable phoenix(-100,CPN, NSD)
+        Class.TRA_M_P = (xirr_3dates_phoenix(Class, Class.PDC2,période2, Class.DEC, Class.CPN, 100)) #Scénario médian phoenix(-100,CPN, 100)
+        Class.TRA_M_MP = (xirr_3dates_phoenix(Class, Class.PDC2,période2, Class.DEC, float(Class.CPN)*2, 100)) #Scénario médian phoenix mémoire(-100,CPN*2, 100)
+        Class.TRA_GM_P = (xirr_3dates_phoenix(Class, Class.PDC2,période2, Class.DEC, Class.CPN,  float(Class.CPN) +100)) #Scénario médian phoenix ( -100,CPN, CPN+100)
         
         tragmpm = float(Class.GCE) + 100 - 2 * float(Class.CPN)
-        Class.TRA_GM_PM = (xirr_3dates_phoenix(Class, Class.PDC2,période2, Class.DEC, float(Class.CPN) * 2, tragmpm))
+        Class.TRA_GM_PM = (xirr_3dates_phoenix(Class, Class.PDC2,période2, Class.DEC, float(Class.CPN) * 2, tragmpm)) #Scénario médian phoenix mémoire(-100,CPN*2, GCE+100-2*CPN)
 
-        Class.TRA_MIN_P = (xirr_test(Class, Class.PDC2, Class.ADCF, float(Class.CPN) + 100))
-
+        Class.TRA_MIN_P = (xirr_test(Class, Class.PDC2, Class.ADCF, float(Class.CPN) + 100)) #Mécanisme de remboursement anticipé MIN phoenix ( -100, CPN+100)
         tra_mra_min_pm = float(Class.CPN) * Class.ADPR  + 100
-        Class.TRA_MRA_MIN_PM = (xirr_test(Class, Class.PDC2, Class.ADCF, tra_mra_min_pm))
+        Class.TRA_MRA_MIN_PM = (xirr_test(Class, Class.PDC2, Class.ADCF, tra_mra_min_pm)) #Mécanisme de remboursement anticipé MIN phoenix mémoire (-100, CPN*ADPR+100)
 
 
 def xirr_test(Class, date1, date2, variable=100):
@@ -47,6 +47,7 @@ def xirr_test(Class, date1, date2, variable=100):
     soustract2dates = abs(first_date - second_date)
     soustract2dates = soustract2dates.days
     flux_varNet = float(flux_var)*0.99**(float(soustract2dates)/365)
+
     result = (xirr([first_date,second_date], [-100, float(flux_varNet)]))
 
     try:
@@ -63,8 +64,8 @@ def xirr_3dates_phoenix(Class, date1, date2, date3, variable, variable2):
     second_date = date2 #date_echeance
     third_date = date3
 
-    flux_var = variable #Scenario Defavorable = flux_var
-    flux_var2 = variable2
+    flux_var = float(variable) #Scenario Defavorable = flux_var
+    flux_var2 = float(variable2)
     # #variable formules
     first_date = datetime.strptime(first_date, '%Y-%m-%d')
     second_date = datetime.strptime(second_date, '%Y-%m-%d')
@@ -77,9 +78,11 @@ def xirr_3dates_phoenix(Class, date1, date2, date3, variable, variable2):
     soustracttheseconddates = abs(third_date - first_date)
     soustracttheseconddates = soustracttheseconddates.days
     flux_varNet2 = float(flux_var2)*0.99**(float(soustracttheseconddates)/365)
+
     result = (xirr([first_date,second_date, third_date], [-100, float(flux_varNet), float(flux_varNet2)]))
     
-    print("1: ", first_date, second_date, third_date, flux_varNet, flux_varNet2, variable2)
+    result = (xirr([first_date,second_date], [-100, float(flux_varNet)]))
+
     try:
         result = float(result) *100
         result = round(result, 2)
@@ -89,36 +92,33 @@ def xirr_3dates_phoenix(Class, date1, date2, date3, variable, variable2):
         pass
     return(result)
 
-def boucleTRA(Class, date1, date2, date3, variable, variable2):
-    first_date = date1 #max entre date émission et strike
-    second_date = date2 #date_echeance
-    third_date = date3
+def boucleTRA(Class, date1, df, variable, variable2):
+    first_date = datetime.strptime(date1, '%Y-%m-%d')
+ #premiere date
+    dates = df["dates"] #dataframe de dates
+    pd.options.mode.chained_assignment = None 
+    période1 = df["dates"][[1]].to_string(index = False) #premiere valeur
+    df["flux"] = float(variable)
+    df["flux"].loc[0] = -100
+    df["flux"].loc[-1] = float(variable2)
 
-    flux_var = variable
-    first_date = datetime.strptime(first_date, '%Y-%m-%d')
-    dates = [second_date, third_date]
-    fluxx = []
+    dates = df["dates"]
+    flux = df["flux"]
 
+    df["dates"] = pd.to_datetime(df['dates'], format='%Y-%m-%d')
+    df["soustract2dates"] = (df["dates"] - first_date).dt.days
+    df["flux_varNet"] = (df['flux'])*0.99**((df["soustract2dates"])/365)
+
+    df["flux_varNet"].iloc[0] = -100
+    
     def flux(second_date, flux_var):
             second_date = datetime.strptime(second_date, '%Y-%m-%d')
-            soustract2dates = abs(first_date - second_date)
-            
+            soustract2dates = abs(first_date - second_date)      
             soustract2dates = soustract2dates.days
 
             flux_varNet = float(flux_var)*0.99**(float(soustract2dates)/365)
-            return(flux_varNet)
 
-    #la ca doit boucler sa mere
-    for i in dates:
-        fluxx.append(flux(i, flux_var))
-        flux_var = float(flux_var) +1
-
-    print(fluxx)
-    print("2: ", first_date, second_date, third_date, fluxx[0], fluxx[1], variable2)
-
-    test = [ -100 , float(fluxx[0]), float(fluxx[1])] 
-    result = (xirr([first_date,second_date, third_date], [-100, float(fluxx[0]), float(fluxx[1])]))
-    print(result)
+    result = (xirr(df["dates"], df["flux_varNet"]))
 
     try:
         result = float(result) *100
@@ -127,10 +127,8 @@ def boucleTRA(Class, date1, date2, date3, variable, variable2):
 
     except Exception:
         pass
+
     return(result)
-
-
-
 
 def ALL_TRA(Class):
     #athéna
@@ -156,7 +154,7 @@ def ALL_TRA(Class):
     if (Class.F0 == "année"):
         compteur = relativedelta(years=+1)    
     
-    compteurvar = Class.DEC
+    compteurvar = Class.DADR
     date_time_obj = datetime.strptime(Class.PDC2, '%Y-%m-%d')
     compteurvar = datetime.strptime(compteurvar, '%Y-%m-%d')
     période = 0
@@ -173,20 +171,31 @@ def ALL_TRA(Class):
     try:
         période1 = df["dates"][[1]].to_string(index = False)
         période2 = df["dates"][[2]].to_string(index = False)
-        phoenix_3dates(Class)
+        phoenix_3dates(Class, période1, période2)
 
     except Exception:
         print("rip")
-    Class.TRA_D_P = (xirr_3dates_phoenix(Class, Class.PDC2,str(période1), Class.DEC, Class.CPN, Class.NSD))
 
-    print("Result1", Class.TRA_D_P )
+    Class.TRA_FP = (boucleTRA(Class, Class.PDC2, df, Class.CPN, float(Class.CPN)+100)) #Scénario favorable phoenix
+    df.drop(df.tail(1).index,inplace=True)
 
-    test2 = (boucleTRA(Class, Class.PDC2,str(période1), Class.DEC, Class.CPN, Class.NSD))
-    print("---------------")
-    print(Class.PDC2)
-    print(période1)
-    print(Class.DEC)
-    print(Class.CPN)
-    print(Class.NSD)
-    print("Result2", test2)
-    print("---------------")
+    Class.TRA_FP = (boucleTRA(Class, Class.PDC2, df, Class.CPN, float(Class.CPN)+100)) #Scénario favorable phoenix
+
+    #2 eme dataframe pour aller jusqu a l echance et plus jusque a 1dr
+    compteurvar = Class.DEC
+
+    array_dates = []
+    date_time_obj = datetime.strptime(Class.PDC2, '%Y-%m-%d')
+    compteurvar = datetime.strptime(compteurvar, '%Y-%m-%d')
+
+    while (date_time_obj < compteurvar ):
+        array_dates.append(date_time_obj)
+        date_time_obj += compteur
+        période += 1
+
+    df2 = pd.DataFrame()
+    df2["dates"] = array_dates
+   
+    Class.MDR_P = (boucleTRA(Class, Class.PDC2, df2, Class.CPN, Class.PDI)) #Scénario favorable phoenix( -100,CPN,…,PDI)
+    Class.MDR_TRA_TOUT_SAUF_P = (boucleTRA(Class, Class.PDC2, df2, Class.CPN, 100)) #TRA remboursement échéance médian max( -100,CPN,…,100)
+    Class.TOUT_P = (boucleTRA(Class, Class.PDC2, df2, Class.CPN, Class.PDI)) #Scénario favorable phoenix( -100,CPN,…,PDI)
