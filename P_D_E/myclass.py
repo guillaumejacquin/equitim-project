@@ -147,7 +147,7 @@ class InformationsForm():
 
     def var_degressivite(self):
         self.desonndr = "de son <NDR>"
-        self.longuephrase = "Sinon, si le mécanisme de remboursement anticipé automatique n’a pas été activé au préalable et si, à la date de constatation finale(1), <SJR1> clôture à un <SJR3> strictement inférieur à <DBAC> mais supérieur ou égal à <PDI> de son <NDR>, l’investisseur récupère l’intégralité de son capital initialement investi. "
+        self.longuephrase = "Sinon, si le mécanisme de remboursement anticipé automatique n’a pas été activé au préalable et si, à la date de constatation finale(1), <SJR1> clôture à un <SJR3> strictement inférieur à <DBAC> mais supérieur ou égal à <PDI> de son <NDR>, l’investisseur récupère l’intégralité de son capital initialement investi."
         self.SDBAC = "strictement inférieur à <DBAC> mais "
         self.PDINSM = "mais supérieur à <PDI> de ce dernier (<NSM> dans cet exemple)"
         self.ETPDI = "et <PDI> "

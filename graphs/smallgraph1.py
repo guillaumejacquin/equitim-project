@@ -1,5 +1,6 @@
 
 import plotly.express as px
+import kaleido
 
 
 def params(fig):
@@ -75,24 +76,24 @@ def traces(fig):
     line=dict(color="green", width=3),  line_dash="dash")
 
 
-    fig.add_annotation(x=x_vertical_line +1.75, y=niveau_de_référence  +0.5,text= (str(niveau_de_référence) + "%" ), showarrow=False,
+    fig.add_annotation(x=x_vertical_line +2.75, y=niveau_de_référence,text= (str(niveau_de_référence) + "%" ), showarrow=False,
                     font=dict(family="Proxima Nova", size=15, color="black" ), align="left")
     
-    fig.add_annotation(x=x_vertical_line +1.75, y=derniere_observation + 0.5,text= (str(derniere_observation) + "%" ), showarrow=False,
+    fig.add_annotation(x=x_vertical_line +2.75, y=derniere_observation,text= (str(derniere_observation) + "%" ), showarrow=False,
                     font=dict(family="Proxima Nova", size=15, color="green" ), align="left")
     
     fig.add_shape(type="line",
     x0=x_vertical_line, y0=derniere_observation, x1= x_vertical_line - 4, y1=derniere_observation,
     line=dict(color="green", width=6),  line_dash="dash")
 
-    fig.add_annotation(x=x_vertical_line +1.75, y=perte_capital + 0.5,text= (str(perte_capital) + "%" ), showarrow=False,
+    fig.add_annotation(x=x_vertical_line +2.75, y=perte_capital,text= (str(perte_capital) + "%" ), showarrow=False,
                     font=dict(family="Proxima Nova", size=15, color="red" ), align="left")
 
     fig.add_shape(type="line",
     x0=x_vertical_line, y0=perte_capital, x1= x_vertical_line - 3.3, y1=perte_capital,
     line=dict(color="red", width=6))
    
-    fig.add_annotation(x=x_vertical_line +1.75, y=niveau_de_scénario_déf + 0.5,text= (str(niveau_de_scénario_déf) + "%" ), showarrow=False,
+    fig.add_annotation(x=x_vertical_line +2.75, y=niveau_de_scénario_déf,text= (str(niveau_de_scénario_déf) + "%" ), showarrow=False,
                     font=dict(family="Proxima Nova", size=15, color="blue" ), align="left")
 
     # fig.add_shape(type="line",
@@ -115,8 +116,8 @@ def texte(fig):
     date1 = date1.replace("-", "/")
     date2 = date2.replace("-", "/")
 
-    fig.add_annotation(x=39, y=140 ,text= ("<b>Evolution de l'indice " + indice  + "</b>" ), showarrow=False,
-                        font=dict(family="Proxima Nova", size=26, color="black" ), align="left")
+    fig.add_annotation(x=39, y=145 ,text= ("<b>Evolution de l'indice " + indice  + "</b>" ), showarrow=False,
+                        font=dict(family="Proxima Nova", size=20, color="black" ), align="left")
 
     return(fig)
 
@@ -196,7 +197,7 @@ def is_athena_or_phoenix_annotations(fig):
     if typologie == "coupon phoenix":
         phoenix_annotations(fig)
 
-def graph():
+def smallgraph1(Class, name):
     fig = px.line()
     params(fig)
     axes_ordonees(fig)
@@ -204,6 +205,7 @@ def graph():
     texte(fig)
 
     is_athena_or_phoenix_annotations(fig)
-    fig.show()
+    #fig.show()
+    fig.write_image(name, format="png", scale=2, engine='kaleido')
 
-graph()
+

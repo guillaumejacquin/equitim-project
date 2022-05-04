@@ -1,3 +1,4 @@
+from cgitb import small
 from P_D_E.myclass import *
 from calculs.dates.DR1 import DR1
 from calculs.style.SJR6P1 import SJR6P1
@@ -32,6 +33,9 @@ from graphs.bloc3 import *
 from graphs.bloc2 import *
 from graphs.bloc4 import *
 from graphs.bloc6 import *
+from graphs.smallgraph1 import *
+from graphs.smallgraph2 import *
+from graphs.smallgraph3 import *
 
 from calculs.dates.dates_maj import *
 
@@ -41,6 +45,7 @@ from calculs.TRA.CMTRA import *
 from calculs.style.NOMP1 import *
 from calculs.style.NOMSOUSJACENTP1 import *
 from calculs.dates.DDPP import *
+
 
 #traitement des données
 def start_processus_template(Class):
@@ -104,6 +109,9 @@ def start_processus_template(Class):
     # Class.graph1 = bloc2(Class, "graph1.png", whitestrap=False)
     Class.graph2 = bloc3(Class, "graph2.png", whitestrap=True)
     Class.graph5 = bloc4(Class, "graph5.png")
+    Class.smallgraph1 = smallgraph1(Class, "smallgraph1.png")
+    Class.smallgraph2 = smallgraph1(Class, "smallgraph2.png")
+    Class.smallgraph3 = smallgraph1(Class, "smallgraph3.png")
 
     SV(Class)
     balisedeg(Class)
@@ -120,3 +128,7 @@ def main(Class):
         return(0)
     # except Exception:
     #     return(1)
+
+
+
+    #BALISECM3 FAIRE LES PARENTHESES EN EXPOSANTS

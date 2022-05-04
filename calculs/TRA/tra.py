@@ -97,7 +97,10 @@ def boucleTRA(Class, date1, df, variable, variable2):
  #premiere date
     dates = df["dates"] #dataframe de dates
     pd.options.mode.chained_assignment = None 
-    période1 = df["dates"][[1]].to_string(index = False) #premiere valeur
+    try:
+        période1 = df["dates"][[1]].to_string(index = False) #premiere valeur
+    except Exception:
+        pass
     df["flux"] = float(variable)
     df["flux"].loc[0] = -100
     df["flux"].loc[-1] = float(variable2)

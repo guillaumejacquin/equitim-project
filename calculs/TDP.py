@@ -11,9 +11,9 @@ def TDP(Class):
             break
 
     if is_index == False:
-        Class.TDP = "indice"
-    else:
         Class.TDP = "action"
+    else:
+        Class.TDP = "indice"
 
 
 

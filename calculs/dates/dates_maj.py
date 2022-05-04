@@ -33,3 +33,5 @@ def DEC_maj(Class):
 
     DEC_maj_constructor = Class.DEC[8:10] + " " + month_string + " " + Class.DEC[0:4] 
     Class.DEC_MAJ = DEC_maj_constructor
+
+#DCI MAJ, DCF MAJ, DDCI
