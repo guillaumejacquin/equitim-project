@@ -86,6 +86,8 @@ def bloc3(Class, name, whitestrap=False):
                     tickmode = 'array',
                     tickvals = [0],
                     ticktext= ["","", "", ""],
+                    color="black"       
+
                     ),
     #LIGNE NOIRE
     fig.add_shape( # add a lignes premier block line

@@ -85,7 +85,8 @@ def bloc2(Class, name, whitestrap=False):
                     tickmode = 'array',
                     tickvals = [14, 31.5],
                     ticktext= [secondvaluexabciss, thirdvaluexabciss],
-                    tickfont_size = 12             
+                    tickfont_size = 12,
+                    color="black"       
                     )
 
     fig.update_yaxes(tickangle=0,
@@ -188,7 +189,7 @@ def bloc2(Class, name, whitestrap=False):
 #     #NIVEAU de reference seulement si 100 % sinon creer bloc 90%(classique) et au dessu sniveau de reference100% (en noir)
 
 #     #les valeurs qu on va mettre
-    mystring =  Class.SJR3 + "de Référence<br> (100%)"
+    mystring =  "100%"
 
     if (niveau_autocall[0] != 100):
         fig.add_annotation(x=3, y=100,text= (mystring), showarrow=False,
@@ -203,7 +204,7 @@ def bloc2(Class, name, whitestrap=False):
                     font=dict( family="Proxima Nova", size=14, color=green ),align="left",
                     )
 
-    mystring = Class.SJR3 + " de  <br> l'indice par <br> rapport à son <br> " + Class.SJR3 + " initial"
+    mystring = Class.SJR3 + " de  <br> l'" + Class.TDP + "par <br> rapport à son <br> " + Class.SJR3 + " initial"
     fig.add_annotation(x=2.0, y=130, text= "Niveau de  <br> l'indice par <br> rapport à son <br> Niveau initial", showarrow=False,
                     font=dict( family="Proxima Nova", size=12, color=black ),align="right",
                     )

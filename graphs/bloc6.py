@@ -55,7 +55,8 @@ def abcisse_ordonnee(Class, fig, niveau_autocall, niveau_coupon,niveau_capital, 
     fig.update_xaxes(tickangle=0,
                     tickmode = 'array',
                     tickvals = [12, 29, 46, 65],
-                    ticktext= [firstvaluexabciss, secondvaluexabciss, third_value, lastvalue])
+                    ticktext= [firstvaluexabciss, secondvaluexabciss, third_value, lastvalue],
+                    color="black")
 
     fig.update_yaxes(tickangle=0,
                     tickmode = 'array',
