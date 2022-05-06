@@ -33,9 +33,9 @@ from graphs.bloc3 import *
 from graphs.bloc2 import *
 from graphs.bloc4 import *
 from graphs.bloc6 import *
-from graphs.smallgraph1 import *
-from graphs.smallgraph2 import *
-from graphs.smallgraph3 import *
+from graphs.graph_scenario_defavorable import *
+from graphs.graph_scenario_median import *
+from graphs.graph_scenario_favorable import *
 
 from calculs.dates.dates_maj import *
 
@@ -94,6 +94,9 @@ def start_processus_template(Class):
     PDC2_maj(Class)
     DDR_maj(Class)
     DEC_maj(Class)
+    DCI_maj(Class)
+    DCF_maj(Class)
+    DDCI_maj(Class)
     ALL_TRA(Class)
     
 
@@ -109,9 +112,9 @@ def start_processus_template(Class):
     # Class.graph1 = bloc2(Class, "graph1.png", whitestrap=False)
     Class.graph2 = bloc3(Class, "graph2.png", whitestrap=True)
     Class.graph5 = bloc4(Class, "graph5.png")
-    Class.smallgraph1 = smallgraph1(Class, "smallgraph1.png")
-    Class.smallgraph2 = smallgraph1(Class, "smallgraph2.png")
-    Class.smallgraph3 = smallgraph1(Class, "smallgraph3.png")
+    Class.smallgraph1 = smallgraph1(Class, "graph_scenario_def.png")
+    Class.smallgraph2 = smallgraph2(Class, "graph_scenario_median.png")
+    Class.smallgraph3 = smallgraph3(Class, "graph_scenario_fav.png")
 
     SV(Class)
     balisedeg(Class)

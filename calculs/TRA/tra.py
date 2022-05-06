@@ -99,37 +99,39 @@ def boucleTRA(Class, date1, df, variable, variable2):
     pd.options.mode.chained_assignment = None 
     try:
         période1 = df["dates"][[1]].to_string(index = False) #premiere valeur
+  
+        df["flux"] = float(variable)
+        df["flux"].loc[0] = -100
+        df["flux"].loc[-1] = float(variable2)
+
+        dates = df["dates"]
+        flux = df["flux"]
+
+        df["dates"] = pd.to_datetime(df['dates'], format='%Y-%m-%d')
+        df["soustract2dates"] = (df["dates"] - first_date).dt.days
+        df["flux_varNet"] = (df['flux'])*0.99**((df["soustract2dates"])/365)
+
+        df["flux_varNet"].iloc[0] = -100
     except Exception:
         pass
-    df["flux"] = float(variable)
-    df["flux"].loc[0] = -100
-    df["flux"].loc[-1] = float(variable2)
 
-    dates = df["dates"]
-    flux = df["flux"]
-
-    df["dates"] = pd.to_datetime(df['dates'], format='%Y-%m-%d')
-    df["soustract2dates"] = (df["dates"] - first_date).dt.days
-    df["flux_varNet"] = (df['flux'])*0.99**((df["soustract2dates"])/365)
-
-    df["flux_varNet"].iloc[0] = -100
-    
     def flux(second_date, flux_var):
-            second_date = datetime.strptime(second_date, '%Y-%m-%d')
-            soustract2dates = abs(first_date - second_date)      
-            soustract2dates = soustract2dates.days
+        second_date = datetime.strptime(second_date, '%Y-%m-%d')
+        soustract2dates = abs(first_date - second_date)      
+        soustract2dates = soustract2dates.days
 
-            flux_varNet = float(flux_var)*0.99**(float(soustract2dates)/365)
+        flux_varNet = float(flux_var)*0.99**(float(soustract2dates)/365)
 
-    result = (xirr(df["dates"], df["flux_varNet"]))
+        result = (xirr(df["dates"], df["flux_varNet"]))
 
     try:
-        result = float(result) *100
-        result = round(result, 2)
-        result = (f'{result:.2f}')
+            result = float(result) *100
+            result = round(result, 2)
+            result = (f'{result:.2f}')
 
     except Exception:
-        pass
+            result = 0
+
 
     return(result)
 

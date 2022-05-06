@@ -38,12 +38,17 @@ def elementsToReplaceRemplacement(Class, shapes):
     replace_text({'<ISIN>':  Class.Isin}, shapes)
     replace_text({'<émission>':  Class.Emission_affichage}, shapes)
     replace_text({'<DCI>':  Class.DCI}, shapes)
+    replace_text({'<DCI_MAJ>':  Class.DCI_MAJ}, shapes)
+
     replace_text({'<1DR>':  Class.DR1_affichage}, shapes)
     replace_text({'<DPR>':  Class.DPR_affichage}, shapes)
     replace_text({'<DCF>':  Class.DCF_affichage}, shapes)
+    replace_text({'<DCF_MAJ>':  Class.DCF_MAJ}, shapes)
     replace_text({'<DEC>':  Class.DEC_affichage}, shapes)
     replace_text({'<F0>':  Class.F0}, shapes)
     replace_text({'<DDCI>':  Class.DDCI_affichage}, shapes)
+    replace_text({'<DDCI_MAJ>':  Class.DDCI_MAJ}, shapes)
+
     replace_text({'<TSJ1>':  Class.TSJ[0]}, shapes)
 
     # replace_text({'<TSJ2>':  Class.TSJ2}, shapes)
@@ -309,9 +314,15 @@ def ChangeTextOnPpt(Class):
 
     compteur = 0
 
+    
     for slide in prs.slides:
         for shape in slide.shapes:
-
+            if shape.has_table:
+                x, y, cx, cy = Inches(2), Inches(2), Inches(4), Inches(1.5)
+                shape = slide.shapes.add_table(3, 3, x, y, cx, cy)
+                table = shape.table
+                cell = table.cell(0, 0)
+                cell.text = 'Unladen Swallow'
             if shape.has_text_frame:
                 
                 if ("<graph1>" in shape.text):
@@ -324,20 +335,20 @@ def ChangeTextOnPpt(Class):
                     cur_text = shape.text
                     new_text = cur_text.replace(str("<graph2>"), str(""))
                     shape.text = new_text
-                    pic = slide.shapes.add_picture("smallgraph1.png", Inches(0.45), Inches(1.75), Inches(3.6))
+                    pic = slide.shapes.add_picture("graph_scenario_def.png", Inches(0.45), Inches(1.75), Inches(3.6))
 
                 if ("<graph3>" in shape.text):  
                     cur_text = shape.text
                     new_text = cur_text.replace(str("<graph3>"), str(""))
                     shape.text = new_text
-                    pic = slide.shapes.add_picture("smallgraph2.png", Inches(0.45), Inches(4.78), Inches(3.6))
+                    pic = slide.shapes.add_picture("graph_scenario_median.png", Inches(0.45), Inches(4.78), Inches(3.6))
     
                 if ("<graph4>" in shape.text):  
                     cur_text = shape.text
                     new_text = cur_text.replace(str("<graph4>"), str(""))
                     shape.text = new_text
-                    pic = slide.shapes.add_picture("smallgraph3.png", Inches(0.45), Inches(7.68), Inches(3.45))
-
+                    pic = slide.shapes.add_picture("graph_scenario_fav.png", Inches(0.45), Inches(7.68), Inches(3.45))
+                   
                 if ("<graph5>" in shape.text):  
                         cur_text = shape.text
                         new_text = cur_text.replace(str("<graph5>"), str(""))

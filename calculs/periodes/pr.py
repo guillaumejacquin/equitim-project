@@ -6,8 +6,10 @@ def PR1(Class):
 
     date_time_obj = datetime.strptime(Class.PDC2, '%Y-%m-%d')
     date_time_obj2 = datetime.strptime(Class.DR1, '%Y-%m-%d')
-    diff = date_time_obj2 - date_time_obj
+    diff = abs(date_time_obj2 - date_time_obj)
 
+    print(Class.PDC2, Class.DR1)
+    print(diff)
     #Calcul à la louche, pour arrondir
     years = diff.days / 365
     months = diff.days / 30
