@@ -199,7 +199,7 @@ def bloc2(Class, name, whitestrap=False):
         fig.add_annotation(x=3.0, y=niveau_autocall[0], text= str(niveau_autocall[0]) +"%", showarrow=False,
                     font=dict( family="Proxima Nova", size=14, color=green ),align="left")
     else:
-        mystring =  mystring =  Class.SJR3 + "de Référence<br>(" + str(niveau_autocall[0]) + "%)"
+        mystring ="str(niveau_autocall[0])" + "%)"
         fig.add_annotation(x=2.25, y=100 - 2,text= (mystring), showarrow=False,
                     font=dict( family="Proxima Nova", size=14, color=green ),align="left",
                     )
@@ -221,7 +221,7 @@ def bloc2(Class, name, whitestrap=False):
     line=dict(color=green,width=1),  line_dash="dot")
     
     
-    fig.add_annotation(x=41.5, y=99,text= ("Seuil d'activation du <br> mécanisme de <br> remboursement anticipé <br> automatique à partir de la fin du <br> trimestre 4 jusqu'à la fin du trimestre <br> 20 et de versement des gains à <br> l'échéance"), showarrow=False,
+    fig.add_annotation(x=41.5, y=99,text= ("Seuil d'activation du <br> mécanisme de <br> remboursement anticipé <br> automatique à partir de la fin du <br>" + Class.F0  + " " + str(int(Class.PR1)) + "jusqu'à la fin du " + Class.F0 + " "  + str(int(Class.DPRR)) + " <br> 20 et de versement des gains à <br> l'échéance"), showarrow=False,
                     font=dict(family="Proxima Nova", size=12, color=black ), align="left"
                     )
 
@@ -292,7 +292,7 @@ def bloc2(Class, name, whitestrap=False):
 
     #####################TEXTE DE SES MORTS##############################################
     #autocall[1]
-    texta = "<b>Le produit continue </b>:<br><br><br> Aucun coupon n'est versé"
+    texta = "<b>Le produit continue </b>:<br><br><br> Aucun " +  str(Class.GC)+ " n'est versé"
     fig.add_annotation(
         x=(15),
         y=(niveau_coupon[1]/2 + 10),
@@ -335,7 +335,7 @@ def bloc2(Class, name, whitestrap=False):
     )   
 
     
-    mystring = "<b>Remboursement à l'échéance: </b><br><br>L'intégralité du capital initial)"
+    mystring = "<b>Remboursement à l'échéance: </b><br><br>L'intégralité du capital initial"
     #FLECHE ET MOUVEMENT DE TEXTE SI PAS ASSEZ DE PLACE
     if (float(Class.DBAC) - niveau_capital < 10):
         fig.add_annotation(

@@ -49,6 +49,8 @@ def balisedeg(Class):
     else: 
         Class.baliseCM5 = "À la date de constatation finale(1), <SJR1> clôture à un <SJR3> strictement inférieur à <BFP> mais supérieur ou égal à <PDI> de son <NDR>"
 
+
+
     if (Class.BFP == Class.PDI):
         Class.baliseCM6= "À la date de constatation finale(1), <SJR1> clôture à un <SJR3> strictement supérieur à <BFP> de son <NDR> (<NSM> dans cet exemple). L’investisseur récupère alors l’intégralité de son capital initialement investi majorée du coupon de <CPN> <Mémoire6>."
     else:

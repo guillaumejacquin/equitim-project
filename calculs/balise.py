@@ -14,8 +14,9 @@ def balise(Class):
 
 
     if (strike == "strike normal"):
-        mystring = "Le "+ Class.NDR + " correspond au " + sjr3 + " de clôture de " + sjr1 + " " + Class.NOMSOUSJACENT +  " le " + ddi
+        mystring = "Le "+ Class.NDR + " correspond au " + sjr3 + " de clôture de " + sjr1 + "" + Class.NOMSOUSJACENT +  " le " + ddi
 
+    print("Class.SJR3333333 = ", Class.SJR3)
     if (strike == "strike moyen"):
         mystring = "Le "+ Class.NDR + " correspond à la moyenne arithmétique des " + sjr3 + " de clôture de " + sjr1 + " " + Class.NOMSOUSJACENT + " du " + ddi + " au " + ddi2
 

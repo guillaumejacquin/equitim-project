@@ -39,6 +39,7 @@ def add_articles():
 
     dr1 = data["DR1"]
     Myclass.DR1 = dr1[0:10]
+    
     Myclass.DPR = data["DPR"]
 
     dadr = data["DADR"]
@@ -82,6 +83,8 @@ def add_articles():
     else: 
         Myclass.DDP = ddp[0:10]
     Myclass.type_bar2 = data["type_bar2"]
+    print("AHHHHHHHHHHHHHHHHHHHHHHHHHH", Myclass.Emission, Myclass.DPR, Myclass.DR1, Myclass.DADR, Myclass.DCF, Myclass.DEC, Myclass.ADCF)
+
     resultmain = main(Myclass)  
     if resultmain == 0:
         return jsonify("True")

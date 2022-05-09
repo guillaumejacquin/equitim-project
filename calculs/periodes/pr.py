@@ -8,8 +8,7 @@ def PR1(Class):
     date_time_obj2 = datetime.strptime(Class.DR1, '%Y-%m-%d')
     diff = abs(date_time_obj2 - date_time_obj)
 
-    print(Class.PDC2, Class.DR1)
-    print(diff)
+
     #Calcul à la louche, pour arrondir
     years = diff.days / 365
     months = diff.days / 30
@@ -54,19 +53,19 @@ def DPRR(Class):
     date_time_obj2 = datetime.strptime(Class.DDCI, '%Y-%m-%d')
     diff = date_time_obj2 - date_time_obj
     years = diff.days / 365
-    months = diff.days / 30
+    months = diff.days / 30.2
     days = diff.days
     semestriels = diff.days/182
     trimestriels = diff.days / 91
 
+   
     if (frequence == "jours"):
         result = days
     
     if (frequence == "mois"):
         result = int(months)
-        if (months % days >=15):
+        if (months % days >=21):
             result += 1
-
     if (frequence == "année"):
         result = int(years)
         if (years % days >= 182):

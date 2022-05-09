@@ -144,7 +144,7 @@ def texte(Class, fig):
     fig.add_annotation(x=28, y=123 ,text= ("Seuil de perte en capital à l'échéance" ), showarrow=False,
                         font=dict(family="Proxima Nova", size=10, color=black ), align="left")
    
-    fig.add_annotation(x=25, y=118 ,text= ("Perte de capital remboursé" ), showarrow=False,
+    fig.add_annotation(x=25, y=118 ,text= ("Part de capital remboursé" ), showarrow=False,
                         font=dict(family="Proxima Nova", size=10, color=black ), align="left")         
 
 

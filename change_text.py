@@ -320,11 +320,6 @@ def ChangeTextOnPpt(Class):
         for shape in slide.shapes:
             if shape.has_table:
                 table = shape.table
-                print(table)
-                cell = table.cell(0, 0)
-                cell.text = 'TEST DE LA STREET'
-                paragraph = cell.text_frame.paragraphs[0]
-                paragraph.font.size = Pt(8)
                 # paragraph.font.color = "red"
                 for row_idx, row in enumerate(table.rows):
                     for col_idx, cell in enumerate(row.cells):
@@ -333,6 +328,8 @@ def ChangeTextOnPpt(Class):
                         # cell.text = 'TEST DE LA STREET'
                         paragraph = cell.text_frame.paragraphs[0]
                         paragraph.font.size = Pt(8)
+                       # paragraph.font.color.rgb = RGBColor(0, 0, 255)
+
             if shape.has_text_frame:
                 
                 if ("<graph1>" in shape.text):

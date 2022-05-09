@@ -11,9 +11,7 @@ def ndr(Class):
     elif Class.TDP == "indice" and (Class.type_strike == "best strike" or Class.type_strike == "strike moyen"):
         Class.NDR = "Niveau de Référence"
 
+    elif (Class.sous_jacent == "equipondéré indice" or Class.sous_jacent == "equipondéré action"):
+        Class.NDR = "Niveau initial"
     else:
         Class.NDR = "ERREUR!!!!!!"
-
-    if (Class.sous_jacent == "equipondéré indice" or Class.sous_jacent == "equipondéré action"):
-        Class.NDR = "Niveau initial"
-
