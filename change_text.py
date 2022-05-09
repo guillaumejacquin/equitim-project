@@ -312,7 +312,7 @@ def ChangeTextOnPpt(Class):
     else:
 
         print(compteur, "paragraphe a été supprimé")
-
+    from colormath.color_objects import RGBColor
     compteur = 0
     compteur_tab = 0
     tbl = None
@@ -328,7 +328,9 @@ def ChangeTextOnPpt(Class):
                         # cell.text = 'TEST DE LA STREET'
                         paragraph = cell.text_frame.paragraphs[0]
                         paragraph.font.size = Pt(8)
-                       # paragraph.font.color.rgb = RGBColor(0, 0, 255)
+                        paragraph.font.color.rgb = RGBColor(0, 0, 255)
+
+
 
             if shape.has_text_frame:
                 

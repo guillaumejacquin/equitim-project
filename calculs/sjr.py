@@ -39,7 +39,7 @@ def SJR(Class):
         Class.SJR3 = "niveau"
         Class.SJR4 = "niveau"
         Class.SJR5 = "niveaux"
-        Class.SJR6 = "de" + str(Class.SJR1)
+        Class.SJR6 = "de " + str(Class.SJR1)
         Class.SJR7 = "de l'indice"
 
 

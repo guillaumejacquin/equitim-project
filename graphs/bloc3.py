@@ -68,10 +68,10 @@ def bloc3(Class, name, whitestrap=False):
     showarrow=True, arrowhead=3, arrowwidth=2, arrowcolor='black')
     
     # Periode + le nombre (exempla trimestre 1 a 3)
-    firstvaluexabciss = Class.F0 + Class.F0s + " 1 à " +  str(int(Class.PR1) - 1)
+    firstvaluexabciss = Class.F0 + Class.F0s + " 1 à " +  str(int(Class.PR1))
     firstvaluexabciss = firstvaluexabciss.capitalize()
 
-    secondvaluexabciss = Class.F0 + Class.F0s + " " +  str(int(Class.PR1))  + " à " + str(int(Class.DPRR) - 1)
+    secondvaluexabciss = Class.F0 + Class.F0s + " " +  str(int(Class.PR1) + 1)  + " à " + str(int(Class.DPRR) - 1)
     secondvaluexabciss = secondvaluexabciss.capitalize()
   
     thirdvaluexabciss = Class.F0  +" " + str(Class.DPRR)
@@ -100,10 +100,10 @@ def bloc3(Class, name, whitestrap=False):
         x0=17, x1=37, y0=niveau_coupon[2], y1=niveau_coupon[3]
     )
 
-    fig.add_shape(# add la ligne horizontale troisieme block line
-        type="line", line_color=green, line_width=3, opacity=1, line_dash="dot",
-        x0=39, x1=49, y0=niveau_coupon[4], y1=niveau_coupon[4]
-    )
+    # fig.add_shape(# add la ligne horizontale troisieme block line
+    #     type="line", line_color=green, line_width=3, opacity=1, line_dash="dot",
+    #     x0=39, x1=49, y0=niveau_coupon[4], y1=niveau_coupon[4]
+    # )
     # !LIGNE NOIRE
 
     #LIGNE VERTE

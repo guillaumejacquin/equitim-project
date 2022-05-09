@@ -15,3 +15,5 @@ def ndr(Class):
         Class.NDR = "Niveau initial"
     else:
         Class.NDR = "ERREUR!!!!!!"
+    
+        print("TDP? NDR", Class.TDP, Class.NDR)

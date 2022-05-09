@@ -20,7 +20,6 @@ def add_articles():
     Myclass = InformationsForm()
 
     data = request.json
-    # print(data)
     Myclass.template = data["template"]
     Myclass.Nom = data["Nom"]
     Myclass.Typologie = data["Typologie"]
@@ -83,7 +82,9 @@ def add_articles():
     else: 
         Myclass.DDP = ddp[0:10]
     Myclass.type_bar2 = data["type_bar2"]
-    print("AHHHHHHHHHHHHHHHHHHHHHHHHHH", Myclass.Emission, Myclass.DPR, Myclass.DR1, Myclass.DADR, Myclass.DCF, Myclass.DEC, Myclass.ADCF)
+
+    # Myclass.DCF = "2027-07-14"
+    print("AHHHHHHHHHHHHHHHHHHHHHHHHHH", "Emission = ", Myclass.Emission, "DATE PREMIER remboursement = ", Myclass.DPR, "DATE PREMIER RAPPEL", Myclass.DR1, "Date d'avant dernier remboursement ", Myclass.DADR, "DATE de constatation finale", Myclass.DCF,"Date d'échéance",  Myclass.DEC, "Avant derniere date de constatation finale", Myclass.ADCF)
 
     resultmain = main(Myclass)  
     if resultmain == 0:

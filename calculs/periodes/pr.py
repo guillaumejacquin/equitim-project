@@ -8,12 +8,11 @@ def PR1(Class):
     date_time_obj2 = datetime.strptime(Class.DR1, '%Y-%m-%d')
     diff = abs(date_time_obj2 - date_time_obj)
 
-
     #Calcul à la louche, pour arrondir
     years = diff.days / 365
     months = diff.days / 30
     days = diff.days
-    semestriels = diff.days/182
+    semestriels = diff.days/150
     trimestriels = diff.days / 91
 
     if (frequence == "jours"):
@@ -28,6 +27,7 @@ def PR1(Class):
         result = int(years)
         if (years % days >= 182):
             result += 1
+
 
     if (frequence == "semestre"):
         result = int(semestriels)
