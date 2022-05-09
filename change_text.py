@@ -8,6 +8,7 @@ from PIL import Image
 from pptx.util import Inches
 from pptx.enum.text import PP_ALIGN
 import os
+from pptx.util import Pt
 
 
 def elementsToReplaceDegressivite(Class, shapes):
@@ -313,16 +314,25 @@ def ChangeTextOnPpt(Class):
         print(compteur, "paragraphe a été supprimé")
 
     compteur = 0
-
-    
+    compteur_tab = 0
+    tbl = None
     for slide in prs.slides:
         for shape in slide.shapes:
             if shape.has_table:
-                x, y, cx, cy = Inches(2), Inches(2), Inches(4), Inches(1.5)
-                shape = slide.shapes.add_table(3, 3, x, y, cx, cy)
                 table = shape.table
+                print(table)
                 cell = table.cell(0, 0)
-                cell.text = 'Unladen Swallow'
+                cell.text = 'TEST DE LA STREET'
+                paragraph = cell.text_frame.paragraphs[0]
+                paragraph.font.size = Pt(8)
+                # paragraph.font.color = "red"
+                for row_idx, row in enumerate(table.rows):
+                    for col_idx, cell in enumerate(row.cells):
+                        # print("%r is cells[%d][%d]" % (cell, row_idx, col_idx))
+                        cell = table.cell(row_idx, col_idx)
+                        # cell.text = 'TEST DE LA STREET'
+                        paragraph = cell.text_frame.paragraphs[0]
+                        paragraph.font.size = Pt(8)
             if shape.has_text_frame:
                 
                 if ("<graph1>" in shape.text):
@@ -353,7 +363,7 @@ def ChangeTextOnPpt(Class):
                         cur_text = shape.text
                         new_text = cur_text.replace(str("<graph5>"), str(""))
                         shape.text = new_text
-                        pic = slide.shapes.add_picture("graph5.png", Inches(0), Inches(5.25), Inches(7.25))
+                        pic = slide.shapes.add_picture("graph5.png", Inches(0), Inches(5.5), Inches(5))
 
 
 

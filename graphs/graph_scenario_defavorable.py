@@ -124,8 +124,12 @@ def texte(Class, fig):
 
     fig.add_annotation(x=39, y=145 ,text= ("<b>Evolution de l'" + Class.TDP + " " + indice  + "</b>" ), showarrow=False,
                         font=dict(family="Proxima Nova", size=20, color=black ), align="left")
-    
-    fig.add_annotation(x=47, y=130 ,text= ("Seuil d'activation du mécanisme de la barrière dégressive de remboursement anticipé automatique <br> à partir de la fin du" + str(Class.F0)+ " " + str(Class.PR1) +  " jusqu'à la fin du "+ str(Class.F0)+ " " + str(Class.ABDAC) + " et de versement du gain à l'échéance" ), showarrow=False,
+    pasdedegressivite = float(Class.DEG)
+    if pasdedegressivite == 0:
+        degressive = ""
+    else:
+        degressive = "dégressivité"
+    fig.add_annotation(x=47, y=130 ,text= ("Seuil d'activation du mécanisme de la barrière "  + degressive +" de remboursement anticipé automatique <br> à partir de la fin du" + str(Class.F0)+ " " + str(Class.PR1) +  " jusqu'à la fin du "+ str(Class.F0)+ " " + str(Class.ABDAC) + " et de versement du gain à l'échéance" ), showarrow=False,
                         font=dict(family="Proxima Nova", size=10, color=black ), align="left")
 
     fig.add_annotation(x=28, y=123 ,text= ("Seuil de perte en capital à l'échéance" ), showarrow=False,
