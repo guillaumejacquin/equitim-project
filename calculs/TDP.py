@@ -6,7 +6,7 @@ def TDP(Class):
     Class.TSJ = list(filter(("").__ne__, Class.TSJ))
 
     for i in Class.TSJ:
-        if not "index"  or "Index" or "INDEX" in  i:
+        if not "Index" in  i:
             is_index = False
             break
 
@@ -16,5 +16,6 @@ def TDP(Class):
         Class.TDP = "indice"
 
 
+    print(Class.TDP)
 
 

@@ -132,6 +132,10 @@ class InformationsForm():
         self.deleteblocs = []
         self.BLOCDIVIDENDE = ""
         self.Yahoo = []
+        self.Yahoo_value = []
+        self.Yahoo_value_name = []
+        self.Yahoo_value_dividende = []
+
         self.PR1_1 = ""
 
         self.ABAC2 = ""
@@ -206,6 +210,31 @@ class InformationsForm():
         self.PDC2_MAJ = ""
         self.DDR_MAJ = ""
         self.DEC_MAJ = ""
+        self.dates_boucle()
 
+
+    def dates_boucle(self):
+        Datesconstatations1 = []
+        Datesconstatations2 = []
+        Datesconstatations3 = []
+        Datesconstatations4 = []
+        Datesremb1 = []
+        Datesremb2 = []
+        Datesremb3 = []
+        Datesremb4 = []
+        Datesremb5 = []
+        Datesremb6 = []
+        Datesremb7 = []
+        Datesremb8 = []
+        Datespaiement1 = []
+        Datespaiement2 = []
+        Datespaiement3 = []
+        Datespaiement4 = []
+        Datespaiement5 = []
+        Datespaiement6 = []
+        Datespaiement7 = []
+        Datespaiement8 = []
+
+        pass
 #Graph 2 blocs, si strike moyen ou best strike, afficher dans les blocs en haut la date max des constatations initiales
 #niveau de référence cours de référence bloc 2

@@ -199,7 +199,7 @@ def bloc2(Class, name, whitestrap=False):
         fig.add_annotation(x=3.0, y=niveau_autocall[0], text= str(niveau_autocall[0]) +"%", showarrow=False,
                     font=dict( family="Proxima Nova", size=14, color=green ),align="left")
     else:
-        mystring ="str(niveau_autocall[0])" + "%)"
+        mystring =str(niveau_autocall[0]) + "%)"
         fig.add_annotation(x=2.25, y=100 - 2,text= (mystring), showarrow=False,
                     font=dict( family="Proxima Nova", size=14, color=green ),align="left",
                     )
@@ -221,7 +221,7 @@ def bloc2(Class, name, whitestrap=False):
     line=dict(color=green,width=1),  line_dash="dot")
     
     
-    fig.add_annotation(x=41.5, y=99,text= ("Seuil d'activation du <br> mécanisme de <br> remboursement anticipé <br> automatique à partir de la fin du <br>" + Class.F0  + " " + str(int(Class.PR1)) + "jusqu'à la fin du " + Class.F0 + " "  + str(int(Class.DPRR)) + " <br> 20 et de versement des gains à <br> l'échéance"), showarrow=False,
+    fig.add_annotation(x=41.5, y=99,text= ("Seuil d'activation du <br> mécanisme de <br> remboursement anticipé <br> automatique à partir de la fin du <br>" + Class.F0  + " " + str(int(Class.PR1)) + " jusqu'à la fin du " + Class.F0 + " "  + str(int(Class.DPRR)) + " <br> et de versement des gains à <br> l'échéance"), showarrow=False,
                     font=dict(family="Proxima Nova", size=12, color=black ), align="left"
                     )
 
@@ -325,7 +325,7 @@ def bloc2(Class, name, whitestrap=False):
     )      
 
 
-    mystring = "<b>Remboursement à l'échéance: </b><br><br>L'intégralité du capital initial<br>+<br>Un gain de " + str(cpn) + "% par " + Class.F0 + " écoulé <br> depuis la date de constatation initiale <br> (soit un gain de "+ str(gce) + "%  par année écoulée)"
+    mystring = "<b>Remboursement à l'échéance: </b><br><br>L'intégralité du capital initial<br>+<br>Un gain de " + str(cpn) + "% par " + Class.F0 + " écoulé <br> depuis la date de constatation initiale <br> (soit un gain total de "+ str(gce) + "%)"
     fig.add_annotation(
         x=(32),
         y=(float(Class.DBAC) + (130- float(Class.DBAC)) /2 +5),

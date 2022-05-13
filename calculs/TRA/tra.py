@@ -179,7 +179,7 @@ def ALL_TRA(Class):
         phoenix_3dates(Class, période1, période2)
 
     except Exception:
-        print("rip")
+        print("TRA FAILED")
 
     Class.TRA_FP = (boucleTRA(Class, Class.PDC2, df, Class.CPN, float(Class.CPN)+100)) #Scénario favorable phoenix
     df.drop(df.tail(1).index,inplace=True)

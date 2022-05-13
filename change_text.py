@@ -2,6 +2,8 @@ from cmd import Cmd
 from dataclasses import dataclass
 from typing import List
 from unicodedata import name
+
+from pyparsing import col
 from calculs.abac import abac
 from pptx import Presentation
 from PIL import Image
@@ -10,6 +12,8 @@ from pptx.enum.text import PP_ALIGN
 import os
 from pptx.util import Pt
 
+from copy import deepcopy
+from pptx.table import Table, _Row, _Column, _Cell
 
 def elementsToReplaceDegressivite(Class, shapes):
     #si degressif on supprime les balises
@@ -253,6 +257,20 @@ def getAllSlides(prs):
             shapes.append(shape)
     return shapes
 
+
+
+def add_row(table) -> _Row:
+    new_row = deepcopy(table._tbl.tr_lst[-1]) 
+    # duplicating last row of the table as a new row to be added
+
+    for tc in new_row.tc_lst:
+        cell = _Cell(tc, new_row.tc_lst)
+        cell.text = '' # defaulting cell contents to empty text
+
+    table._tbl.append(new_row) 
+    return table
+
+    
 #remplace le texte sur le ppt 
 def replace_text(replacements: dict, shapes: List):
     for shape in shapes:
@@ -283,15 +301,18 @@ def ChangeTextOnPpt(Class):
     prs = Presentation(prs_string)
     shapes = getAllSlides(prs)
     Class.shapes = shapes
+
     elementsToReplaceDegressivite(Class, shapes)
+
     elementsToReplaceRemplacement(Class, shapes)
     elementsToReplaceCalcul(Class, shapes)
 
     #on repasse une 2 eme fois au cas ou certaines transformations soient mal placées
     elementsToReplaceDegressivite(Class, shapes)
+
     elementsToReplaceRemplacement(Class, shapes)
     elementsToReplaceCalcul(Class, shapes)
-    
+
     compteur = 0
     for shape in Class.shapes:
         textbox = shape
@@ -312,28 +333,49 @@ def ChangeTextOnPpt(Class):
     else:
 
         print(compteur, "paragraphe a été supprimé")
-    from colormath.color_objects import RGBColor
+    # from colormath.color_objects import sRGBColor
     compteur = 0
-    compteur_tab = 0
+    compteur_tab = 1
+    
     tbl = None
+
+
     for slide in prs.slides:
         for shape in slide.shapes:
             if shape.has_table:
                 table = shape.table
-                # paragraph.font.color = "red"
-                for row_idx, row in enumerate(table.rows):
+                numberoftickers = len(Class.Yahoo) -1 #pour savoir le nombre de rows a ajouter
+                if(compteur_tab == 1 and len(Class.Yahoo) > 1):  #On ajoute des rows pour le tableau de performance des tickers yahoo
+                    for newcolumn in range((numberoftickers)):
+                        table = add_row(table)
+
+                for row_idx, row in enumerate(table.rows): 
                     for col_idx, cell in enumerate(row.cells):
+
+                        if (compteur_tab == 1 and col_idx == 0 and row_idx > 0): #on ajoute les sousjacent a la premiere colonne de chaque ligne
+                            cell = table.cell(row_idx, col_idx)
+                            cell.text = str(Class.Yahoo_value_name[row_idx -1]) +" " + str(Class.Yahoo_value_dividende[row_idx -1])
+
+
                         # print("%r is cells[%d][%d]" % (cell, row_idx, col_idx))
                         cell = table.cell(row_idx, col_idx)
                         # cell.text = 'TEST DE LA STREET'
                         paragraph = cell.text_frame.paragraphs[0]
                         paragraph.font.size = Pt(8)
-                        paragraph.font.color.rgb = RGBColor(0, 0, 255)
+                        # paragraph.font.color = 'rgb(0, 0, 0)'
+
+                        # paragraph.font.color.rgb = screen.bgcolor(color)
+
+                        if(compteur_tab ==1 and row_idx >= 1 and col_idx >= 1 ):
+                            cell.text = Class.Yahoo_value[row_idx - 1][col_idx - 1]
+                            paragraph = cell.text_frame.paragraphs[0]
+                            paragraph.font.size = Pt(8)
+                        
+                compteur_tab +=1
 
 
 
             if shape.has_text_frame:
-                
                 if ("<graph1>" in shape.text):
                     cur_text = shape.text
                     new_text = cur_text.replace(str("<graph1>"), str(""))
@@ -362,8 +404,7 @@ def ChangeTextOnPpt(Class):
                         cur_text = shape.text
                         new_text = cur_text.replace(str("<graph5>"), str(""))
                         shape.text = new_text
-                        pic = slide.shapes.add_picture("graph5.png", Inches(0), Inches(5.5), Inches(5))
-
+                        pic = slide.shapes.add_picture("graph5.png", Inches(0), Inches(5.1), width=Inches(6.8), height=Inches(4))
 
 
     try:

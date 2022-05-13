@@ -35,6 +35,7 @@ def DEC_maj(Class):
     Class.DEC_MAJ = DEC_maj_constructor
 
 def DCI_maj(Class):
+
     month_string = (Class.DCI[3:5])
     month_string = int(month_string)
     month_string = (month[month_string])
@@ -43,11 +44,11 @@ def DCI_maj(Class):
     Class.DCI_MAJ = DDR_maj_constructor
 
 def DCF_maj(Class):
-    month_string = (Class.DCI[3:5])
+    month_string = (Class.DCF[5:7])
     month_string = int(month_string)
     month_string = (month[month_string])
 
-    DDR_maj_constructor = Class.DCF[0:2] + " " + month_string + " " + Class.DCF[6:10] 
+    DDR_maj_constructor = Class.DCF[8:10] + " " + month_string + " " + Class.DCF[0:4] 
     Class.DCF_MAJ = DDR_maj_constructor
 
 def DDCI_maj(Class):
@@ -55,7 +56,7 @@ def DDCI_maj(Class):
     month_string = int(month_string)
     month_string = (month[month_string])
 
-    DDR_maj_constructor = Class.DDCI[0:2] + " " + month_string + " " + Class.DDCI[6:10] 
+    DDR_maj_constructor = Class.DDCI[8:10] + " " + month_string + " " + Class.DDCI[0:4] 
     Class.DDCI_MAJ = DDR_maj_constructor
 
 #DCI MAJ, DCF MAJ, DDCI

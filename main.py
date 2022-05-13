@@ -45,7 +45,7 @@ from calculs.TRA.CMTRA import *
 from calculs.style.NOMP1 import *
 from calculs.style.NOMSOUSJACENTP1 import *
 from calculs.dates.DDPP import *
-
+from calculs.dates.boucles.callAllDates2Date import *
 
 #traitement des données
 def start_processus_template(Class):
@@ -58,6 +58,7 @@ def start_processus_template(Class):
     PR1(Class)
     DPRR(Class)
     adcf(Class)
+
     TDP(Class)
     GC(Class)
     GCA(Class)
@@ -70,6 +71,7 @@ def start_processus_template(Class):
     DR1(Class)
     DPR(Class)
     emission(Class)
+    
     f0s(Class)
     sponsor(Class)
     F0du(Class)
@@ -98,8 +100,7 @@ def start_processus_template(Class):
     DCF_maj(Class)
     DDCI_maj(Class)
     ALL_TRA(Class)
-    
-
+    callAllDates2Date(Class)
     #si coupon autocall
     if (Class.Typologie == "coupon autocall"):
         Class.graph1 = bloc2(Class, "graph1.png", whitestrap=False)

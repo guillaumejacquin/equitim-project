@@ -82,7 +82,7 @@ def traces(Class, fig):
     # line=dict(color=green, width=3),  line_dash="dash")
 
     fig.add_shape(type="line",
-    x0=69, y0=avant_dernier_niveau_de_reference, x1=73, y1=avant_dernier_niveau_de_reference,
+    x0=69, y0=avant_dernier_niveau_de_reference + 1, x1=73, y1=avant_dernier_niveau_de_reference + 1,
     line=dict(color=green, width=3),  line_dash="dash")
 
 
@@ -129,7 +129,7 @@ def texte(Class, fig):
         degressive = ""
     else:
         degressive = "dégressivité"
-    fig.add_annotation(x=47, y=130 ,text= ("Seuil d'activation du mécanisme de la barrière "  + degressive +" de remboursement anticipé automatique <br> à partir de la fin du" + str(Class.F0)+ " " + str(Class.PR1) +  " jusqu'à la fin du "+ str(Class.F0)+ " " + str(Class.ABDAC) + " et de versement du gain à l'échéance" ), showarrow=False,
+    fig.add_annotation(x=47, y=130 ,text= ("Seuil d'activation du mécanisme de la barrière "  + degressive +" de remboursement anticipé automatique <br> à partir de la fin du " + str(Class.F0)+ " " + str(Class.PR1) +  " jusqu'à la fin du "+ str(Class.F0)+ " " + str(Class.ABDAC) + " et de versement du gain à l'échéance" ), showarrow=False,
                         font=dict(family="Proxima Nova", size=10, color=black ), align="left")
 
     fig.add_annotation(x=28, y=123 ,text= ("Seuil de perte en capital à l'échéance" ), showarrow=False,
@@ -183,17 +183,17 @@ def athena_annotations(Class, fig):
 
 
     fig.add_shape(type="line",
-            x0=30, y0=premier_niveau_autocall, x1=32.5 , y1=premier_niveau_autocall ,
+            x0=20, y0=premier_niveau_autocall, x1=22.5 , y1=premier_niveau_autocall ,
             line=dict(color=green, width=3))
 
     fig.add_shape(type="line",
-                    x0=33, y0=premier_niveau_autocall, x1=61, y1=avant_dernier_niveau_de_reference + 2 * pasdedegressivite,
+                    x0=23, y0=premier_niveau_autocall, x1=61, y1=avant_dernier_niveau_de_reference + 2 * pasdedegressivite + 4,
                     line=dict(color=green, width=3),  line_dash="dash")
                     
     fig.update_xaxes(tickangle=0,
                     tickmode = 'array',
-                    tickvals = [1.5, 10, 20, 40.5, 61, 71, 81],
-                    ticktext= ["<b>Lancement</b>", prefix + str(first), prefix + str(prappel), ".......", prefix + str(last - 2), prefix + str(last - 1), prefix + str(last)],
+                    tickvals = [1.5, 10, 15,  20, 40.5, 61, 71, 81],
+                    ticktext= ["<b>Lancement</b>", prefix + str(first), "...", prefix + str(prappel), "....", prefix + str(last - 2), prefix + str(last - 1), prefix + str(last)],
                     color="black"
                     ),
  # fig.add_shape(type="line",
@@ -245,7 +245,6 @@ def phoenix_annotations(Class, fig):
                     font=dict(family="Proxima Nova", size=15, color=blue ), align="left")
  
     if (p2 == prappel):
-        print("pouet pouet")
         fig.update_xaxes(tickangle=0,
                     tickmode = 'array',
                     tickvals = [1.5, 10, 20, 41,  61, 71, 81],
@@ -268,7 +267,7 @@ def phoenix_annotations(Class, fig):
 
         tmp = avant_dernier_niveau_de_reference + 2 * pasdedegressivite
         compteur = 0
-        if tmp < coupon: 
+        if tmp < coupon and pasdedegressivite > 0: 
             while  tmp <= coupon:
                 tmp += pasdedegressivite
                 compteur +=1
@@ -283,15 +282,6 @@ def phoenix_annotations(Class, fig):
                     x0=10, y0=coupon, x1=start_white_line, y1=coupon,
                     line=dict(color=blue, width=2),)
 
-           
-            fig.add_shape(type="line",
-            x0=start_green_line - 1.5 , y0=premier_niveau_autocall, x1=start_green_line + 2 , y1=premier_niveau_autocall ,
-            line=dict(color=green, width=3))        
-
-
-            fig.add_shape(type="line",
-            x0=start_green_line + 3 , y0=premier_niveau_autocall, x1=60 , y1=coupon + 0.5 ,
-            line=dict(color=green, width=3),  line_dash="dash")
 
         else:
             fig.add_shape(type="line",
@@ -302,12 +292,19 @@ def phoenix_annotations(Class, fig):
                     x0=start_green_line + 3, y0=premier_niveau_autocall, x1=61, y1=avant_dernier_niveau_de_reference + 2 * pasdedegressivite,
                     line=dict(color=green, width=3),  line_dash="dash")
 
+    fig.add_shape(type="line",
+            x0=start_green_line - 1.5 , y0=premier_niveau_autocall, x1=start_green_line + 2 , y1=premier_niveau_autocall ,
+            line=dict(color=green, width=3))        
+
+
+    fig.add_shape(type="line",
+            x0=start_green_line + 3 , y0=premier_niveau_autocall, x1=60 , y1=coupon + 0.5 ,
+            line=dict(color=green, width=3),  line_dash="dash")
 
     fig.update_xaxes(ticks="outside", col=1)
 
 def is_athena_or_phoenix_annotations(Class, fig):
     typologie = Class.Typologie #coupon phoenix
-    print(typologie)
     if typologie == "coupon autocall":
         athena_annotations(Class, fig)
 
@@ -321,9 +318,8 @@ def smallgraph1(Class, name):
     axes_ordonees(fig)
     traces(Class, fig)
     texte(Class, fig)
-
     is_athena_or_phoenix_annotations(Class, fig)
-    
+
 
     #fig.show()
     fig.write_image(name, format="png", scale=2, engine='kaleido')
