@@ -21,7 +21,9 @@ def tra_athena(Class):
     Class.TRA_echeance_perte_A = (xirr_test(Class, Class.PDC2, Class.DEC, Class.PDI))#Mécanisme de remboursement échéance perte(-100, PDI)
 
 def phoenix_3dates(Class, période1, période2):
-        Class.TRA_D_P = (xirr_3dates_phoenix(Class, Class.PDC2,str(période1), Class.DEC, Class.CPN, Class.NSD)) #Scénario défavorable phoenix(-100,CPN, NSD)
+        période1 = période1[6:10]+ "-" + période1[3:5] + "-" + période1[0:2]
+        période2 = période2[6:10]+ "-" + période2[3:5] + "-" + période2[0:2]
+        Class.TRA_D_P = (xirr_3dates_phoenix(Class, Class.PDC2 ,str(période1), Class.DEC, Class.CPN, Class.NSD)) #Scénario défavorable phoenix(-100,CPN, NSD)
         Class.TRA_M_P = (xirr_3dates_phoenix(Class, Class.PDC2,période2, Class.DEC, Class.CPN, 100)) #Scénario médian phoenix(-100,CPN, 100)
         Class.TRA_M_MP = (xirr_3dates_phoenix(Class, Class.PDC2,période2, Class.DEC, float(Class.CPN)*2, 100)) #Scénario médian phoenix mémoire(-100,CPN*2, 100)
         Class.TRA_GM_P = (xirr_3dates_phoenix(Class, Class.PDC2,période2, Class.DEC, Class.CPN,  float(Class.CPN) +100)) #Scénario médian phoenix ( -100,CPN, CPN+100)
@@ -60,9 +62,9 @@ def xirr_test(Class, date1, date2, variable=100):
     return(result)
 
 def xirr_3dates_phoenix(Class, date1, date2, date3, variable, variable2):
-    first_date = date1 #max entre date émission et strike
-    second_date = date2 #date_echeance
-    third_date = date3
+    first_date = date1[0:10] #max entre date émission et strike
+    second_date = date2[0:10] #date_echeance
+    third_date = date3[0:10]
 
     flux_var = float(variable) #Scenario Defavorable = flux_var
     flux_var2 = float(variable2)
@@ -158,28 +160,23 @@ def ALL_TRA(Class):
 
     if (Class.F0 == "année"):
         compteur = relativedelta(years=+1)    
-    
+
+    dataframe_dates = Class.Datespaiement1.split(", ")
+    print(Class.Datespaiement1)
+    df = pd.DataFrame({'col':dataframe_dates})
+    df.columns=["dates"]
+    print(df.head())
+
     compteurvar = Class.DADR
     date_time_obj = datetime.strptime(Class.PDC2, '%Y-%m-%d')
     compteurvar = datetime.strptime(compteurvar, '%Y-%m-%d')
     période = 0
 
-    array_dates = []
+    période1 = df['dates'].iloc[0]
+    période2 = df['dates'].iloc[1]
     
-    while (date_time_obj < compteurvar ):
-        array_dates.append(date_time_obj)
-        date_time_obj += compteur
-        période += 1
+    phoenix_3dates(Class, période1, période2)
 
-    df = pd.DataFrame()
-    df["dates"] = array_dates
-    try:
-        période1 = df["dates"][[1]].to_string(index = False)
-        période2 = df["dates"][[2]].to_string(index = False)
-        phoenix_3dates(Class, période1, période2)
-
-    except Exception:
-        print("TRA FAILED")
 
     Class.TRA_FP = (boucleTRA(Class, Class.PDC2, df, Class.CPN, float(Class.CPN)+100)) #Scénario favorable phoenix
     df.drop(df.tail(1).index,inplace=True)

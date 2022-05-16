@@ -199,7 +199,7 @@ def bloc2(Class, name, whitestrap=False):
         fig.add_annotation(x=3.0, y=niveau_autocall[0], text= str(niveau_autocall[0]) +"%", showarrow=False,
                     font=dict( family="Proxima Nova", size=14, color=green ),align="left")
     else:
-        mystring =str(niveau_autocall[0]) + "%)"
+        mystring =str(niveau_autocall[0]) + "%"
         fig.add_annotation(x=2.25, y=100 - 2,text= (mystring), showarrow=False,
                     font=dict( family="Proxima Nova", size=14, color=green ),align="left",
                     )

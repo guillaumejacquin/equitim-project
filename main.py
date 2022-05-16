@@ -58,6 +58,7 @@ def start_processus_template(Class):
     PR1(Class)
     DPRR(Class)
     adcf(Class)
+    DPCI_maj(Class)
 
     TDP(Class)
     GC(Class)
@@ -71,7 +72,6 @@ def start_processus_template(Class):
     DR1(Class)
     DPR(Class)
     emission(Class)
-    
     f0s(Class)
     sponsor(Class)
     F0du(Class)
@@ -99,8 +99,9 @@ def start_processus_template(Class):
     DCI_maj(Class)
     DCF_maj(Class)
     DDCI_maj(Class)
-    ALL_TRA(Class)
     callAllDates2Date(Class)
+
+    ALL_TRA(Class)
     #si coupon autocall
     if (Class.Typologie == "coupon autocall"):
         Class.graph1 = bloc2(Class, "graph1.png", whitestrap=False)

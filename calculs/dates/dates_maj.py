@@ -1,3 +1,4 @@
+
 month =["POUET POUET", "janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre" ]
 
 
@@ -58,5 +59,13 @@ def DDCI_maj(Class):
 
     DDR_maj_constructor = Class.DDCI[8:10] + " " + month_string + " " + Class.DDCI[0:4] 
     Class.DDCI_MAJ = DDR_maj_constructor
+
+def DPCI_maj(Class):
+    month_string = (Class.DPCI[5:7])
+    month_string = int(month_string)
+    month_string = (month[month_string])
+
+    DDR_maj_constructor = Class.DPCI[8:10] + " " + month_string + " " + Class.DPCI[0:4] 
+    Class.DPCI_MAJ = DDR_maj_constructor
 
 #DCI MAJ, DCF MAJ, DDCI

@@ -443,6 +443,15 @@ const Page_beta = ({ formData, setForm, navigation }) => {
             fullWidth
           />
 
+          <TextField
+            label="Nombre de jours ouvrés"
+            name="NJO"
+            onChange={(e)=>setNJO(e.target.value)}
+            margin="normal"
+            variant="outlined"
+            autoComplete="on"
+            fullWidth
+          />
 
      
 
@@ -469,7 +478,7 @@ const Page_beta = ({ formData, setForm, navigation }) => {
           BAC:BAC, BAC_is_degressif:BAC_is_degressif, BCPN:BCPN, BCPN_is_degressif:BCPN_is_degressif,
            COM:COM, NSD:NSD, NSM:NSM, NSF:NSF,
           ABDAC:ABDAC, DBAC:DBAC, DEG:DEG, type_strike:type_strike,
-          type_bar:type_bar, sous_jacent:sous_jacent, template:template, DDP:DDP, type_bar2:type_bar2
+          type_bar:type_bar, sous_jacent:sous_jacent, template:template, DDP:DDP, type_bar2:type_bar2, NJO:NJO 
         })
     };
     // setLoading(true);
@@ -533,6 +542,7 @@ const Page_beta = ({ formData, setForm, navigation }) => {
   const [loading, setLoading] = useState(false)
 
   const [response, setResponse] = useState("")
+  const [NJO, setNJO] = useState("")
 
   const [Modal, open, close, isOpen] = useModal('root', {
     preventScroll: true,

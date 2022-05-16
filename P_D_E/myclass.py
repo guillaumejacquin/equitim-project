@@ -55,7 +55,7 @@ class InformationsForm():
         #self.typeoffre = ""
     
         self.DDP = ""
-
+        self.NJO = ""
         #on appelle la fonction pour  initier les variables de calcul
         self.var_calculs()
     
@@ -88,6 +88,7 @@ class InformationsForm():
         self.SJR5 = ""
         self.SJR6 = ""
         self.SJR7 = ""
+        self.SJR8 = ""
 
         self.TDS = ""
         
@@ -137,6 +138,7 @@ class InformationsForm():
         self.Yahoo_value_dividende = []
 
         self.PR1_1 = ""
+
 
         self.ABAC2 = ""
         self.type_bar2 = ""
@@ -210,30 +212,33 @@ class InformationsForm():
         self.PDC2_MAJ = ""
         self.DDR_MAJ = ""
         self.DEC_MAJ = ""
+        self.DDCI_MAJ = ""
+        self.DPCI_MAJ = ""
+   
         self.dates_boucle()
 
 
     def dates_boucle(self):
-        Datesconstatations1 = []
-        Datesconstatations2 = []
-        Datesconstatations3 = []
-        Datesconstatations4 = []
-        Datesremb1 = []
-        Datesremb2 = []
-        Datesremb3 = []
-        Datesremb4 = []
-        Datesremb5 = []
-        Datesremb6 = []
-        Datesremb7 = []
-        Datesremb8 = []
-        Datespaiement1 = []
-        Datespaiement2 = []
-        Datespaiement3 = []
-        Datespaiement4 = []
-        Datespaiement5 = []
-        Datespaiement6 = []
-        Datespaiement7 = []
-        Datespaiement8 = []
+        self.Datesconstatations1 = ""
+        self.Datesconstatations2 = ""
+        self.Datesconstatations3 = ""
+        self.Datesconstatations4 = ""
+        self.Datesremb1 = ""
+        self.Datesremb2 = ""
+        self.Datesremb3 = ""
+        self.Datesremb4 = ""
+        self.Datesremb5 = ""
+        self.Datesremb6 = ""
+        self.Datesremb7 = ""
+        self.Datesremb8 = ""
+        self.Datespaiement1 = "[]"
+        self.Datespaiement2 = "[]"
+        self.Datespaiement3 = "[]"
+        self.Datespaiement4 = "[]"
+        self.Datespaiement5 = "[]"
+        self.Datespaiement6 = "[]"
+        self.Datespaiement7 = "[]"
+        self.Datespaiement8 = "[]"
 
         pass
 #Graph 2 blocs, si strike moyen ou best strike, afficher dans les blocs en haut la date max des constatations initiales

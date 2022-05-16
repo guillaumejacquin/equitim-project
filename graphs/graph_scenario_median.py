@@ -81,10 +81,13 @@ def traces(Class, fig):
     # fig.add_shape(type="line",
     # x0=30, y0=premier_niveau_autocall, x1=61, y1=avant_dernier_niveau_de_reference + 2 * pasdedegressivite,
     # line=dict(color=green, width=3),  line_dash="dash")
-
+    add_remontee_var = 0    
+    if Class.type_bar == "degressif":
+        add_remontee_var = 1
     fig.add_shape(type="line",
-    x0=69, y0=avant_dernier_niveau_de_reference + 1, x1=73, y1=avant_dernier_niveau_de_reference + 1,
+    x0=69, y0=avant_dernier_niveau_de_reference + add_remontee_var, x1=73, y1=avant_dernier_niveau_de_reference + add_remontee_var,
     line=dict(color=green, width=3),  line_dash="dash")
+
 
 
     fig.add_annotation(x=x_vertical_line +4.75, y=niveau_de_référence,text= (str(niveau_de_référence) + "%" ), showarrow=False,
@@ -138,7 +141,7 @@ def texte(Class, fig):
         degressive = ""
     else:
         degressive = "dégressivité"
-    fig.add_annotation(x=47, y=130 ,text= ("Seuil d'activation du mécanisme de la barrière "  + degressive +" de remboursement anticipé automatique <br> à partir de la fin du " + str(Class.F0)+ " " + str(Class.PR1) +  " jusqu'à la fin du "+ str(Class.F0)+ " " + str(Class.ABDAC) + " et de versement du gain à l'échéance" ), showarrow=False,
+    fig.add_annotation(x=47, y=130 ,text= ("Seuil d'activation du mécanisme de la barrière "  + degressive +" de remboursement anticipé automatique <br> à partir de la fin du " + str(Class.F0)+ " " + str(Class.PR1) +  " jusqu'à la fin du "+ str(Class.F0)+ " " + str(Class.ADPR) + " et de versement du gain à l'échéance" ), showarrow=False,
                         font=dict(family="Proxima Nova", size=10, color=black ), align="left")
 
     fig.add_annotation(x=28, y=123 ,text= ("Seuil de perte en capital à l'échéance" ), showarrow=False,
@@ -195,8 +198,16 @@ def athena_annotations(Class, fig):
             x0=20, y0=premier_niveau_autocall, x1=22.5 , y1=premier_niveau_autocall ,
             line=dict(color=green, width=3))
 
+
+    add_remontee_var = 0
+    add_remontee_2 = 0
+
+    if Class.type_bar == "degressif":
+        add_remontee_var = 4
+        add_remontee_2 = 1
+        
     fig.add_shape(type="line",
-                    x0=23, y0=premier_niveau_autocall, x1=61, y1=avant_dernier_niveau_de_reference + 2 * pasdedegressivite + 4,
+                    x0=23, y0=premier_niveau_autocall, x1=61, y1=avant_dernier_niveau_de_reference + 2 * pasdedegressivite + add_remontee_var,
                     line=dict(color=green, width=3),  line_dash="dash")
                         
     fig.update_xaxes(tickangle=0,
@@ -289,6 +300,10 @@ def phoenix_annotations(Class, fig):
                     line=dict(color=blue, width=2),)
 
 
+
+            fig.add_shape(type="line",
+            x0=start_green_line + 3 , y0=premier_niveau_autocall, x1=60 , y1=coupon + 0.5 ,
+            line=dict(color=green, width=3),  line_dash="dash")
         else:
             fig.add_shape(type="line",
             x0=start_green_line, y0=premier_niveau_autocall, x1=start_green_line + 2.4 , y1=premier_niveau_autocall ,
@@ -302,11 +317,9 @@ def phoenix_annotations(Class, fig):
             x0=start_green_line - 1.5 , y0=premier_niveau_autocall, x1=start_green_line + 2 , y1=premier_niveau_autocall ,
             line=dict(color=green, width=3))        
 
-
     fig.add_shape(type="line",
-            x0=start_green_line + 3 , y0=premier_niveau_autocall, x1=60 , y1=coupon + 0.5 ,
-            line=dict(color=green, width=3),  line_dash="dash")
-
+            x0=2 , y0=float(Class.BCPN), x1=78 + 2 , y1=float(Class.BCPN) ,
+            line=dict(color=blue, width=3), line_dash="dash")    
     fig.update_xaxes(ticks="outside", col=1)
 
 def is_athena_or_phoenix_annotations(Class, fig):

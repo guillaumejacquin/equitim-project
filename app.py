@@ -74,6 +74,7 @@ def add_articles():
     Myclass.type_strike = data["type_strike"]
     Myclass.type_bar = data["type_bar"]
     Myclass.sous_jacent = data["sous_jacent"]
+    Myclass.NJO = data["NJO"]
 
     ddp = data["DDP"]
     if (ddp == None):

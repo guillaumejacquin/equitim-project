@@ -9,7 +9,7 @@ import kaleido
         ## Possibilité qu'il y ait uniquement deux bloc dans le cas ou la balise (tag) de Non-Call (1PR) == 0
         ## Sinon, NC > 0, alors toujours 3 blocs et dans le premier bloc se trouveras uniquement la barrière coupon(bleu marine)
 
-def bloc3(Class, name, whitestrap=False):
+def bloc3(Class, name, whitestrap=True):
     bloc = 3
     green = "#00B050"
     blue = "#002E8A"
@@ -68,10 +68,10 @@ def bloc3(Class, name, whitestrap=False):
     showarrow=True, arrowhead=3, arrowwidth=2, arrowcolor='black')
     
     # Periode + le nombre (exempla trimestre 1 a 3)
-    firstvaluexabciss = Class.F0 + Class.F0s + " 1 à " +  str(int(Class.PR1))
+    firstvaluexabciss = Class.F0 + Class.F0s + " 1 à " +  str(int(Class.PR1) -1)
     firstvaluexabciss = firstvaluexabciss.capitalize()
 
-    secondvaluexabciss = Class.F0 + Class.F0s + " " +  str(int(Class.PR1) + 1)  + " à " + str(int(Class.DPRR) - 1)
+    secondvaluexabciss = Class.F0 + Class.F0s + " " +  str(int(Class.PR1))  + " à " + str(int(Class.DPRR) - 1)
     secondvaluexabciss = secondvaluexabciss.capitalize()
   
     thirdvaluexabciss = Class.F0  +" " + str(Class.DPRR)
@@ -382,7 +382,7 @@ def bloc3(Class, name, whitestrap=False):
     else:
         x= 28
 
-    mystring = "<b>Le produit continue :</b> <br><br>L'intégralité du capital initial <br> + <br> Un coupon de " + str(cpn) + "% est versé <br> + <br> Les éventuels coupons mémorisés au préalable "
+    mystring = "<b>Le produit continue :</b> <br><br>Un coupon de " + str(cpn) + "% est versé <br> + <br> Les éventuels coupons mémorisés au préalable "
     fig.add_annotation(
             x=(x),
             y= niveau_autocall[2] - (niveau_autocall[2] - niveau_coupon[0])/2,
@@ -393,7 +393,7 @@ def bloc3(Class, name, whitestrap=False):
         )
         
     
-    mystring = "<b>Remboursement à l'échéance(1)</b> :<br><br>L'intégralité du capital initial <br> + <br> Un coupon de " + str(cpn) + " % <br> + <br>Les éventuels coupons <br> mémorisés au préalable <br> (soit un rendement total de " + str(gce) + "%)"
+    mystring = "<b>Remboursement à l'échéance(1)</b> :<br><br>L'intégralité du capital initial <br> + <br> Un coupon de " + str(cpn) + " % <br> + <br>Les éventuels coupons <br> mémorisés au préalable <br> rendement total de(soit un  " + str(gce) + "%)"
     mystring = mystring.replace("(1)", "⁽¹⁾")
 
     fig.add_annotation(

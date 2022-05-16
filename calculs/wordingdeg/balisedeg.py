@@ -1,5 +1,5 @@
 def balisedeg(Class):
-    if (Class.type_bar == "degressif" or Class.type_bar == "airbag"):
+    if (Class.type_bar == "degressif"):
         Class.balisedeg = ", ou si à la date de constatation finale(¹), <SJR1> clôture à un <SJR3> supérieur ou égal à <DBAC> de son <NDR>"
         Class.balisedeg2 = "La barrière de remboursement anticipé automatique est dégressive au fil du temps. Elle est fixée à <BAC> du <NDR>  en fin de <F0> <1PR>, puis décroît de <DEG>% chaque <F0>, pour atteindre <ABDAC>% du <NDR> à la fin du <F0> <ADPR>."
         Class.balisedeg3 = "<balisedeg2>"

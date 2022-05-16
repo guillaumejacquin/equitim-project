@@ -159,6 +159,8 @@ def elementsToReplaceCalcul(Class, shapes):
     replace_text({'<SJR4>': Class.SJR4}, shapes)
     replace_text({'<SJR5>': Class.SJR5}, shapes)
     replace_text({'<SJR6>': Class.SJR6}, shapes)
+    replace_text({'<SJR8>': Class.SJR8}, shapes)
+
     replace_text({'<SJR7>': Class.SJR7}, shapes)
 
     replace_text({'<F1>': Class.F1}, shapes)
@@ -176,6 +178,8 @@ def elementsToReplaceCalcul(Class, shapes):
     replace_text({'<DIVIDENDE>': Class.DIVIDENDE}, shapes)
     replace_text({'<SITE>': Class.Site}, shapes)
     replace_text({'<DPCI>': Class.DPCI}, shapes) 
+    replace_text({'<DPCI_MAJ>':  Class.DPCI_MAJ}, shapes)
+
     replace_text({'<NOMP1>': Class.NOMP1}, shapes) 
     replace_text({'<NOMSOUSJACENTP1>': Class.NOMSOUSJACENTP1}, shapes) 
     replace_text({'<SJR6P1>': Class.SJR6P1}, shapes) 
@@ -244,6 +248,31 @@ def Dates_maj(Class, shapes):
     replace_text({'<2PDC_MAJ>': Class.PDC2_MAJ}, shapes)
     replace_text({'<DDR_MAJ>': Class.DDR_MAJ}, shapes)
     replace_text({'<DEC_MAJ>': Class.DEC_MAJ}, shapes)
+    Replace_Boucle_Dates(Class, shapes)
+
+def Replace_Boucle_Dates(Class, shapes):
+    replace_text({'<Datesconstatations1>': Class.Datesconstatations1}, shapes)
+    replace_text({'<Datesconstatations2>': Class.Datesconstatations2}, shapes)
+    replace_text({'<Datesconstatations3>': Class.Datesconstatations3}, shapes)
+    replace_text({'<Datesconstatations4>': Class.Datesconstatations4}, shapes)
+
+    replace_text({'<Datesremb1>': Class.Datesremb1}, shapes)
+    replace_text({'<Datesremb2>': Class.Datesremb2}, shapes)
+    replace_text({'<Datesremb3>': Class.Datesremb3}, shapes)
+    replace_text({'<Datesremb4>': Class.Datesremb4}, shapes)
+    replace_text({'<Datesremb5>': Class.Datesremb5}, shapes)
+    replace_text({'<Datesremb6>': Class.Datesremb6}, shapes)
+    replace_text({'<Datesremb7>': Class.Datesremb7}, shapes)
+    replace_text({'<Datesremb8>': Class.Datesremb8}, shapes)
+
+    replace_text({'<Datespaiement1>': Class.Datespaiement1}, shapes)
+    replace_text({'<Datespaiement2>': Class.Datespaiement2}, shapes)
+    replace_text({'<Datespaiement3>': Class.Datespaiement3}, shapes)
+    replace_text({'<Datespaiement4>': Class.Datespaiement4}, shapes)
+    replace_text({'<Datespaiement5>': Class.Datespaiement5}, shapes)
+    replace_text({'<Datespaiement6>': Class.Datespaiement6}, shapes)
+    replace_text({'<Datespaiement7>': Class.Datespaiement7}, shapes)
+    replace_text({'<Datespaiement8>': Class.Datespaiement8}, shapes)
 
 #PREMIER RAPPEL A DATE DERNIER RAPPEL
 
@@ -404,7 +433,7 @@ def ChangeTextOnPpt(Class):
                         cur_text = shape.text
                         new_text = cur_text.replace(str("<graph5>"), str(""))
                         shape.text = new_text
-                        pic = slide.shapes.add_picture("graph5.png", Inches(0), Inches(5.1), width=Inches(6.8), height=Inches(4))
+                        pic = slide.shapes.add_picture("graph5.png", Inches(0), Inches(4.8), width=Inches(6.8), height=Inches(4))
 
 
     try:
@@ -424,3 +453,9 @@ def ChangeTextOnPpt(Class):
         print("OH NONNNN")
     prs.save(NAME)
 
+
+
+
+
+
+#balise.py     if (strike == "best strike"): rajouter à la fin si cest de l'action, ou de l'indice ou des actions ou des indices   + NOM

@@ -9,9 +9,8 @@ def SJR(Class):
         Class.SJR4 = "de"
         Class.SJR5 = "cours"
         Class.SJR6 = "de l'action"
-       
-       
         Class.SJR7 = "de l'action"
+        Class.SJR8 = "L'action"
 
 
     if sousjacent == "wo action":
@@ -22,6 +21,9 @@ def SJR(Class):
         Class.SJR5 = "cours"
         Class.SJR6 = "des actions"
         Class.SJR7 = "de l'action la moins performante"
+        Class.SJR8 = "Les actions"
+
+
 
     if sousjacent == "equipondéré action":
         Class.SJR1 = "le panier équipondéré"
@@ -31,6 +33,7 @@ def SJR(Class):
         Class.SJR5 = "niveaux"
         Class.SJR6 = "des actions"
         Class.SJR7 = "du panier équipondéré"
+        Class.SJR8 = "Les actions"
 
 
     if sousjacent == "mono indice":
@@ -41,6 +44,7 @@ def SJR(Class):
         Class.SJR5 = "niveaux"
         Class.SJR6 = "de " + str(Class.SJR1)
         Class.SJR7 = "de l'indice"
+        Class.SJR8 = "L'indice"
 
 
     if sousjacent == "wo indice":
@@ -51,6 +55,7 @@ def SJR(Class):
         Class.SJR5 = "niveaux"
         Class.SJR6 = "des indices"
         Class.SJR7 = "de l'indice le moins performant"
+        Class.SJR8 = "Les indices"
 
 
     if sousjacent == "equipondéré indice":
@@ -61,6 +66,7 @@ def SJR(Class):
         Class.SJR5 = "niveaux"
         Class.SJR6 = "des indices"
         Class.SJR7 = "du panier équipondéré"
+        Class.SJR8 = "Les indices"
 
 
 #equipondere action ou equipondéré indice

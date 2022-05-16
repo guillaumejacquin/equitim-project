@@ -9,8 +9,6 @@ from datetime import date
 import datetime
 from dateutil.relativedelta import relativedelta
 
-
-
 def bloc4(Class, Name):
     tickers = ['ALO.PA'] #Exemple de test
     #recuper les tickers de la base de donnée
@@ -26,8 +24,10 @@ def bloc4(Class, Name):
     else: 
         print("error")
 
+
 def get_value_array(yearstoadd, start_date , df):
     bdays=BDay()
+   
 
     start = start_date - relativedelta(years=yearstoadd)
     is_business_day = bdays.is_on_offset(start)
@@ -40,24 +40,24 @@ def get_value_array(yearstoadd, start_date , df):
     while 1 == 1:
         try:
             value_year = df.loc[start]
+
             break
         except Exception:
             start = start + datetime.timedelta(days=1)
 
-    last_value = (df.iloc[-1])
+    last_value = (df.iloc[-2])
+    # print(last_value)
    
     operation = (last_value / value_year -1)
 
     result = round(operation * 100, 2)
-    return(result)
-    
-
 
 
 def bloc4_simple_tickers(tickers, Class, Name):
     bdays=BDay()
-
-    end_date = Class.DPCI    
+    
+    end_date = Class.DPCI
+    
     end_date = datetime.datetime.strptime(end_date, '%Y-%m-%d')
     end_date = end_date - datetime.timedelta(days=1)
     is_business_day = bdays.is_on_offset(end_date)
@@ -81,25 +81,16 @@ def bloc4_simple_tickers(tickers, Class, Name):
         adj_close = panel_data["Adj Close"]
         adj_close.columns = ['Adj Close']
 
-        
-        lastvalue = adj_close.iloc[-1]
-        firstvalue = adj_close.iloc[0]
         max_value = adj_close.max() + 20
 
-        result = ((lastvalue/firstvalue) -1) * 100  
-        fig = px.line(adj_close.index, x=adj_close.index, y=adj_close)
-        
-        fig.add_annotation( x=adj_close.index[0] +  relativedelta(days=15), y=max_value, ax=adj_close.index[0] + relativedelta(days=15), ay=0, xref='x', yref='y', axref='x', ayref='y',
-     text='', showarrow=True, arrowhead=3, arrowwidth=2, arrowcolor='black')
+        fig = px.line(data_frame = adj_close.index
+                        ,x = adj_close.index
+                        ,y = [adj_close],
+                        
+                        )
+          
+        newnames = {'wide_variable_0': tickers[0]}
 
-     
-        fig.add_annotation(x=adj_close.index[-1], y=0, ax=adj_close.index[0], ay=0, xref='x', yref='y', axref='x', ayref='y',
-     text='', showarrow=True, arrowhead=3, arrowwidth=2, arrowcolor='black')
-
-        fig.data[0].line.color = 'rgb(197, 175, 92)'
-        fig.data[0].line.width = 1
-
-    
         fig.update_layout(
             xaxis=dict(
                 showline=False,
@@ -134,6 +125,8 @@ def bloc4_simple_tickers(tickers, Class, Name):
                     )
             ),
             showlegend=True,
+            legend_title=" ",
+
             plot_bgcolor='white',
             legend=dict(
             yanchor="top",
@@ -142,6 +135,17 @@ def bloc4_simple_tickers(tickers, Class, Name):
             x=0.05
             )
         )
+
+        fig.add_annotation( x=adj_close.index[0] +  relativedelta(days=15), y=max_value, ax=adj_close.index[0] + relativedelta(days=15), ay=0, xref='x', yref='y', axref='x', ayref='y',
+     text='', showarrow=True, arrowhead=3, arrowwidth=2, arrowcolor='black')
+
+        fig.add_annotation(x=adj_close.index[-1], y=0, ax=adj_close.index[0], ay=0, xref='x', yref='y', axref='x', ayref='y',
+     text='', showarrow=True, arrowhead=3, arrowwidth=2, arrowcolor='black')
+
+        fig.data[0].line.color = 'rgb(197, 175, 92)'
+        fig.data[0].line.width = 1
+        fig.data[0].name = tickers[0]
+        
 
 
         time_to_add_style = relativedelta(months=4)    
@@ -190,9 +194,7 @@ def bloc4_simple_tickers(tickers, Class, Name):
     except Exception:
         print("error yahoo")
 
-
     simple_yahoo_value_arrays = [1, 3 ,5 , 8, 10 ] # le tableau pour la boucle pour les années
-
     for i in Class.Yahoo:
         my_array = [] #j'initie un nouveau tableau a chaque sousjacent
 
@@ -223,6 +225,21 @@ def bloc4_simple_tickers(tickers, Class, Name):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#S'il y'a plusieurs blocs
 def bloc4_multiple_tickers(tickers, Class, Name):
     bdays=BDay()
 
@@ -298,6 +315,7 @@ def bloc4_multiple_tickers(tickers, Class, Name):
                     showticklabels=True,
                     linecolor='rgb(0, 0, 0)',
                     linewidth= 1,
+                    
                     ticks='outside',
                     title=None,
                     tickfont=dict(
@@ -324,6 +342,8 @@ def bloc4_multiple_tickers(tickers, Class, Name):
                         )
                 ),
                 showlegend=True,
+                legend_title=" ",
+
                  legend=dict(
             yanchor="top",
             y=0.99,
@@ -347,6 +367,43 @@ def bloc4_multiple_tickers(tickers, Class, Name):
         fig.add_annotation(x=result.index[-1], y=0, ax=result.index[0], ay=0, xref='x', yref='y', axref='x', ayref='y',
      text='', showarrow=True, arrowhead=3, arrowwidth=2, arrowcolor='black')
         # fig.show()
+        time_to_add_style = relativedelta(months=4)    
+        time_to_add = relativedelta(years=1)    
+        lastdate = adj_close.index[-1]
+        lastdate_tmp =  adj_close.index[-1] - time_to_add_style
+        firstdate = adj_close.index[0]
+        firstdate_tmp = firstdate + time_to_add_style
+        seconddate = firstdate + 2* time_to_add
+        thirddate = firstdate + 2 *2 * time_to_add
+        fourthdate = firstdate + 3 *2 * time_to_add
+        fivthdate = firstdate + 4 *2 * time_to_add
+        sixthdate = firstdate + 5 *2 * time_to_add - relativedelta(months=4)
+
+        month = str(firstdate)[5:7]
+        day = str(firstdate)[8:10]
+        year = str(firstdate)[0:4]
+
+        monthfin = str(lastdate)[5:7]
+        dayfin = str(lastdate)[8:10]
+        yearfin = str(lastdate)[0:4]        # ###############LE STYLE D AFFICHAGE###########
+        
+        firstdate_visu = str(day) + "/" + str(month) + "/" + str(year) 
+        seconddate_visu = str(day) + "/" + str(month) + "/" + str(int(year) + 2)
+        thirddate_visu = str(day) + "/" + str(month) + "/" + str(int(year) + 2 * 2)
+        fourthdate_visu = str(day) + "/" + str(month) + "/" + str(int(year) + 2 * 3)
+        fivthdate_visu = str(day) + "/" + str(month) + "/" + str(int(year) + 2 * 4)
+        sixthdate_visu = str(day) + "/" + str(month) + "/" + str(int(year) + 2 * 5 )
+
+        lastdate_value = str(dayfin) + "/" + str(monthfin) + "/" + str(yearfin) 
+        # lastdate_visu = lastdate[8:10] + "/" + lastdate[5:7] + "/" + lastdate[0:4]
+
+        ###############LE STYLE D AFFICHAGE###########
+
+        fig.update_xaxes(tickangle=0,
+                    tickmode = 'array',
+                    tickvals = [firstdate_tmp, seconddate, thirddate, fourthdate, fivthdate, sixthdate, lastdate_tmp],
+                    ticktext= [firstdate_visu, seconddate_visu, thirddate_visu, fourthdate_visu, fivthdate_visu, sixthdate_visu, lastdate_value]
+                    ),
         fig.write_image(Name, format="png", scale=2, engine='kaleido')
        
     except Exception:
@@ -356,6 +413,16 @@ def bloc4_multiple_tickers(tickers, Class, Name):
     simple_yahoo_value_arrays = [1, 3 ,5 , 8, 12 ] # le tableau pour la boucle pour les années
 
     compteur = 0
+    end = datetime.datetime.strptime(Class.DDR, '%d/%m/%Y')
+    end_date = end -  datetime.timedelta(days=1)
+
+    is_business_day = bdays.is_on_offset(end_date)
+
+    while is_business_day != True:
+            end_date = end_date - datetime.timedelta(days=1)
+            is_business_day = bdays.is_on_offset(end_date)
+
+        
     for i in Class.Yahoo:
         my_array = [] #j'initie un nouveau tableau a chaque sousjacent
         for j in simple_yahoo_value_arrays: #je fias une boucle pour parcourir les valeurs (1, 3,5 etc)
